@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Competitions.Domain.Entities\Competitions.Domain.Entities.csproj" />
+    <ProjectReference Include="..\..\Core\Competitions.Domain.Dtos\Competitions.Domain.Dtos.csproj" />
+  </ItemGroup>
+
+</Project>

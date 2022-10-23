@@ -1,0 +1,49 @@
+
+.paginate {
+  margin: 0 auto;
+  width: fit-content;
+  &__number {
+    width: 1.8rem;
+    height: 1.8rem;
+    text-align: center;
+    line-height: 1.8rem;
+    a {
+      font-weight: 800;
+      border-radius: 50%;
+      display: block;
+      color: var(--c23);
+    }
+    &--active a {
+      background-color: var(--c22);
+      color: white;
+    }
+    & + & {
+      margin-right: .5rem;
+      cursor: pointer;
+    }
+  }
+
+  &__prev, &__next {
+    cursor: pointer;
+  }
+
+  &__prev, &__next, &-wrapper {
+    border-radius: 3rem;
+    background-color: white;
+    box-shadow: 0 0 10px -5px;
+    padding: .3rem .7rem;
+  }
+
+  &-wrapper {
+    margin: 0 .5rem;
+  }
+
+  &__prev--disabled a, &__next--disabled a {
+    pointer-events: none;
+    color: var(--c24);
+  }
+
+  &__prev--active a, &__next--active a {
+    color: var(--c25);
+  }
+}

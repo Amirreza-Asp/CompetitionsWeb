@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Competitions.Web.Models.Places.PlaceListDto>
+@using Competitions.Domain.Entities;
+
+@section Styles{
+
+    <link rel="stylesheet" href="~/css/home/place-list.css" />
+}
+
+
+
+<div class="wrapper">
+    <section class="top">
+        <section>
+            <div class="registry-bg">
+                <h3 class="registry-title-top">اماکن ورزشی</h3>
+            </div>
+        </section>
+    </section>
+    <div class="m-3">
+
+        <div class="card-wrapper">
+            @foreach(var item in Model){
+            <div  class="card-item card">
+                <div style="margin:auto">
+                        <img src="@StaticEntitiesDetails.PlaceImagePath@item.Image" alt="" class="imagePlace" />
+                </div>
+                <div>
+                    <div>
+                        <p>نام مجموعه : @item.Name</p>
+                        <p>آدرس : @item.Address</p>
+                    </div>
+
+                    <div>
+                        <p>نام سرپرست : @item.SupervisorName</p>
+                        <p>شماره تماس : @item.SupervisorPhone</p>
+                    </div>
+
+                </div>
+
+                <div class="text-center">
+                        <a asp-action="DownloadActivityPlan" asp-route-id="@item.Id" class="btn btn btn-primary m-2">
+                        دانلود برنامه فعالیت
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn btn-warning m-2">
+                        جزئیات
+                    </a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

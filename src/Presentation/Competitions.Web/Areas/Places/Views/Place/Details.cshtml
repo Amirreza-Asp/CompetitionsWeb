@@ -1,0 +1,116 @@
+﻿@using Competitions.Domain.Entities
+@using Competitions.Web.Areas.Places.Models.Places
+@model Competitions.Domain.Entities.Places.Place
+
+@{
+    Layout = "_AdminLayout";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/partials/multi-select.css" />
+    <link rel="stylesheet" href="~/css/pages/place.css" />
+}
+
+
+    <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+        <h3 class="mb-4 mb-lg-0">مشاهده مکان</h3>
+    </div>
+    <section class="card shadow-sm ">
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label class="form-label">عنوان:</label>
+                <input type="text" asp-for="Title" class="form-control" disabled>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label class="form-label">نوع مجموعه:</label>
+                <input class="form-control" asp-for="PlaceType.Title" disabled />
+            </div>
+            <div class="mb-3 col-md-6">
+                <label class="form-label">نوع مکان:</label>
+                @{
+                String type = "مجموعه";
+                if ( Model.ParentPlace != null )
+                    type = "زیر مجموعه";
+            }
+            <input value="@type" class="form-control" disabled />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label"> زیر مجموعه:</label>
+            <input value="@Model?.ParentPlace?.Title" class="form-control" disabled />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label">نام سرپرست:</label>
+            <input value="@Model.Supervisor.Name" class="form-control" disabled />
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label"> شماره تماس سرپرست:</label>
+            <input value="@Model.Supervisor.PhoneNumber.Value" class="form-control" disabled />
+        </div>
+        <div class="mb-3 col-12">
+            <label class="form-label">رشته های ورزشی قابل اجرا (کاربری مجموعه) :</label>
+            <input value="@String.Join(',' , Model.Sports.Select(u=>u.Sport.Name))" class="form-control" disabled />
+        </div>
+        <div class="mb-3 col-6">
+            <label class="form-label">آدرس مکان:</label>
+            <input asp-for="Address" class="form-control" disabled />
+        </div>
+        <div class="mb-3 col-6">
+            <label class="form-label">متراژ:</label>
+            <input asp-for="Meterage" class="form-control" disabled />
+        </div>
+    </div>
+
+    <div>
+        <h5>عکس های فعلی</h5>
+        <ul class="images-list">
+            @if ( Model.Images != null )
+            {
+                @foreach ( var img in Model.Images )
+                {
+                    <li class="images-item" style="background-image:url('@StaticEntitiesDetails.PlaceImagePath@img.Image.Name');">
+             
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
+</section>
+
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/partials/multi-select.js"></script>
+    <script>
+        const subPlace = document.getElementById("subplace");
+        function ChangeSubPlace(select) {
+            const value = select.value;
+            if (value == 0)
+                subPlace.disabled = true;
+            else
+                subPlace.disabled = false;
+        }
+
+        function validateInput() {
+            if (!document.getElementById("uploadBox").value) {
+                swal({
+                    title: `هشدار!`,
+                    text: "عکس را وارد کنید",
+                    type: "error",
+                    cancelButtonText: "بازگشت"
+                })
+                return false;
+            }
+            return true;
+        }
+
+        const chooseImage = document.querySelector('#choose-file');
+        const uploadBox = document.querySelector("#uploadBox");
+
+        uploadBox.addEventListener("change", (e) => {
+            const files = uploadBox.files.length;
+            showFileBtn.innerHTML = `${files} فایل اضافه شد`;
+        })
+    </script>
+}
+

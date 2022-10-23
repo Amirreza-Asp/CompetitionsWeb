@@ -1,0 +1,117 @@
+﻿@using Competitions.Common.Helpers
+@using Competitions.Domain.Entities
+@model Competitions.Web.Models.Matches.MatchListVM
+
+
+@section Styles{
+
+    <link rel="stylesheet" href="~/css/home/place-list.css" />
+}
+
+    <form method="get">
+
+
+        @if(Model.Filters.MatchDate.HasValue)
+        {
+        <input name="@nameof(Model.Filters.MatchDate)" value="@Model.Filters.MatchDate.Value" hidden />
+        }
+
+        <section class="card shadow-sm ">
+
+            <div class="registry-bg mb-4">
+                <h3 class="registry-title-top">ثبت نام مسابقات</h3>
+            </div>
+            @if(Model.Filters.MatchDate.HasValue){
+                <h6  class="text-info">مسابقات ورزشی تاریخ @Model.Filters.MatchDate.Value.ToShamsi()</h6>
+            }
+
+            @{
+            List<(String Text, String Value)> steps = new List<(String Text, String Value)>();
+            Model.Filters.GetLevels().ToList().ForEach(item => steps.Add(new(item.Text , item.Value)));
+        }
+
+
+        <div class="tab-visibility">
+            <div class="tab d-flex mb-4">
+                <div class="tab__list">
+                    @foreach ( var step in steps )
+                    {
+                        String classes = Model.Filters.Level == step.Value ? "tab__item tab__item--active dec-font" : "tab__item dec-font";
+                        @if (Model.Filters.MatchDate.HasValue)
+                        {
+                            <a asp-action="Index" asp-route-MatchDate="@Model.Filters.MatchDate.Value" asp-route-Take="@Model.Filters.Take" asp-route-Skip="@Model.Filters.Skip" asp-route-Level="@step.Value" class="@classes">
+                                @step.Text
+                            </a>
+                        }
+                        else{
+
+                            <a asp-action="Index" asp-route-Take="@Model.Filters.Take" asp-route-Skip="@Model.Filters.Skip" asp-route-Level="@step.Value" class="@classes">
+                                @step.Text
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+            <hr />
+        </div>
+
+
+        <div class="table-overflow">
+            <div class="table ">
+                <table class="table text-center" width="100%">
+                    <thead>
+                        <tr class="text-center">
+                            <th>ردیف</th>
+                            <th> عنوان </th>
+                            <th>تصویر</th>
+                            <th> نام مسابقه</th>
+                            <th>نوع مسابقه</th>
+                            <th>مکان</th>
+                            <th>تاریخ برگذاری</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ( int i = 0 ; i < Model.Matches.Count() ; i++ )
+                        {
+                            <tr class="text-center">
+                                <td>@(i + 1 + Model.Filters.Skip)</td>
+                                <td>@Model.Matches.ElementAt(i).Name</td>
+                                <td>
+                                    <img class="img-table" src="@StaticEntitiesDetails.MatchImagePath@Model.Matches.ElementAt(i).Image.Name">
+                                </td>
+                                <td>@Model.Matches.ElementAt(i).Sport.Name</td>
+                                <td>@Model.Matches.ElementAt(i).Sport.SportType.Title</td>
+                                <td>@Model.Matches.ElementAt(i).Place.Title</td>
+                                <td>@Model.Matches.ElementAt(i).PutOn.From.ToShamsi() @Model.Matches.ElementAt(i).PutOn.From.TimeOfDay.ToString().Substring(0,5)</td>
+                                <td>
+                                    @if (Model.Matches.ElementAt(i).Register.From.Date <= DateTime.Now.Date && Model.Matches.ElementAt(i).Register.To.Date >= DateTime.Now)
+                                    {
+                                        <a class="btn btn-success" asp-action="Register" asp-route-id="@Model.Matches.ElementAt(i).Id">ثبت نام</a>
+                                    }
+                                    else if ( Model.Matches.ElementAt(i).Register.From.Date > DateTime.Now.Date )
+                                    {
+                                        <span class="text-info">ثبت نام از @((Model.Matches.ElementAt(i).Register.From.Date - DateTime.Now.Date).TotalDays) روز دیگر شروع میشود</span>
+                                    }
+                                    else{
+
+                                        <span class="text-danger">زمان ثبت نام مسابقه به اتمام رسیده</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </section>
+    <partial name="_PagenationPartial" model="@new Pagenation(Model.Filters.Skip  , Model.Filters.Take , Model.Filters.Total)" />
+</form>
+
+@section Scripts{
+    <script src="~/js/utility/collapse.js"></script>
+    <script src="~/js/utility/dropdown.js"></script>
+    <script src="~/js/utility/pagenation.js"></script>
+}

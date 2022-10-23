@@ -1,0 +1,63 @@
+﻿@using Competitions.Web.Utilities
+@model Competitions.Web.Models.Pagenation;
+
+<div class="table__rows-per-page mt-3">
+	ردیف در هر صفحه:
+	<div class="col-md-3 col-6 mt-2">
+		<div class="dropdown">
+			<select class="form-control" asp-for="Take" asp-items="@TakeListItems.GetSelectedNumbers()" onchange="ChangeTake(event)"></select>
+		</div>
+	</div>
+</div>
+
+<section class="paginate d-flex align-items-center mt-4">
+	@if (Model.Skip + Model.Take > Model.Total)
+	{
+		<div class="paginate__next paginate__next--disabled"><a href="" onclick="PreventDefault(e)">بعدی</a></div>
+	}
+	else
+	{
+		int number = Model.Skip + Model.Take;
+		<div class="paginate__next paginate__next--active"><a href="" onclick="ChangePage(event , @number)">بعدی</a></div>
+	}
+	<div class="paginate-wrapper ">
+		<ul class="d-flex align-items-center" dir="ltr">
+			@{
+				int i = PagenationFixture.Calc(skip: Model.Skip, take: Model.Take, total: Model.Total);
+				int j = 0;
+
+				for (; i < Model.Total; i += Model.Take)
+				{
+					j++;
+					if (i == Model.Skip)
+					{
+						int number = (i / Model.Take) + 1;
+
+						<li class="paginate__number paginate__number--active" aria-selected="false">
+							<a aria-selected="true" onclick="ChangePage(event , '@i')" href="">@number</a>
+						</li>
+					}
+					else
+					{
+						int number = (i / Model.Take) + 1;
+						<li class="paginate__number" aria-selected="false">
+							<a type="button" onclick="ChangePage(event , '@i')" aria-selected="true" href="">@number</a>
+						</li>
+					}
+					if (j == 5)
+						break;
+				}
+			}
+		</ul>
+	</div>
+	@if (Model.Skip == 0)
+	{
+		<div class="paginate__prev paginate__prev--disabled"><a href="" onclick="PreventDefault(e)">قبلی</a></div>
+	}
+	else
+	{
+		int number = Model.Skip - Model.Take;
+		<div class="paginate__prev paginate__prev--active"><a href="" onclick="ChangePage(event , @number)">قبلی</a></div>
+	}
+</section>
+

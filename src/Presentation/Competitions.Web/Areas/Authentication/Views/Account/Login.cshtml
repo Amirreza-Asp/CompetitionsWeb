@@ -1,0 +1,73 @@
+﻿@model Competitions.Domain.Dtos.Authentication.User.LoginDto
+
+
+@{
+    Layout = "_Layout";
+}
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/pages/login.min.css" />
+}
+
+    <div class="login shadow-sm">
+        <form method="post">
+
+            <div class="text-center">
+                <h5 class="fw-bold">خوش آمدید</h5>
+                <p class="small mt-0">جهت ورود اطلاعات خود را وارد کنید</p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">نام کاربری:</label>
+                <input type="text" asp-for="UserName" id="login-username" class="form-control">
+                <span class="text-danger" asp-validation-for="UserName"></span>
+            </div>
+            <div class="mb-4 position-relative login__password">
+                <label class="form-label">گذرواژه:</label>
+                <input type="password" asp-for="Password" class="form-control">
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            <div class="login__captcha text-center mb-3 d-flex">
+                <input type="text" id="captcha" name="code" class="form-control" placeholder="پاسخ کپچا">
+                <canvas class="me-2" id="canvas" role="button"></canvas>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small">
+                <a asp-controller="Account" asp-action="ForgetPassword">فراموشی گذرواژه</a>
+            </div>
+            <div class="mt-4 position-relative">
+                <button id="valid" class="btn btn-success w-100">ورود</button>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center mt-4 align-items-center small">
+            <a asp-controller="Account" asp-action="Register">ساخت حساب جدید</a>
+        </div>
+    </div>
+
+    @section Scripts{
+
+    <script type="text/javascript" src="~/js/alphanumeric-captcha/js/jquery-captcha.min.js"></script>
+    <script>
+        // step-1
+        const captcha = new Captcha($('#canvas'), {
+            length: 4,
+            height: 38,
+            width: 150,
+            font: 'bold 26px Arial'
+        });
+        // api
+        //captcha.refresh();
+        //captcha.getCode();
+        //captcha.valid("");
+
+        $('#valid').on('click', function (e) {
+            const ans = captcha.valid($('input[name="code"]').val());
+            if (ans) {
+
+            }
+            else {
+                e.preventDefault();
+                captcha.refresh();
+            }
+        })
+    </script>
+}

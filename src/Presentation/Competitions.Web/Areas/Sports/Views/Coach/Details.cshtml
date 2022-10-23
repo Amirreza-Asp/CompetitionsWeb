@@ -1,0 +1,87 @@
+﻿@using Competitions.Application.Shared
+@model Competitions.Domain.Entities.Sports.Coach
+
+
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+        <h3 class="mb-4 mb-lg-0">مشاهده مربی</h3>
+    </div>
+    <section class="card shadow-sm ">
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نام:</label>
+                <input type="text" asp-for="Name" class="form-control" disabled>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نام خانوادگی:</label>
+                <input type="text" asp-for="Family" class="form-control" disabled>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">کد ملی:</label>
+                <input type="text" value="@Model.NationalCode.Value" class="form-control" disabled>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">شماره تلفن:</label>
+                <input type="text" value="@Model.PhoneNumber.Value" class="form-control" disabled>
+            </div>
+
+            <div class="mb-3 col-md-4">
+                <label class="form-label">انتخاب تحصیلات:</label>
+                <div class="dropdown">
+                    <select class="form-control" asp-for="Education" asp-items="@EducationList.GetSelectedItems()" disabled>
+                        <option selected disabled></option>
+                    </select>
+                </div>
+                <span asp-validation-for="Education" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 col-md-4">
+                <label class="form-label">انتخاب مدرک ورزشی:</label>
+                <div class="dropdown">
+                    <select class="form-control" disabled>
+                        <option >@Model.CoachEvidenceType.Title</option>
+                    </select>
+                </div>
+                <span asp-validation-for="CETId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 col-md-4">
+                <label class="form-label">انتخاب رشته ورزشی:</label>
+                <div class="dropdown">
+                    <select class="form-control" disabled>
+                        <option>@Model.CoachEvidenceType.Title</option>
+                    </select>
+                </div>
+                <span asp-validation-for="SportId" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">شرح:</label>
+            <textarea class="form-control summernote" asp-for="Description" rows="5" disabled></textarea>
+        </div>
+    </section>
+
+    <div class="mt-3 text-center d-flex justify-content-center align-items-center">
+        <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+            <i class="fas fa-reply my-1 mx-2"></i>
+        </button>
+    </div>
+
+</form>
+
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote('disable');
+        });
+    </script>
+}

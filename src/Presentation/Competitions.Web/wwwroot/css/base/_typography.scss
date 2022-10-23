@@ -1,0 +1,14 @@
+/**
+ * Basic typography style for copy text
+ */
+
+body {
+  direction: $direction-base;
+}
+
+p {
+  color: black;
+  margin: 1rem 0;
+  line-height: 1.9;
+}
+

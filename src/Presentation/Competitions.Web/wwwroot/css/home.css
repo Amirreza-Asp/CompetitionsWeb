@@ -1,0 +1,100 @@
+﻿
+.nav-menu {
+    padding: 10px 30px;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+    transition: all 0.7s;
+}
+
+    .nav-menu.bottom-place {
+        padding: 5px 30px;
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.65));
+    }
+
+.menu-item {
+    color: #eee;
+    transition: color 0.4s;
+    position:relative;
+}
+
+.menu-item::before,
+.menu-item::after{
+    content:'';
+    width:100%;
+    height:1.5px;
+    background-color:cyan;
+    position:absolute;
+   transform:scaleX(0);
+   transition:all .4s; 
+}
+
+    .menu-item::before {
+        left: 0;
+        top: 0;
+        transform-origin:left;
+    }
+
+.menu-item::after{
+    right:0;
+    bottom:0;
+    transform-origin:right;
+}
+    .menu-item:hover {
+        color: cyan;
+    }
+
+    .menu-item:hover::before,
+    .menu-item:hover::after{
+        transform:scaleX(1);
+    }
+
+.nav-button {
+    position: relative;
+    width: 40px;
+    height: 35px;
+    border-radius: 3px !important;
+    background-color: rgb(200,200,200);
+}
+
+.nav-button.clicked{
+    border:1px solid black !important;   
+}
+
+.nav-active {
+    color: aqua;
+}
+
+.line1,
+.line2,
+.line3 {
+    position: absolute;
+    width: 80%;
+    height: 4px;
+    top: 15%;
+    left: 10%;
+    background-color: rgb(41, 41, 41);
+    transition: all 1s;
+}
+
+.line2 {
+    top: 45%;
+}
+
+.line3 {
+    top: 75%;
+}
+
+.nav-button.clicked > .line1 {
+    transform: rotate(45deg) translate(7px, 6px) scaleX(1.25);
+}
+
+.nav-button.clicked > .line2 {
+    opacity: 0;
+}
+
+.nav-button.clicked > .line3 {
+    transform: rotate(-45deg) translate(7px, -7px) scaleX(1.25);
+}
+
+.cursor {
+    cursor: pointer;
+}

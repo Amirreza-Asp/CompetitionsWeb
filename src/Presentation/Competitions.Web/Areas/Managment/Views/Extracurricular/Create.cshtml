@@ -1,0 +1,263 @@
+﻿@using Competitions.Common.Helpers
+@using Competitions.Domain.Dtos.Managment.Extracurriculars
+@using Newtonsoft.Json
+@model Competitions.Domain.Dtos.Managment.Extracurriculars.CreateExtracurricularDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+@section Styles{
+    <link href="~/lib/persian-date/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/lib/persian-date/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/lib/persian-date/custom.input.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/custome/timepicker.css" />
+    <style>
+
+        #start-register-validation,
+        #end-register-validation,
+        #start-put-on-validation,
+        #end-put-on-validation {
+            display: none;
+        }
+
+    </style>
+}
+
+
+    <form method="post" enctype="multipart/form-data">
+
+
+        <input id="timesInput" name="Times" value="" hidden />
+
+        <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+            <h3 class="mb-4 mb-lg-0">افزودن فوق برنامه</h3>
+        </div>
+        <section class="card shadow-sm ">
+            <div class="row">
+                @*--------------------------*@
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">نام دوره:</label>
+                    <input type="text" asp-for="Name" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">مکان برگذاری:</label>
+                    <div class="dropdown">
+                        <select asp-items="@Model.Places" id="place" onchange="SelectPlace(this)" class="form-control">
+                            <option selected disabled></option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="PlaceId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <input hidden value="@Model.PlaceId" id="placeId-input" />
+                    <label class="form-label">زیر مجموعه مکان برگذاری:</label>
+                    <div class="dropdown">
+                        <select asp-for="PlaceId" id="sub-places" class="form-control" onchange="SelectSubPlace(this)">
+                        </select>
+
+                    </div>
+                </div>
+                @*--------------------------*@
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">انتخاب رشته ورزشی:</label>
+                    <div class="dropdown">
+                        <input id="sport-input" value="@Model.SportId" hidden />
+                        <select asp-for="SportId" onchange="SelectSport(this)" id="sports" class="form-control">
+                            <option selected disabled></option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="SportId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">نام مربی:</label>
+                    <div class="dropdown">
+                        <select id="coach" asp-for="CoachId" class="form-control">
+                            <option selected disabled></option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="CoachId" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label class="form-label">نوع مخاطبین:</label>
+                    <div class="dropdown">
+                        <select asp-for="AudienceTypeId" asp-items="@Model.AudienceTypes" class="form-control">
+                            <option selected disabled></option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="AudienceTypeId" class="text-danger"></span>
+                </div>
+                @*---------------------------*@
+                <div class="mb-3 col-md-5">
+                    <label class="form-label">روز برگذاری:</label>
+                    <div class="dropdown">
+                        <input asp-for="Times" hidden />
+                        <select class="form-control" id="day-picker">
+                            @{
+                            List<String> days = new List<string> { "شنبه" , "یک شنبه" , "دو شنبه" , "سه شنبه" , "چهار شنبه" , "پنج شنبه" , "جمعه" };
+                            foreach ( var day in days )
+                            {
+                                    <option value="@day">@day</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">ساعت:</label>
+
+                <div class="d-flex time-container">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            onclick="TogglePicker('time-picker')">
+                        <i class="far fa-clock"></i>
+                    </button>
+                    <input dir="ltr"
+                           type="text"
+                           value="12:00"
+                           id="input-picker"
+                           class="form-control"
+                           readonly />
+                </div>
+                <div dir="ltr" class="time-picker hide-picker p-4"
+                     id="time-picker">
+                    <div class="hour-picker d-flex flex-column align-items-center justify-content-center">
+                        <i class="fa fa-arrow-up text-muted pointer"
+                           onclick="IncHours('input-picker' , 'end-hour')"></i>
+                        <span id="end-hour" class="current-hour my-1">12</span>
+                        <i class="fa fa-arrow-down text-muted pointer"
+                           onclick="DecHours('input-picker' , 'end-hour')"></i>
+                    </div>
+                    <div class="min-picker d-flex flex-column align-items-center justify-content-center">
+                        <i class="fa fa-arrow-up text-muted pointer"
+                           onclick="IncMin('input-picker' , 'end-min')"></i>
+                        <span id="end-min" class="current-min my-1">00</span>
+                        <i class="fa fa-arrow-down text-muted pointer"
+                           onclick="DecMin('input-picker' , 'end-min')"></i>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="mb-3 col-md-3 d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn--edit" onclick="AddTime()">افزودن روز و ساعت برگذاری</button>
+            </div>
+            @*---------------------------*@
+            <div class="mb-4 mt-1 d-flex flex-wrap align-items-center" id="time-box">
+                @{
+                    if ( !String.IsNullOrEmpty(Model.Times) )
+                    {
+                        var times = JsonConvert.DeserializeObject<List<ExtracurricularTimeDto>>(Model.Times);
+                        if ( times != null )
+                            foreach ( var time in times )
+                            {
+                                    <div class="d-flex flex-column justify-content-center mx-2 border p-2"
+                                style="box-shadow:inset 0 0 10px gray;border-radius:3px;"
+                                value='{ day : "@time.Day" , time : "@time.Time" }'>
+                                        <span class="px-2 mb-1">@time.Day هر هفته ساعت @time.Time</span>
+                                        <span class="text-danger mx-auto" style="cursor: pointer;" onclick="this.parentElement.remove();">حذف</span>
+                                    </div>
+                            }
+                    }
+                }
+            </div>
+            @*---------------------------*@
+            <div class="mb-3 col-md-4">
+                <label class="form-label">جنسیت شرکت کنندگان</label>
+                <div class="dropdown">
+                    <select asp-for="Gender" class="form-control" asp-items="@Model.GetGenders()">
+                        <option selected disabled></option>
+                    </select>
+                </div>
+                <span class="text-danger" asp-validation-for="Gender"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">ظرفیت دوره:</label>
+                <input type="number" min="1" asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">حداقل تعداد برای برگذاری:</label>
+                <input type="number" min="1" asp-for="MinimumPlacements" class="form-control" />
+                <span asp-validation-for="MinimumPlacements" class="text-danger"></span>
+            </div>
+            @*---------------------------*@
+
+
+            <div class="mb-3 col-md-3 pr-5">
+                <label class="form-label">شروع دوره:</label>
+                @{
+                    string startPutOn = Model.StartPutOn != default ? Model.StartPutOn.ToShamsi() : "";
+                }
+                <input id="start-put-on" name="StartPutOn" value="@startPutOn" width="100%" class="form-control" />
+                <span class="text-danger" id="start-put-on-validation">تاریخ دوره را وارد کنید</span>
+            </div>
+            <div class="mb-3 col-md-3 pr-5">
+                <label class="form-label">پایان دوره:</label>
+                @{
+                    string endPutOn = Model.EndPutOn != default ? Model.EndPutOn.ToShamsi() : "";
+                }
+                <input id="end-put-on" name="EndPutOn" value="@endPutOn" width="100%" class="form-control" />
+                <span class="text-danger" id="end-put-on-validation">تاریخ پایان دوره را وارد کنید</span>
+            </div>
+            <div class="mb-3 col-md-3 pr-5">
+                <label class="form-label">شروع ثبت نام:</label>
+                @{
+                    string startRegister = Model.StartRegister != default ? Model.StartRegister.ToShamsi() : "";
+                }
+                <input id="start-register" name="StartRegister" value="@startRegister" width="100%" class="form-control" />
+                <span class="text-danger" id="start-register-validation">تاریخ شروع ثبت نام را وارد کنید</span>
+            </div>
+            <div class="mb-3 col-md-3 pr-5">
+                <label class="form-label">پایان ثبت نام:</label>
+                @{
+                    string endRegister = Model.EndRegister != default ? Model.EndRegister.ToShamsi() : "";
+                }
+                <input id="end-register" name="EndRegister" value="@endRegister" width="100%" class="form-control" />
+                <span class="text-danger" id="end-register-validation">تاریخ پایان ثبت نام را وارد کنید</span>
+            </div>
+            @*--------------------------------*@
+            <div class="mb-3">
+                <label class="form-label">شرح:</label>
+                <textarea class="form-control summernote" asp-for="Description" rows="5"></textarea>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+        </div>
+    </section>
+
+    <div class="mt-3 text-center d-flex justify-content-center align-items-center">
+        <button onclick="ClickSubmit(event)" class="btn btn--submit mx-3 px-3">
+            ثبت
+        </button>
+        <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+            <i class="fas fa-reply my-1 mx-2"></i>
+        </button>
+    </div>
+
+</form>
+
+<partial name="_ValidationScriptsPartial" />
+
+@section Scripts{
+    <script src="~/js/custome/time-picker.js"></script>
+    <script src="~/lib/persian-date/jquery-1.9.1.min.js"></script>
+    <script src="~/lib/persian-date/jquery.min.js"></script>
+    <script src="~/lib/persian-date/JalaliDate.js"></script>
+    <script src="~/lib/persian-date/kendo.web.js"></script>
+    <script src="~/lib/persian-date/fa-IR.js"></script>
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+    <script src="~/js/pages/extracurricular.js"></script>
+    <script>
+
+        // persian DateTime
+        $(document).ready(function () {
+            $("#start-register").kendoDatePicker();
+            $("#end-register").kendoDatePicker();
+            $("#start-put-on").kendoDatePicker();
+            $("#end-put-on").kendoDatePicker();
+        });
+
+
+    </script>
+}

@@ -1,0 +1,34 @@
+﻿@using Competitions.Common;
+
+@if (TempData[SD.Success] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+    <script type="text/javascript">
+            toastr.success('@TempData[SD.Success]')
+    </script>
+}
+@if (TempData[SD.Error] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+    <script type="text/javascript">
+            toastr.error('@TempData[SD.Error]')
+    </script>
+}
+@if (TempData[SD.Warning] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.warning('@TempData[SD.Warning]')
+    </script>
+}
+@if (TempData[SD.Info] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.info('@TempData[SD.Info]')
+    </script>
+}

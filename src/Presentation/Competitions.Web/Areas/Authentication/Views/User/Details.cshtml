@@ -1,0 +1,97 @@
+﻿@model Competitions.Domain.Entities.Authentication.User
+
+
+@section Styles{
+    <link href="~/css/custome/modal.css" rel="stylesheet" />
+    <link href="~/css/partials/seach-select-options.css" rel="stylesheet" />
+}
+
+
+    @{
+    Layout = "_AdminLayout";
+}
+
+<partial name="_UserInfoPartial" />
+
+
+<div class="d-flex justify-content-end mb-3">
+    <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+        بازگشت
+        <i class="fa fa-angle-left me-2"></i>
+    </button>
+</div>
+
+<div class="d-flex flex-column flex-sm-row align-items-sm-center  justify-content-between mb-2">
+    <h3 class="mb-sm-0 mb-4">مشاهده عضو</h3>
+</div>
+
+<form method="post">
+    <div class="card shadow-sm mt-3 mb-1">
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نام و نام خانوادگی:</label>
+                <input id="full-name" type="text" class="form-control" value="@(Model.Name + " " + Model.Family)" disabled>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">کد ملی:</label>
+                <input type="number" id="national-code" onchange="FindName(this)" class="form-control" value="@Model.NationalCode.Value" disabled>
+            </div>
+            <div id="btn-container" class="col-md-4 align-self-end mb-3">
+                <button onclick="ShowInfo()" type="button" class="btn btn--show w-sm-100">
+                    مشاهده مشخصات
+                    <i class='fas fa-redo load-icon me-2'></i>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label class="form-label">سطح دسترسی:</label>
+                <input  class="form-control" value="@Model.Role.Display" disabled/>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/custome/modal.js"></script>
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+    <script src="~/js/users/users.js"></script>
+    <script src="~/js/users/show-info.js"></script>
+    <script src="~/js/partials/seach-select-box.js"></script>
+    <script>
+
+        // show user info with natioanl code
+        function ShowInfo() {
+            const nationalCode = document.getElementById("national-code").value;
+            const loadIcon = document.querySelector(".load-icon");
+            loadIcon.classList.add("load");
+            if (nationalCode.length !== 10) {
+                toastr.error('کد ملی وارد شده اشتباه است');
+                loadIcon.classList.remove("load");
+            }
+
+            $.ajax({
+                url: `/Authentication/User/GetUserInfo/${nationalCode}`,
+                type: "GET",
+                success: function (data) {
+                    loadIcon.classList.remove("load");
+                    if (!data.exists) {
+                        toastr.error('کد ملی وارد شده اشتباه است');
+                    }
+                    else {
+                        document.querySelector('#phone').value = data.info.phoneNumber;
+                        document.querySelector('#fullName').value = data.info.fullName;
+                        document.querySelector('#email').value = data.info.email;
+                        document.querySelector('#nationalCode').value = data.info.nationalCode;
+                        document.querySelector('.my-modal').classList.add("show");
+                    }
+                }
+            })
+        }
+
+    </script>
+
+}

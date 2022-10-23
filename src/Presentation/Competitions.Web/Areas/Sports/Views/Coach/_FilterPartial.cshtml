@@ -1,0 +1,52 @@
+﻿@using Competitions.Application.Shared
+@using Competitions.Common.Helpers
+@model Competitions.Web.Areas.Sports.Models.Coaches.CoachFilter
+
+
+@{
+    String showFilters = Model.IsEmpty() ? "hide" : "";
+}
+
+<section class="my-3 @showFilters" id="coach-filters">
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <label class="form-label">نام:</label>
+            <input  asp-for="Name" class="form-control" />
+        </div>
+        <div class="mb-3 col-md-4 ">
+            <label class="form-label">نام خانوادگی:</label>
+            <input asp-for="Family" class="form-control" />
+        </div> 
+        <div class="mb-3 col-md-4 ">
+            <label class="form-label">کد ملی:</label>
+            <input asp-for="NationalCode" maxlength="10" class="form-control" />
+        </div>
+        <div class="mb-3 col-md-4">
+            <label class="form-label">تحصیلات:</label>
+            <div class="dropdown">
+                <select asp-for="Education" asp-items="@EducationList.GetSelectedItems()" class="form-control">
+                    <option selected ></option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 col-md-4">
+            <label class="form-label">رشته ورزشی:</label>
+            <div class="dropdown">
+                <select asp-for="SportId" asp-items="@Model.Sports" class="form-control">
+                    <option selected></option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 col-md-4">
+            <label class="form-label">مدرک ورزشی:</label>
+            <div class="dropdown">
+                <select asp-for="CETId" asp-items="@Model.CETs" class="form-control">
+                    <option selected></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn--submit">اعمال فیلتر</button>
+    </div>
+</section>

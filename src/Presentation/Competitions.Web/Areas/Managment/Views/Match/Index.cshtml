@@ -1,0 +1,60 @@
+﻿@using Competitions.Common.Helpers
+@using Competitions.Domain.Entities
+@model Competitions.Web.Areas.Managment.Models.Matches.GetAllMatchesVM
+
+@{
+    Layout = "_AdminLayout";
+}
+
+
+<div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+    <h3>لیست مسابقات</h3>
+    <a asp-action="FirstInfo" class="btn btn--add d-flex align-items-center"><i class="fa fa-plus ms-2"></i>افزودن مسابقه جدید</a>
+
+</div>
+<form method="get">
+    <section class="card">
+        <div class="table-overflow">
+            <div class="table ">
+                <table class="table text-center" width="100%">
+                    <thead>
+                        <tr class="text-center">
+                            <th>ردیف</th>
+                            <th>نام مسابقه</th>
+                            <th> وضعیت</th>
+                            <th>جنسیت</th>
+                            <th>رشته</th>
+                            <th>تاریخ ثبت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ( int i = 0 ; i < Model.Matches.Count() ; i++ )
+                        {
+                            <tr class="text-center">
+                                <td>@(i + 1 + Model.Filters.Skip)</td>
+                                <td>@Model.Matches.ElementAt(i).Name</td>
+                                <td>@Model.Matches.ElementAt(i).Status</td>
+                                <td>@Model.Matches.ElementAt(i).Gender</td>
+                                <td>@Model.Matches.ElementAt(i).Sport</td>
+                                <td>@Model.Matches.ElementAt(i).CreateDate.ToShamsi()</td>
+                                <td>
+                                    <a class="btn btn--show" asp-action="FirstInfo" asp-route-id="@Model.Matches.ElementAt(i).Id" asp-route-ReadOnly="@true.ToString()"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn--edit me-2" asp-action="FirstInfo" asp-route-id="@Model.Matches.ElementAt(i).Id"><i class="fa fa-edit"></i></a>
+                                    <button type="button" class="btn btn--delete me-2" onclick="Delete('/Managment/Match/Remove/@Model.Matches.ElementAt(i).Id' , 'مسابقه')"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <partial name="_PagenationPartial" model="@new Pagenation(Model.Filters.Skip , Model.Filters.Take , Model.Filters.Total)" />
+</form>
+
+
+@section Scripts{
+    <script src="~/js/utility/removeAlert.js"></script>
+}

@@ -1,0 +1,58 @@
+﻿@model Competitions.Web.Areas.Sports.Models.Coaches.GetAllCoaches
+
+@{
+    Layout = "_AdminLayout";
+}
+
+    <form method="get">
+
+        <div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+            <h3>مدیریت مربیان</h3>
+            <div class="d-flex align-items-center">
+                <a asp-action="Create" class="btn btn--add d-flex align-items-center"><i class="fa fa-plus ms-2"></i>افزودن مربی جدید</a>
+                <button type="button" onclick="ShowFilters('coach-filters')" class="btn btn--filter d-flex align-items-center  me-2"><i class="fa fa-filter ms-2"></i>فیلتر</button>
+            </div>
+
+        </div>
+
+        <partial name="_FilterPartial" model="Model.Filters" />
+
+        <section class="card">
+            <div class="table-overflow">
+                <div class="table ">
+                    <table class="table text-center" width="100%">
+                        <thead>
+                            <tr class="text-center">
+                                <th>ردیف</th>
+                                <th>نام و نام خانوادگی</th>
+                                <th>رشته ورزشی</th>
+                                <th>کد ملی</th>
+                                <th>شماره تلفن</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @for ( int i = 0 ; i < Model.Coaches.Count() ; i++ )
+                        {
+                            <tr class="text-center">
+                                <td>@(i + 1 + Model.Filters.Skip)</td>
+                                <td>@Model.Coaches.ElementAt(i).FullName</td>
+                                <td>@Model.Coaches.ElementAt(i).Sport</td>
+                                <td>@Model.Coaches.ElementAt(i).NationalCode</td>
+                                <td>@Model.Coaches.ElementAt(i).PhoneNumber</td>
+                                <td>
+                                    <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Coaches.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn--edit me-2" asp-action="Update" asp-route-id="@Model.Coaches.ElementAt(i).Id"><i class="fa fa-edit"></i></a>
+                                    <button type="button" class="btn btn--delete me-2" onclick="Delete('/Sports/Coach/Remove/@Model.Coaches.ElementAt(i).Id' , 'مربی')"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <partial name="_PagenationPartial" model="@new Pagenation(Model.Filters.Skip , Model.Filters.Take , Model.Filters.Total)" />
+</form>
+

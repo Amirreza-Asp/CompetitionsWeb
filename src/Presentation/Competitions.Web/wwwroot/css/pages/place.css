@@ -1,0 +1,32 @@
+﻿.images-list {
+    display: flex;
+    flex-wrap:nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.images-item {
+    border-radius:5px;
+    flex: 0 0 auto;
+    margin-inline: 5px;
+    width: 80px;
+    aspect-ratio: 1;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.images-item-content{
+    position:absolute;
+    width:100%;
+    height:max-content;
+    left:0;
+    bottom:0;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:5%;
+    background:rgba(0,0,0,.5);
+}
+

@@ -1,0 +1,122 @@
+hr:not([size]) {
+  height: 2px;
+}
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 70px;
+  bottom: 0;
+  background-color: white;
+  margin-right: -300px;
+  width: 300px;
+  border-left: 1px solid $color__bon-jour;
+  overflow-y: auto;
+  z-index: 102;
+
+  &__level {
+    &-access {
+      color: var(--c2);
+    }
+  }
+
+  &.active {
+    margin-right: 0;
+  }
+
+  &__title {
+    color: var(--c1);
+  }
+
+  &__list {
+    padding: 1.3rem 1.1rem !important;
+  }
+
+  &__collapse {
+    padding: .8rem 0.6rem;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__item {
+    position: relative;
+    background-color: var(--c7);
+    z-index: 1;
+
+
+    &-collapse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+
+    .open + ul {
+      max-height: max-content;
+    }
+
+    .fa-rotate {
+      transition: transform .3s ease;
+    }
+
+    .open .fa-rotate {
+      transform: rotateZ(-90deg);
+    }
+
+    &-level-1 {
+      margin: 0 .5em;
+      font-size: 15px;
+    }
+
+    & {
+      margin-bottom: .75em;
+    }
+
+  }
+
+  &__link {
+    padding: .8rem 0.6rem;
+
+    width: 100%;
+    color: black;
+    display: inline-block;
+
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      inset: 0;
+      background-image: linear-gradient(to right, var(--c4), var(--c3));
+      border-radius: .3rem;
+      z-index: -1;
+      transition: opacity 0.1s linear;
+      opacity: 0;
+    }
+
+    &.active {
+      color: white;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+      margin-right: 0;
+  }
+  @include media-breakpoint-down(lg) {
+    top: 0 !important;
+  }
+}
+
+
+

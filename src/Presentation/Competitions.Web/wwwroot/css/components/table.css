@@ -1,0 +1,35 @@
+.table {
+  border-spacing: 0 0.5rem;
+  border-collapse: separate;
+  min-width: max-content !important;
+}
+.table * {
+  border: none;
+}
+.table-overflow {
+  overflow-x: auto;
+}
+.table th, .table tbody td {
+  text-align: center;
+}
+.table th {
+  padding: 1rem;
+  color: var(--c11);
+}
+.table tbody td {
+  padding: 1em;
+}
+.table tbody tr {
+  background-color: var(--c7);
+}
+.table tbody tr + tr {
+  margin-bottom: 1em;
+}
+.table__action a + a {
+  margin-right: 0.3em;
+}
+.table__action a:hover {
+  color: white !important;
+}
+
+/*# sourceMappingURL=table.css.map */

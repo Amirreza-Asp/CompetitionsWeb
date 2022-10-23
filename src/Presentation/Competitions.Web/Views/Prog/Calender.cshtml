@@ -1,0 +1,138 @@
+﻿@using System.Globalization;
+@using Competitions.Common.Helpers
+@using PersianTools.Core
+@model Competitions.Web.Models.Calenders.ProgCalenderFilter
+
+@section Styles{
+    <link href="~/lib/fullcalendar-5.5.1/lib/main.min.css" rel="stylesheet" />
+    <style>
+        .fc-day-today {
+            background-color: initial !important;
+        }
+
+        .fc-daygrid-event{
+            background-color:#03a5fc;
+            color:white;
+        }
+
+        .fc-daygrid-event-dot{
+            border-color:white !important;
+        }
+    </style>
+}
+
+    <div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+        <h3>برنامه کلاس های شما</h3>
+        
+    </div>
+    <hr />
+
+
+<div id="calendar2"></div>
+@{
+    var UnixEpochTicks = ( new DateTime(1970 , 1 , 1 , 0 , 0 , 0 , DateTimeKind.Utc) ).Ticks;
+    var d = ( Model.ProgDate.ToUniversalTime().Ticks - UnixEpochTicks ) / 10000;
+}
+<input id="matchDate" value="@d" hidden />
+<div class="backdrop"></div>
+
+@section Scripts{
+    <script src="~/lib/moment/moment.min.js"></script>
+    <script src="~/js/calender/calender.js"></script>
+    <script src="~/lib/fullcalendar-5.5.1/lib/main.min.js"></script>
+    <script src="~/lib/fullcalendar-shamsi-main/fullcalendar.min.js"></script>
+    <script src="~/lib/fullcalendar-5.5.1/lib/locales-all.min.js"></script>
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let initialLocaleCode = "fa";
+            let localeSelectorEl = document.getElementById("locale-selector");
+            let calendarEl = document.getElementById("calendar2");
+
+
+
+            let today = new Date(Number.parseInt(document.getElementById("matchDate").value));
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy + "-" + mm + "-" + dd;
+
+            const matchDate = document.getElementById("matchDate");
+
+            var data = []
+
+            $.ajax({
+                url: `/Prog/CalenderInfo`,
+                type: "GET",
+                success: function (info) {
+
+                    if (info.success) {
+                        let events = info.data;
+                        data = []
+                        Array.from(events).forEach(item => {
+                            data.push({
+                                title: item.name,
+                                start: item.start,
+                                url: item.url,
+                                color:"blue"
+                            })
+                        })
+
+                        AddCalender();
+                    }
+                }
+            });
+
+
+
+            function AddCalender() {
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    headerToolbar: {
+                        left: "prev,next",
+                        center: "title",
+                        right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+                    },
+                    initialDate: today,
+                    locale: initialLocaleCode,
+                    buttonIcons: true, // show the prev/next text
+                    navLinks: false, // can click day/week names to navigate views
+                    editable: true,
+                    dayMaxEvents: true, // allow "more" link when too many events
+                    customButtons: {
+                        prev: {
+                            text: 'Prev',
+                            click: function () {
+
+                                const link = document.createElement("a");
+                                link.href = "/Prog/Calender?dir=prev"
+                                document.body.appendChild(link);
+                                link.click();
+                                link.remove();
+
+                            }
+                        },
+                        next: {
+                            text: 'Next',
+                            click: function () {
+
+                                const link = document.createElement("a");
+                                link.href = "/Prog/Calender?dir=next"
+                                document.body.appendChild(link);
+                                link.click();
+                                link.remove();
+                            }
+                        },
+                    },
+                    events: data
+                });
+
+                calendar.render();
+            }
+
+
+        });
+
+    </script>
+}

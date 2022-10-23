@@ -1,0 +1,16 @@
+﻿.k-header{
+    background-color:initial !important;
+}
+
+span.k-datepicker{
+    display:inline-block;
+    margin-left:10px;
+    width:100% !important;
+    padding:0 !important;
+}
+
+#datepicker{
+    padding-block:4px;
+}
+
+

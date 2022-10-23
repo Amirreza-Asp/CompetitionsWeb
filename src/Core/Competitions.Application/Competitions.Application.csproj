@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Competitions.Common\Competitions.Common.csproj" />
+    <ProjectReference Include="..\Competitions.Domain.Dtos\Competitions.Domain.Dtos.csproj" />
+    <ProjectReference Include="..\Competitions.Domain.Entities\Competitions.Domain.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

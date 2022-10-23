@@ -1,0 +1,36 @@
+﻿.carou-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#carouselExampleIndicators {
+    border-radius: 10px;
+    width: calc(20vw + 150px);
+    aspect-ratio: 2;
+    overflow: hidden;
+}
+
+.carousel-item > img {
+    border-radius: 10px;
+}
+
+
+.place-title {
+    color: darkturquoise;
+    text-shadow: 2px 2px 1px rgba(50,50,50,.2);
+}
+
+.place-childrens {
+    list-style: circle;
+    margin-inline: 40px !important;
+}
+
+.place-child{
+    margin-bottom:6px;
+}
+
+p{
+    margin-block:5px !important;
+}

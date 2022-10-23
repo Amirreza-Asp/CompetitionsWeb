@@ -1,0 +1,1056 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="845" height="522" viewBox="0 0 845 522">
+  <defs>
+    <filter id="Rectangle_54" x="0" y="0" width="845" height="522" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_65" x="631.5" y="21.5" width="186" height="52" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_68" x="431.5" y="21.5" width="161" height="52" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-3"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect width="207.707" height="71.707" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Component_1_1" data-name="Component 1 – 1" transform="translate(10.5 9.5)">
+    <g transform="matrix(1, 0, 0, 1, -10.5, -9.5)" filter="url(#Rectangle_54)">
+      <rect id="Rectangle_54-2" data-name="Rectangle 54" width="824" height="501" rx="20" transform="translate(10.5 9.5)" fill="#fff"/>
+    </g>
+    <line id="Line_12" data-name="Line 12" x2="782" y2="2" transform="translate(12.5 78.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_13" data-name="Line 13" x2="782" y2="2" transform="translate(12.5 116.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_15" data-name="Line 15" x2="782" y2="2" transform="translate(12.5 187.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_16" data-name="Line 16" x2="782" y2="2" transform="translate(12.5 258.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_17" data-name="Line 17" x2="782" y2="2" transform="translate(12.5 329.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_18" data-name="Line 18" x2="782" y2="2" transform="translate(12.5 400.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <g transform="matrix(1, 0, 0, 1, -10.5, -9.5)" filter="url(#Rectangle_65)">
+      <rect id="Rectangle_65-2" data-name="Rectangle 65" width="168" height="34" rx="5" transform="translate(640.5 29.5)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, -10.5, -9.5)" filter="url(#Rectangle_68)">
+      <rect id="Rectangle_68-2" data-name="Rectangle 68" width="143" height="34" rx="5" transform="translate(440.5 29.5)" fill="#051946"/>
+    </g>
+    <text id="مهر_1400" data-name="مهر 1400" transform="translate(731 41)" fill="#4b4b4b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-61.201" y="0">1400</tspan><tspan y="0">مهر </tspan></text>
+    <g id="arrow-point-to-right" transform="translate(636 31.405)">
+      <path id="Path_4427" data-name="Path 4427" d="M97.373,6.287l4.92,4.919a.8.8,0,0,0,1.133-1.133L99.073,5.72l4.353-4.353A.8.8,0,0,0,102.293.234l-4.92,4.92a.8.8,0,0,0,0,1.133Z" transform="translate(-97.138 0)" fill="#4b4b4b"/>
+    </g>
+    <g id="arrow-point-to-right-2" data-name="arrow-point-to-right" transform="translate(785 31.405)">
+      <path id="Path_4427-2" data-name="Path 4427" d="M103.426,6.287l-4.92,4.919a.8.8,0,0,1-1.133-1.133l4.353-4.353L97.373,1.368A.8.8,0,0,1,98.506.234l4.92,4.92a.8.8,0,0,1,0,1.133Z" transform="translate(-97.138 0)" fill="#4b4b4b"/>
+    </g>
+    <g id="calendar_9_" data-name="calendar(9)" transform="translate(744 30)">
+      <path id="Path_4614" data-name="Path 4614" d="M193.87,280.167a.463.463,0,0,0,.654,0l1.652-1.652a.463.463,0,1,0-.654-.654l-1.324,1.324-.6-.6a.463.463,0,1,0-.654.654Zm0,0" transform="translate(-186.903 -269.227)" fill="#4b4b4b"/>
+      <path id="Path_4615" data-name="Path 4615" d="M133.778,207.161a3.673,3.673,0,1,0-3.673-3.673A3.677,3.677,0,0,0,133.778,207.161Zm0-6.42a2.747,2.747,0,1,1-2.747,2.747A2.75,2.75,0,0,1,133.778,200.741Zm0,0" transform="translate(-126.124 -193.701)" fill="#4b4b4b"/>
+      <path id="Path_4616" data-name="Path 4616" d="M13.812.985h-.844V.463a.463.463,0,1,0-.925,0V.985h-.909V.463a.463.463,0,0,0-.925,0V.985H5.1V.463a.463.463,0,0,0-.925,0V.985H3.265V.463a.463.463,0,0,0-.925,0V.985H1.5A1.5,1.5,0,0,0,0,2.481v11.69a1.5,1.5,0,0,0,1.5,1.5H13.812a1.5,1.5,0,0,0,1.5-1.5V2.481a1.5,1.5,0,0,0-1.5-1.5Zm.571,13.187a.572.572,0,0,1-.571.571H1.5a.572.572,0,0,1-.571-.571V4.832H14.382ZM.925,2.481A.572.572,0,0,1,1.5,1.91H2.34v.522a.463.463,0,0,0,.925,0V1.91h.909v.522a.463.463,0,0,0,.925,0V1.91h5.109v.522a.463.463,0,0,0,.925,0V1.91h.909v.522a.463.463,0,0,0,.925,0V1.91h.844a.572.572,0,0,1,.571.571V3.907H.925Zm0,0" fill="#4b4b4b"/>
+    </g>
+    <text id="شنبه" transform="translate(780 103)" fill="#7a7a7a" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="-26.051" y="0">شنبه</tspan></text>
+    <text id="یکشنبه" transform="translate(677 103)" fill="#7a7a7a" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="-36.905" y="0">یکشنبه</tspan></text>
+    <text id="دوشنبه" transform="translate(559 103)" fill="#7a7a7a" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="-39.076" y="0">دوشنبه</tspan></text>
+    <text id="سه_شنبه" data-name="سه شنبه" transform="translate(443 103)" fill="#7a7a7a" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="-46.979" y="0">سه شنبه</tspan></text>
+    <text id="چهارشنبه" transform="translate(318 103)" fill="#7a7a7a" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="-47.76" y="0">چهارشنبه</tspan></text>
+    <text id="پنج_شنبه" data-name="پنج شنبه" transform="translate(191 103)" fill="#7a7a7a" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="-45.894" y="0">پنج شنبه</tspan></text>
+    <text id="جمعه" transform="translate(65 103)" fill="#7a7a7a" font-size="13" font-family="SegoeUI, Segoe UI"><tspan x="-29.307" y="0">جمعه</tspan></text>
+    <line id="Line_14" data-name="Line 14" y2="361.5" transform="translate(110.5 117.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_14-2" data-name="Line 14" y2="361.5" transform="translate(231.5 117.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_14-3" data-name="Line 14" y2="361.5" transform="translate(352.5 117.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_14-4" data-name="Line 14" y2="361.5" transform="translate(473.5 117.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_14-5" data-name="Line 14" y2="361.5" transform="translate(594.5 117.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <line id="Line_14-6" data-name="Line 14" y2="361.5" transform="translate(715.5 117.5)" fill="none" stroke="#707070" stroke-width="1" opacity="0.16"/>
+    <g id="Repeat_Grid_1" data-name="Repeat Grid 1" transform="translate(595.146 118.146)" opacity="0.3" clip-path="url(#clip-path)">
+      <g transform="translate(-540.146 -684.146)">
+        <line id="Line_19" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-536.146 -684.146)">
+        <line id="Line_19-2" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-532.146 -684.146)">
+        <line id="Line_19-3" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-528.146 -684.146)">
+        <line id="Line_19-4" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-524.146 -684.146)">
+        <line id="Line_19-5" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-520.146 -684.146)">
+        <line id="Line_19-6" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-516.146 -684.146)">
+        <line id="Line_19-7" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-512.146 -684.146)">
+        <line id="Line_19-8" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-508.146 -684.146)">
+        <line id="Line_19-9" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-504.146 -684.146)">
+        <line id="Line_19-10" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-500.146 -684.146)">
+        <line id="Line_19-11" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-496.146 -684.146)">
+        <line id="Line_19-12" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-492.146 -684.146)">
+        <line id="Line_19-13" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-488.146 -684.146)">
+        <line id="Line_19-14" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-484.146 -684.146)">
+        <line id="Line_19-15" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-480.146 -684.146)">
+        <line id="Line_19-16" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-476.146 -684.146)">
+        <line id="Line_19-17" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-472.146 -684.146)">
+        <line id="Line_19-18" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-468.146 -684.146)">
+        <line id="Line_19-19" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-464.146 -684.146)">
+        <line id="Line_19-20" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-460.146 -684.146)">
+        <line id="Line_19-21" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-456.146 -684.146)">
+        <line id="Line_19-22" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-452.146 -684.146)">
+        <line id="Line_19-23" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-448.146 -684.146)">
+        <line id="Line_19-24" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-444.146 -684.146)">
+        <line id="Line_19-25" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-440.146 -684.146)">
+        <line id="Line_19-26" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-436.146 -684.146)">
+        <line id="Line_19-27" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-432.146 -684.146)">
+        <line id="Line_19-28" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-428.146 -684.146)">
+        <line id="Line_19-29" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-424.146 -684.146)">
+        <line id="Line_19-30" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-420.146 -684.146)">
+        <line id="Line_19-31" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-416.146 -684.146)">
+        <line id="Line_19-32" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-412.146 -684.146)">
+        <line id="Line_19-33" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-408.146 -684.146)">
+        <line id="Line_19-34" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-404.146 -684.146)">
+        <line id="Line_19-35" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-400.146 -684.146)">
+        <line id="Line_19-36" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-396.146 -684.146)">
+        <line id="Line_19-37" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-392.146 -684.146)">
+        <line id="Line_19-38" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-388.146 -684.146)">
+        <line id="Line_19-39" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-384.146 -684.146)">
+        <line id="Line_19-40" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-380.146 -684.146)">
+        <line id="Line_19-41" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-376.146 -684.146)">
+        <line id="Line_19-42" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-372.146 -684.146)">
+        <line id="Line_19-43" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-368.146 -684.146)">
+        <line id="Line_19-44" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-364.146 -684.146)">
+        <line id="Line_19-45" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-360.146 -684.146)">
+        <line id="Line_19-46" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-356.146 -684.146)">
+        <line id="Line_19-47" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-352.146 -684.146)">
+        <line id="Line_19-48" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-348.146 -684.146)">
+        <line id="Line_19-49" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-344.146 -684.146)">
+        <line id="Line_19-50" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-340.146 -684.146)">
+        <line id="Line_19-51" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-336.146 -684.146)">
+        <line id="Line_19-52" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-540.146 -672.146)">
+        <line id="Line_19-53" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-536.146 -672.146)">
+        <line id="Line_19-54" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-532.146 -672.146)">
+        <line id="Line_19-55" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-528.146 -672.146)">
+        <line id="Line_19-56" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-524.146 -672.146)">
+        <line id="Line_19-57" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-520.146 -672.146)">
+        <line id="Line_19-58" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-516.146 -672.146)">
+        <line id="Line_19-59" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-512.146 -672.146)">
+        <line id="Line_19-60" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-508.146 -672.146)">
+        <line id="Line_19-61" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-504.146 -672.146)">
+        <line id="Line_19-62" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-500.146 -672.146)">
+        <line id="Line_19-63" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-496.146 -672.146)">
+        <line id="Line_19-64" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-492.146 -672.146)">
+        <line id="Line_19-65" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-488.146 -672.146)">
+        <line id="Line_19-66" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-484.146 -672.146)">
+        <line id="Line_19-67" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-480.146 -672.146)">
+        <line id="Line_19-68" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-476.146 -672.146)">
+        <line id="Line_19-69" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-472.146 -672.146)">
+        <line id="Line_19-70" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-468.146 -672.146)">
+        <line id="Line_19-71" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-464.146 -672.146)">
+        <line id="Line_19-72" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-460.146 -672.146)">
+        <line id="Line_19-73" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-456.146 -672.146)">
+        <line id="Line_19-74" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-452.146 -672.146)">
+        <line id="Line_19-75" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-448.146 -672.146)">
+        <line id="Line_19-76" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-444.146 -672.146)">
+        <line id="Line_19-77" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-440.146 -672.146)">
+        <line id="Line_19-78" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-436.146 -672.146)">
+        <line id="Line_19-79" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-432.146 -672.146)">
+        <line id="Line_19-80" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-428.146 -672.146)">
+        <line id="Line_19-81" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-424.146 -672.146)">
+        <line id="Line_19-82" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-420.146 -672.146)">
+        <line id="Line_19-83" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-416.146 -672.146)">
+        <line id="Line_19-84" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-412.146 -672.146)">
+        <line id="Line_19-85" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-408.146 -672.146)">
+        <line id="Line_19-86" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-404.146 -672.146)">
+        <line id="Line_19-87" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-400.146 -672.146)">
+        <line id="Line_19-88" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-396.146 -672.146)">
+        <line id="Line_19-89" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-392.146 -672.146)">
+        <line id="Line_19-90" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-388.146 -672.146)">
+        <line id="Line_19-91" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-384.146 -672.146)">
+        <line id="Line_19-92" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-380.146 -672.146)">
+        <line id="Line_19-93" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-376.146 -672.146)">
+        <line id="Line_19-94" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-372.146 -672.146)">
+        <line id="Line_19-95" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-368.146 -672.146)">
+        <line id="Line_19-96" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-364.146 -672.146)">
+        <line id="Line_19-97" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-360.146 -672.146)">
+        <line id="Line_19-98" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-356.146 -672.146)">
+        <line id="Line_19-99" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-352.146 -672.146)">
+        <line id="Line_19-100" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-348.146 -672.146)">
+        <line id="Line_19-101" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-344.146 -672.146)">
+        <line id="Line_19-102" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-340.146 -672.146)">
+        <line id="Line_19-103" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-336.146 -672.146)">
+        <line id="Line_19-104" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-540.146 -660.146)">
+        <line id="Line_19-105" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-536.146 -660.146)">
+        <line id="Line_19-106" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-532.146 -660.146)">
+        <line id="Line_19-107" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-528.146 -660.146)">
+        <line id="Line_19-108" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-524.146 -660.146)">
+        <line id="Line_19-109" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-520.146 -660.146)">
+        <line id="Line_19-110" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-516.146 -660.146)">
+        <line id="Line_19-111" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-512.146 -660.146)">
+        <line id="Line_19-112" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-508.146 -660.146)">
+        <line id="Line_19-113" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-504.146 -660.146)">
+        <line id="Line_19-114" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-500.146 -660.146)">
+        <line id="Line_19-115" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-496.146 -660.146)">
+        <line id="Line_19-116" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-492.146 -660.146)">
+        <line id="Line_19-117" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-488.146 -660.146)">
+        <line id="Line_19-118" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-484.146 -660.146)">
+        <line id="Line_19-119" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-480.146 -660.146)">
+        <line id="Line_19-120" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-476.146 -660.146)">
+        <line id="Line_19-121" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-472.146 -660.146)">
+        <line id="Line_19-122" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-468.146 -660.146)">
+        <line id="Line_19-123" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-464.146 -660.146)">
+        <line id="Line_19-124" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-460.146 -660.146)">
+        <line id="Line_19-125" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-456.146 -660.146)">
+        <line id="Line_19-126" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-452.146 -660.146)">
+        <line id="Line_19-127" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-448.146 -660.146)">
+        <line id="Line_19-128" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-444.146 -660.146)">
+        <line id="Line_19-129" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-440.146 -660.146)">
+        <line id="Line_19-130" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-436.146 -660.146)">
+        <line id="Line_19-131" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-432.146 -660.146)">
+        <line id="Line_19-132" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-428.146 -660.146)">
+        <line id="Line_19-133" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-424.146 -660.146)">
+        <line id="Line_19-134" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-420.146 -660.146)">
+        <line id="Line_19-135" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-416.146 -660.146)">
+        <line id="Line_19-136" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-412.146 -660.146)">
+        <line id="Line_19-137" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-408.146 -660.146)">
+        <line id="Line_19-138" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-404.146 -660.146)">
+        <line id="Line_19-139" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-400.146 -660.146)">
+        <line id="Line_19-140" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-396.146 -660.146)">
+        <line id="Line_19-141" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-392.146 -660.146)">
+        <line id="Line_19-142" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-388.146 -660.146)">
+        <line id="Line_19-143" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-384.146 -660.146)">
+        <line id="Line_19-144" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-380.146 -660.146)">
+        <line id="Line_19-145" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-376.146 -660.146)">
+        <line id="Line_19-146" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-372.146 -660.146)">
+        <line id="Line_19-147" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-368.146 -660.146)">
+        <line id="Line_19-148" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-364.146 -660.146)">
+        <line id="Line_19-149" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-360.146 -660.146)">
+        <line id="Line_19-150" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-356.146 -660.146)">
+        <line id="Line_19-151" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-352.146 -660.146)">
+        <line id="Line_19-152" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-348.146 -660.146)">
+        <line id="Line_19-153" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-344.146 -660.146)">
+        <line id="Line_19-154" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-340.146 -660.146)">
+        <line id="Line_19-155" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-336.146 -660.146)">
+        <line id="Line_19-156" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-540.146 -648.146)">
+        <line id="Line_19-157" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-536.146 -648.146)">
+        <line id="Line_19-158" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-532.146 -648.146)">
+        <line id="Line_19-159" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-528.146 -648.146)">
+        <line id="Line_19-160" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-524.146 -648.146)">
+        <line id="Line_19-161" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-520.146 -648.146)">
+        <line id="Line_19-162" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-516.146 -648.146)">
+        <line id="Line_19-163" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-512.146 -648.146)">
+        <line id="Line_19-164" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-508.146 -648.146)">
+        <line id="Line_19-165" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-504.146 -648.146)">
+        <line id="Line_19-166" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-500.146 -648.146)">
+        <line id="Line_19-167" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-496.146 -648.146)">
+        <line id="Line_19-168" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-492.146 -648.146)">
+        <line id="Line_19-169" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-488.146 -648.146)">
+        <line id="Line_19-170" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-484.146 -648.146)">
+        <line id="Line_19-171" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-480.146 -648.146)">
+        <line id="Line_19-172" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-476.146 -648.146)">
+        <line id="Line_19-173" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-472.146 -648.146)">
+        <line id="Line_19-174" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-468.146 -648.146)">
+        <line id="Line_19-175" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-464.146 -648.146)">
+        <line id="Line_19-176" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-460.146 -648.146)">
+        <line id="Line_19-177" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-456.146 -648.146)">
+        <line id="Line_19-178" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-452.146 -648.146)">
+        <line id="Line_19-179" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-448.146 -648.146)">
+        <line id="Line_19-180" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-444.146 -648.146)">
+        <line id="Line_19-181" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-440.146 -648.146)">
+        <line id="Line_19-182" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-436.146 -648.146)">
+        <line id="Line_19-183" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-432.146 -648.146)">
+        <line id="Line_19-184" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-428.146 -648.146)">
+        <line id="Line_19-185" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-424.146 -648.146)">
+        <line id="Line_19-186" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-420.146 -648.146)">
+        <line id="Line_19-187" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-416.146 -648.146)">
+        <line id="Line_19-188" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-412.146 -648.146)">
+        <line id="Line_19-189" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-408.146 -648.146)">
+        <line id="Line_19-190" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-404.146 -648.146)">
+        <line id="Line_19-191" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-400.146 -648.146)">
+        <line id="Line_19-192" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-396.146 -648.146)">
+        <line id="Line_19-193" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-392.146 -648.146)">
+        <line id="Line_19-194" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-388.146 -648.146)">
+        <line id="Line_19-195" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-384.146 -648.146)">
+        <line id="Line_19-196" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-380.146 -648.146)">
+        <line id="Line_19-197" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-376.146 -648.146)">
+        <line id="Line_19-198" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-372.146 -648.146)">
+        <line id="Line_19-199" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-368.146 -648.146)">
+        <line id="Line_19-200" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-364.146 -648.146)">
+        <line id="Line_19-201" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-360.146 -648.146)">
+        <line id="Line_19-202" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-356.146 -648.146)">
+        <line id="Line_19-203" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-352.146 -648.146)">
+        <line id="Line_19-204" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-348.146 -648.146)">
+        <line id="Line_19-205" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-344.146 -648.146)">
+        <line id="Line_19-206" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-340.146 -648.146)">
+        <line id="Line_19-207" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-336.146 -648.146)">
+        <line id="Line_19-208" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-540.146 -636.146)">
+        <line id="Line_19-209" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-536.146 -636.146)">
+        <line id="Line_19-210" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-532.146 -636.146)">
+        <line id="Line_19-211" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-528.146 -636.146)">
+        <line id="Line_19-212" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-524.146 -636.146)">
+        <line id="Line_19-213" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-520.146 -636.146)">
+        <line id="Line_19-214" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-516.146 -636.146)">
+        <line id="Line_19-215" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-512.146 -636.146)">
+        <line id="Line_19-216" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-508.146 -636.146)">
+        <line id="Line_19-217" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-504.146 -636.146)">
+        <line id="Line_19-218" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-500.146 -636.146)">
+        <line id="Line_19-219" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-496.146 -636.146)">
+        <line id="Line_19-220" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-492.146 -636.146)">
+        <line id="Line_19-221" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-488.146 -636.146)">
+        <line id="Line_19-222" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-484.146 -636.146)">
+        <line id="Line_19-223" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-480.146 -636.146)">
+        <line id="Line_19-224" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-476.146 -636.146)">
+        <line id="Line_19-225" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-472.146 -636.146)">
+        <line id="Line_19-226" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-468.146 -636.146)">
+        <line id="Line_19-227" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-464.146 -636.146)">
+        <line id="Line_19-228" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-460.146 -636.146)">
+        <line id="Line_19-229" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-456.146 -636.146)">
+        <line id="Line_19-230" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-452.146 -636.146)">
+        <line id="Line_19-231" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-448.146 -636.146)">
+        <line id="Line_19-232" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-444.146 -636.146)">
+        <line id="Line_19-233" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-440.146 -636.146)">
+        <line id="Line_19-234" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-436.146 -636.146)">
+        <line id="Line_19-235" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-432.146 -636.146)">
+        <line id="Line_19-236" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-428.146 -636.146)">
+        <line id="Line_19-237" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-424.146 -636.146)">
+        <line id="Line_19-238" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-420.146 -636.146)">
+        <line id="Line_19-239" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-416.146 -636.146)">
+        <line id="Line_19-240" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-412.146 -636.146)">
+        <line id="Line_19-241" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-408.146 -636.146)">
+        <line id="Line_19-242" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-404.146 -636.146)">
+        <line id="Line_19-243" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-400.146 -636.146)">
+        <line id="Line_19-244" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-396.146 -636.146)">
+        <line id="Line_19-245" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-392.146 -636.146)">
+        <line id="Line_19-246" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-388.146 -636.146)">
+        <line id="Line_19-247" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-384.146 -636.146)">
+        <line id="Line_19-248" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-380.146 -636.146)">
+        <line id="Line_19-249" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-376.146 -636.146)">
+        <line id="Line_19-250" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-372.146 -636.146)">
+        <line id="Line_19-251" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-368.146 -636.146)">
+        <line id="Line_19-252" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-364.146 -636.146)">
+        <line id="Line_19-253" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-360.146 -636.146)">
+        <line id="Line_19-254" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-356.146 -636.146)">
+        <line id="Line_19-255" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-352.146 -636.146)">
+        <line id="Line_19-256" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-348.146 -636.146)">
+        <line id="Line_19-257" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-344.146 -636.146)">
+        <line id="Line_19-258" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-340.146 -636.146)">
+        <line id="Line_19-259" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-336.146 -636.146)">
+        <line id="Line_19-260" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-540.146 -624.146)">
+        <line id="Line_19-261" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-536.146 -624.146)">
+        <line id="Line_19-262" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-532.146 -624.146)">
+        <line id="Line_19-263" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-528.146 -624.146)">
+        <line id="Line_19-264" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-524.146 -624.146)">
+        <line id="Line_19-265" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-520.146 -624.146)">
+        <line id="Line_19-266" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-516.146 -624.146)">
+        <line id="Line_19-267" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-512.146 -624.146)">
+        <line id="Line_19-268" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-508.146 -624.146)">
+        <line id="Line_19-269" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-504.146 -624.146)">
+        <line id="Line_19-270" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-500.146 -624.146)">
+        <line id="Line_19-271" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-496.146 -624.146)">
+        <line id="Line_19-272" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-492.146 -624.146)">
+        <line id="Line_19-273" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-488.146 -624.146)">
+        <line id="Line_19-274" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-484.146 -624.146)">
+        <line id="Line_19-275" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-480.146 -624.146)">
+        <line id="Line_19-276" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-476.146 -624.146)">
+        <line id="Line_19-277" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-472.146 -624.146)">
+        <line id="Line_19-278" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-468.146 -624.146)">
+        <line id="Line_19-279" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-464.146 -624.146)">
+        <line id="Line_19-280" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-460.146 -624.146)">
+        <line id="Line_19-281" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-456.146 -624.146)">
+        <line id="Line_19-282" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-452.146 -624.146)">
+        <line id="Line_19-283" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-448.146 -624.146)">
+        <line id="Line_19-284" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-444.146 -624.146)">
+        <line id="Line_19-285" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-440.146 -624.146)">
+        <line id="Line_19-286" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-436.146 -624.146)">
+        <line id="Line_19-287" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-432.146 -624.146)">
+        <line id="Line_19-288" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-428.146 -624.146)">
+        <line id="Line_19-289" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-424.146 -624.146)">
+        <line id="Line_19-290" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-420.146 -624.146)">
+        <line id="Line_19-291" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-416.146 -624.146)">
+        <line id="Line_19-292" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-412.146 -624.146)">
+        <line id="Line_19-293" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-408.146 -624.146)">
+        <line id="Line_19-294" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-404.146 -624.146)">
+        <line id="Line_19-295" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-400.146 -624.146)">
+        <line id="Line_19-296" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-396.146 -624.146)">
+        <line id="Line_19-297" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-392.146 -624.146)">
+        <line id="Line_19-298" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-388.146 -624.146)">
+        <line id="Line_19-299" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-384.146 -624.146)">
+        <line id="Line_19-300" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-380.146 -624.146)">
+        <line id="Line_19-301" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-376.146 -624.146)">
+        <line id="Line_19-302" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-372.146 -624.146)">
+        <line id="Line_19-303" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-368.146 -624.146)">
+        <line id="Line_19-304" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-364.146 -624.146)">
+        <line id="Line_19-305" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-360.146 -624.146)">
+        <line id="Line_19-306" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-356.146 -624.146)">
+        <line id="Line_19-307" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-352.146 -624.146)">
+        <line id="Line_19-308" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-348.146 -624.146)">
+        <line id="Line_19-309" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-344.146 -624.146)">
+        <line id="Line_19-310" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-340.146 -624.146)">
+        <line id="Line_19-311" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g transform="translate(-336.146 -624.146)">
+        <line id="Line_19-312" data-name="Line 19" x2="12" y2="12" transform="translate(540.5 684.5)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+    </g>
+    <text id="_29" data-name="29" transform="translate(743 181)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">29</tspan></text>
+    <text id="_29-2" data-name="29" transform="translate(743 252)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">29</tspan></text>
+    <text id="_29-3" data-name="29" transform="translate(743 323)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">29</tspan></text>
+    <text id="_29-4" data-name="29" transform="translate(743 394)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">29</tspan></text>
+    <text id="_29-5" data-name="29" transform="translate(743 465)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">29</tspan></text>
+    <text id="_30" data-name="30" transform="translate(626 181)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">30</tspan></text>
+    <text id="_30-2" data-name="30" transform="translate(626 252)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">30</tspan></text>
+    <text id="_30-3" data-name="30" transform="translate(626 323)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">30</tspan></text>
+    <text id="_30-4" data-name="30" transform="translate(626 394)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">30</tspan></text>
+    <text id="_30-5" data-name="30" transform="translate(626 465)" fill="#3b3b3b" font-size="15" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-17.256" y="0">30</tspan></text>
+    <text id="_1" data-name="1" transform="translate(490 181)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">1</tspan></text>
+    <text id="_1-2" data-name="1" transform="translate(490 252)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">1</tspan></text>
+    <text id="_1-3" data-name="1" transform="translate(490 323)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">1</tspan></text>
+    <text id="_1-4" data-name="1" transform="translate(490 394)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">1</tspan></text>
+    <text id="_1-5" data-name="1" transform="translate(490 465)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">1</tspan></text>
+    <text id="_2" data-name="2" transform="translate(369 181)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">2</tspan></text>
+    <text id="_2-2" data-name="2" transform="translate(369 252)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">2</tspan></text>
+    <text id="_2-3" data-name="2" transform="translate(369 323)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">2</tspan></text>
+    <text id="_2-4" data-name="2" transform="translate(369 394)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">2</tspan></text>
+    <text id="_2-5" data-name="2" transform="translate(369 465)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">2</tspan></text>
+    <text id="_3" data-name="3" transform="translate(263 181)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">3</tspan></text>
+    <text id="_3-2" data-name="3" transform="translate(263 252)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">3</tspan></text>
+    <text id="_3-3" data-name="3" transform="translate(263 323)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">3</tspan></text>
+    <text id="_3-4" data-name="3" transform="translate(263 394)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">3</tspan></text>
+    <text id="_3-5" data-name="3" transform="translate(263 465)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">3</tspan></text>
+    <text id="_4" data-name="4" transform="translate(134 181)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">4</tspan></text>
+    <text id="_4-2" data-name="4" transform="translate(134 252)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">4</tspan></text>
+    <text id="_4-3" data-name="4" transform="translate(134 323)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">4</tspan></text>
+    <text id="_4-4" data-name="4" transform="translate(134 394)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">4</tspan></text>
+    <text id="_4-5" data-name="4" transform="translate(134 465)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">4</tspan></text>
+    <text id="_5" data-name="5" transform="translate(26 181)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">5</tspan></text>
+    <text id="_5-2" data-name="5" transform="translate(26 252)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">5</tspan></text>
+    <text id="_5-3" data-name="5" transform="translate(26 323)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">5</tspan></text>
+    <text id="_5-4" data-name="5" transform="translate(26 394)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">5</tspan></text>
+    <text id="_5-5" data-name="5" transform="translate(26 465)" fill="#3b3b3b" font-size="16" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-9.203" y="0">5</tspan></text>
+    <rect id="Rectangle_66" data-name="Rectangle 66" width="456" height="26" rx="3" transform="translate(126 126)" fill="#ee0979"/>
+    <rect id="Rectangle_67" data-name="Rectangle 67" width="416" height="26" rx="3" transform="translate(369 197)" fill="#09a3ee"/>
+    <rect id="Rectangle_83" data-name="Rectangle 83" width="416" height="26" rx="3" transform="translate(249 268)" fill="#4b4b4b"/>
+    <rect id="Rectangle_84" data-name="Rectangle 84" width="194" height="26" rx="3" transform="translate(124 339)" fill="#eea909"/>
+    <text id="مسابقات_والیبال_دختران" data-name="مسابقات والیبال دختران" transform="translate(283 143)" fill="#fff" font-size="12" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">مسابقات والیبال دختران</tspan></text>
+    <text id="مسابقات_والیبال_پسران" data-name="مسابقات والیبال پسران" transform="translate(507 214)" fill="#fff" font-size="12" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">مسابقات والیبال پسران</tspan></text>
+    <text id="مسابقات_والیبال_پسران-2" data-name="مسابقات والیبال پسران" transform="translate(387 285)" fill="#fff" font-size="12" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">مسابقات والیبال پسران</tspan></text>
+    <text id="مسابقات_والیبال_پسران-3" data-name="مسابقات والیبال پسران" transform="translate(160 356)" fill="#fff" font-size="12" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">مسابقات والیبال پسران</tspan></text>
+    <text id="درون_دانشگاهی" data-name="درون دانشگاهی" transform="translate(550 41)" fill="#fff" font-size="15" font-family="SegoeUI, Segoe UI"><tspan x="-96.79" y="0">درون دانشگاهی</tspan></text>
+    <text id="استانی" transform="translate(387 41)" fill="#7a7a7a" font-size="15" font-family="SegoeUI, Segoe UI"><tspan x="-42.583" y="0">استانی</tspan></text>
+    <text id="منطقه" transform="translate(279 41)" fill="#7a7a7a" font-size="15" font-family="SegoeUI, Segoe UI"><tspan x="-41.338" y="0">منطقه</tspan></text>
+    <text id="المپیاد_" data-name="المپیاد " transform="translate(176 41)" fill="#7a7a7a" font-size="15" font-family="SegoeUI, Segoe UI"><tspan x="-42.935" y="0">المپیاد</tspan><tspan y="0"> </tspan></text>
+    <text id="کشوری" transform="translate(64 41)" fill="#7a7a7a" font-size="15" font-family="SegoeUI, Segoe UI"><tspan x="-43.835" y="0">کشوری</tspan></text>
+  </g>
+</svg>

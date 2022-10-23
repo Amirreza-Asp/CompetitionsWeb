@@ -1,0 +1,71 @@
+﻿@model Competitions.Web.Areas.Places.Models.Places.ActivityPlanVM
+
+@{
+    Layout = "_AdminLayout";
+}
+
+@section Styles{
+    <style>
+        #filebtn {
+            border: dotted 1px #006ab1;
+            color: #006ab1;
+            background-color: #e7f5ff;
+        }
+    </style>
+}
+
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="PlaceId" hidden />
+        <section class="card shadow-sm ">
+
+            <div class="d-flex   flex-row align-items-center  justify-content-between mb-4">
+                <h3 class="mb-4 mb-lg-0">بارگذاری برنامه فعالیت ورزشی</h3>
+
+                <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+                    <i class="fas fa-reply my-1 mx-2"></i>
+                </button>
+            </div>
+
+            <div class="mb-3">
+                <input asp-for="NewFile" accept=".pdf" type="file" onchange="$('#submitbtn').click()" id="uploadbox" hidden />
+                <button type="button" id="filebtn" onclick="$('#uploadbox').click()" class="form-control">انتخاب فایل pdf</button>
+            </div>
+
+            <div class="mt-4">
+                <h5>فایل برنامه فعالیت</h5>
+            @if ( Model.ActivityPlan != null )
+            {
+                <div class="table-overflow px-4">
+                    <div class="table ">
+                        <table class="table text-center" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>نام</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">
+                                    <td>@Model.ActivityPlan.Name</td>
+                                    <td class="table__action">
+                                        <a class="btn btn--show" asp-action="DownloadActivityPlan" asp-route-id="@Model.ActivityPlan.Id">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger me-2" onclick="Delete('/Places/Place/RemoveActivityPlan/@Model.ActivityPlan.Id' , 'برنامه')">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <button class="btn btn--submit mx-3 px-3" id="submitbtn" hidden>
+        ثبت
+    </button>
+
+</form>

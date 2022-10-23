@@ -1,0 +1,160 @@
+﻿@using Competitions.Domain.Entities
+@using Competitions.Web.Areas.Places.Models.Places
+@model Competitions.Domain.Dtos.Places.Places.UpdatePlaceDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/partials/multi-select.css" />
+    <link rel="stylesheet" href="~/css/pages/place.css" />
+}
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+            <h3 class="mb-4 mb-lg-0">ویرایش مکان</h3>
+        </div>
+        <section class="card shadow-sm ">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">عنوان:</label>
+                    <input type="text" asp-for="Title" class="form-control">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">نوع مجموعه:</label>
+                    <div class="dropdown">
+                        <select asp-for="PlaceTypeId" asp-items="@Model.Types" class="form-control">
+                            <option selected disabled></option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">نوع مکان:</label>
+    
+                    <div class="dropdown">
+                        <select class="form-control" onchange="ChangeSubPlace(this)">
+                            <option selected="@(Model.ParentPlaceId == null)"  value="0">مجموعه</option>
+                        <option selected="@(Model.ParentPlaceId != null)" value="1">زیر مجموعه</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">انتخاب زیر مجموعه:</label>
+                    <div class="dropdown">
+                        <select class="form-control" id="subplace" asp-for="ParentPlaceId" asp-items="@Model.Places" disabled="@(Model.ParentPlaceId == null)">
+                            <option selected  disabled></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">نام سرپرست:</label>
+                    <input asp-for="Supervisor.Name" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Supervisor.Name"></span>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label"> شماره تماس سرپرست:</label>
+                    <input asp-for="Supervisor.PhoneNumber" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Supervisor.PhoneNumber"></span>
+                </div>
+                <div class="mb-3 col-12">
+                    <label class="form-label">رشته های ورزشی قابل اجرا (کاربری مجموعه) :</label>
+                    <partial name="_MultipleSelectPartial" model="new MultipleSelect(nameof(Model.NewSports) , Model.NewSports , Model.Sports)" />
+                    <span asp-validation-for="NewSports" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label">آدرس مکان:</label>
+                    <input asp-for="Address" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Address"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label class="form-label">متراژ:</label>
+                    <input asp-for="Meterage" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Meterage"></span>
+                </div>
+                <div class="mb-3 col-12">
+                    <label class="form-label">عکس:</label>
+                    <input type="file" id="uploadBox" accept="Image/*" multiple hidden asp-for="NewImages" onchange="$('#choose-file').html(this.value)" />
+                    <button type="button" onclick="$('#uploadBox').click()" id="choose-file" class="form-control">انتخاب عکس</button>
+                </div>
+            </div>
+
+            <div>
+                <h5>عکس های فعلی</h5>
+                <ul class="images-list">
+                @if ( Model.CurrentImages != null )
+                {
+                    @foreach ( var img in Model.CurrentImages )
+                    {
+                        <li class="images-item" style="background-image:url('@StaticEntitiesDetails.PlaceImagePath@img.Name');">
+                            <div class="images-item-content">
+                                <a asp-action="Download" asp-route-file="@img.Name">
+                                    <i class="fa fa-download text-primary"></i>
+                                </a>
+                                <i style="cursor:pointer;" onclick="Delete('/Places/Place/RemoveImage/@img.Id' , 'عکس')" class="fa fa-trash-alt text-danger"></i>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+
+    </section>
+
+
+
+    <div class="mt-3 text-center d-flex justify-content-center align-items-center">
+        <button class="btn btn--submit mx-3 px-3">
+            ثبت
+        </button>
+        <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+            <i class="fas fa-reply my-1 mx-2"></i>
+        </button>
+    </div>
+
+</form>
+
+
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/partials/multi-select.js"></script>
+    <script>
+        const subPlace = document.getElementById("subplace");
+
+        function ChangeSubPlace(select) {
+            const value = select.value;
+            if (value == 0){
+                subPlace.disabled = true;
+                subPlace.value='';
+            }
+            else
+                subPlace.disabled = false;
+        }
+
+        function validateInput() {
+            if (!document.getElementById("uploadBox").value) {
+                swal({
+                    title: `هشدار!`,
+                    text: "عکس را وارد کنید",
+                    type: "error",
+                    cancelButtonText: "بازگشت"
+                })
+                return false;
+            }
+            return true;
+        }
+
+        const chooseImage = document.querySelector('#choose-file');
+        const uploadBox = document.querySelector("#uploadBox");
+
+        uploadBox.addEventListener("change", (e) => {
+            const files = uploadBox.files.length;
+            showFileBtn.innerHTML = `${files} فایل اضافه شد`;
+        })
+    </script>
+}
+

@@ -1,0 +1,80 @@
+﻿@using Competitions.Common.Helpers
+@using Competitions.Domain.Entities
+@model Competitions.Web.Areas.Sports.Models.Sports.GetAllSportsVM
+
+@{
+    Layout = "_AdminLayout";
+}
+@section Styles{
+    <link href="~/lib/persian-date/custom.input.css" rel="stylesheet" />
+    <link href="~/lib/persian-date/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/lib/persian-date/kendo.common.min.css" rel="stylesheet" />
+}
+
+
+
+<form method="get">
+
+    <div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+        <h3>انواع رشته های ورزشی</h3>
+        <div class="d-flex align-items-center">
+            <a asp-action="Create" class="btn btn--add d-flex align-items-center"><i class="fa fa-plus ms-2"></i>افزودن رشته ورزشی جدید</a>
+            <button type="button" onclick="ShowFilters('sport-filters')" class="btn btn--filter d-flex align-items-center  me-2"><i class="fa fa-filter ms-2"></i>فیلتر</button>
+        </div>
+
+    </div>
+
+    <partial name="_FilterPartial" model="Model.Filters" />
+
+    <section class="card">
+        <div class="table-overflow">
+            <div class="table ">
+                <table class="table text-center" width="100%">
+                    <thead>
+                        <tr class="text-center">
+                            <th>ردیف</th>
+                            <th>عنوان</th>
+                            <th>عکس</th>
+                            <th>تاریخ ایجاد</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Entities.Count(); i++)
+                        {
+                            <tr class="text-center">
+                                <td>@(i + 1 + Model.Filters.Skip)</td>
+                                <td>@Model.Entities.ElementAt(i).Name</td>
+                                <td>
+                                    <img class="img-table" src="@StaticEntitiesDetails.SportImagePath@Model.Entities.ElementAt(i).Image">
+                                </td>
+                                <td>@Model.Entities.ElementAt(i).CreateDate.ToShamsi()</td>
+                                <td>
+                                    <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn--edit me-2" asp-action="Update" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-edit"></i></a>
+                                    <button type="button" class="btn btn--delete me-2" onclick="Delete('/Sports/Sport/Remove/@Model.Entities.ElementAt(i).Id' , 'رشته ورزشی')"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <partial name="_PagenationPartial" model="@new Pagenation(Model.Filters.Skip , Model.Filters.Take , Model.Filters.Total)" />
+</form>
+
+
+@section Scripts{
+    <script src="~/lib/persian-date/jquery-1.9.1.min.js"></script>
+    <script src="~/lib/persian-date/jquery.min.js"></script>
+    <script src="~/lib/persian-date/JalaliDate.js"></script>
+    <script src="~/lib/persian-date/kendo.web.js"></script>
+    <script src="~/lib/persian-date/fa-IR.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").kendoDatePicker();
+        });
+    </script>
+}

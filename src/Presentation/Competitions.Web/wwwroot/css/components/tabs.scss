@@ -1,0 +1,27 @@
+.tab {
+  margin: 1rem 0;
+  overflow-x: auto;
+
+  &__list{
+    min-width: max-content;
+  }
+
+  &__item {
+    display: inline-block;
+    background-color: white;
+    border-radius: 1.3rem 1.3rem 0 0;
+    padding: .4rem 1.2rem;
+    text-align: center;
+    color: black;
+    flex-shrink: 0;
+
+    &--active {
+      background-color: var(--c1);
+      color: white;
+    }
+    + a {
+      margin-right: .3rem;
+    }
+  }
+
+}

@@ -1,0 +1,33 @@
+﻿@using Competitions.Common.Helpers
+@model Competitions.Web.Areas.Sports.Models.Sports.SportFilter
+
+
+@{
+    String showFilters = Model.IsEmpty() ? "hide" : "";
+    String createDate = Model.CreateDate.HasValue ? Model.CreateDate.Value.ToShamsi() : "";
+}
+
+<section class="my-3 @showFilters" id="sport-filters">
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <label class="form-label">عنوان:</label>
+            <input  asp-for="Name" class="form-control" />
+        </div>
+        <div class="mb-3 col-md-4 pr-5">
+            <label class="form-label">تاریخ ایجاد:</label>
+            <input id="datepicker" name="CreateDate" value="@createDate" width="100%" class="form-control" />
+        </div>
+
+        <div class="mb-3 col-md-4">
+            <label class="form-label">نوع رشته:</label>
+            <div class="dropdown">
+                <select asp-for="SportTypeId" asp-items="@Model.Types" class="form-control">
+                    <option selected >انتخاب نوع رشته</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn--submit">اعمال فیلتر</button>
+    </div>
+</section>

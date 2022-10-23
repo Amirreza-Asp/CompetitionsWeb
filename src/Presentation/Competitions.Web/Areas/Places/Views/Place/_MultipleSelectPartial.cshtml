@@ -1,0 +1,35 @@
+﻿@model Competitions.Web.Areas.Places.Models.Places.MultipleSelect
+
+@*add multiple-select.css*@
+
+@{
+    String texts = "";
+    if(!String.IsNullOrEmpty(Model.Values) && Model.Items != null){
+        var vals = Model.Values.Split(',');
+        var selected = Model.Items.Where(u => vals.Contains(u.Value)).Select(u=>u.Text).ToList();
+        texts = String.Join(',', selected);
+    }
+}
+
+<div class="multi-select">
+    <input name="@Model.For" value="@Model.Values" id="multi-select-value-input" hidden>
+    <input autocomplete="off" value="@texts" id="multi-select-text-input" class="form-control text-input">
+    <ul class="multi-select-list">
+        @if ( Model.Items != null )
+        {
+            foreach ( var item in Model.Items )
+            {
+                <li class="multi-select-item">
+                    <span value="@item.Value">@item.Text</span>
+                    <div class="multi-select-check">
+                        <div class="check-icon">
+                            <i class="fa fa-check"></i>
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+@*add multiple-select.js*@

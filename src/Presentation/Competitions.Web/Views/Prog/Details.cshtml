@@ -1,0 +1,59 @@
+﻿@using Competitions.Common.Helpers
+@using System.Security.Claims
+@model Competitions.Domain.Entities.Managment.Extracurricular
+@inject Competitions.Application.IRepository<Competitions.Domain.Entities.Managment.ExtracurricularUser> _extUserRepo
+
+<section class="card  shadow-sm ">
+    <div class="p-3">
+        <h3>@Model.Name</h3>
+        <hr />
+        <div class="row">
+            <p class="col-md-6 mb-3">مربی : @(Model.Coach.Name + " " + Model.Coach.Family)</p>
+            <p class="col-md-6 mb-3">رشته ورزشی : @Model.Sport.Name</p>
+            <p class="col-md-6 mb-3">مکان : @Model.Place.Title</p>
+            <p class="col-md-6 mb-3">جنسیت : @(Model.Gender ? "دختران" : "پسران")</p>
+            <p class="col-md-6 mb-3">ظرفیت : @Model.Capacity نفر</p>
+            <p class="col-md-6 mb-3">حداقل افراد برای برگذاری : @Model.MinimumPlacements نفر</p>
+            <p class="col-md-6 mb-3">تاریخ برگذاری : @Model.PutOn.From.ToShamsi()</p>
+            <p class="col-md-6 mb-3">تاریخ اتمام کلاس ها : @Model.PutOn.To.ToShamsi()</p>
+            <p class="col-md-6 mb-3">شروع ثبت نام : @Model.Register.From.ToShamsi()</p>
+            <p class="col-md-6 mb-3">مهلت ثبت نام : @Model.Register.To.ToShamsi()</p>
+            <p class="col-md-6 mb-3">افراد مجاز : @Model.AudienceType.Title</p>
+            <p class="col-md-6 mb-3">هزینه : رایگان</p>
+
+        </div>
+        <p>
+            روز های برگذاری :
+            @foreach ( var item in Model.Times )
+            {
+                <span class="badge bg-info" style="font-size:.9rem;">
+                    @item.Day @item.Time
+                </span>
+            }
+        </p>
+        <p>
+            توضیحات :
+            <span class="text-opacity-50">
+                @Model.Description
+            </span>
+        </p>
+        @if ( _extUserRepo.GetCount(u => u.User.NationalCode.Value == User.FindFirstValue(ClaimTypes.NameIdentifier) && u.ExtracurricularId == Model.Id) > 0 )
+        {
+            <span class="text-info">شما در این کلاس عضو هستید</span>
+        }
+        else if ( Model.Register.To < DateTime.Now )
+        {
+            <span class="text-danger">زمان ثبت نام تمام شده است</span>
+        }
+        else if ( Model.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) )
+        {
+            <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">ثبت نام</a>
+        }
+        else
+        {
+            var t = User.FindFirstValue(ClaimTypes.Gender);
+            <span class="text-danger">این کلاس برای @(Model.Gender ? "دختران" : "پسران") است</span>
+        }
+    </div>
+
+</section>

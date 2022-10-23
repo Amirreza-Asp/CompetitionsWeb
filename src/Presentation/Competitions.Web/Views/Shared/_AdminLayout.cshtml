@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سامانه مسابقات</title>
+
+
+    @*************** Bootstarp ****************@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+    @*************** Custom ****************@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main.css" />
+
+    @*************** Toastr ****************@
+    <link href="~/lib/toastr/content/toastr.min.css" rel="stylesheet" />
+
+    @*************** Font Awsome ****************@
+    <link rel="stylesheet" href="~/lib/fontawesome-pro-6.1.1-web/css/all.min.css" />
+
+    @*************** SweetAlert ****************@
+    <link rel="stylesheet" href="~/lib/bootstrap-sweetalert/sweetalert.min.css" />
+
+
+    @*************** Summernote ****************@
+    <link href="~/lib/summernote/summernote-bs5.css" rel="stylesheet">
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+
+    <header class="header" style="background-color:#1d2028;">
+        <div class="header__dropdown d-flex justify-content-between">
+            <div class="d-flex d-lg-none align-self-center d-flex align-items-center mobile">
+                <img class="header__logo rounded-circle" src="~/files/app/discipline-icon-5.jpg">
+                <span><i class="fa fa-bars me-2"></i></span>
+            </div>
+            <div class="header__title align-items-center d-none d-lg-flex pe-4">
+                <img class="header__logo rounded-circle ms-2" src="~/images/black-logo.svg">
+                <h4 class="header__title text-center mb-0">سامانه مسابقات</h4>
+            </div>
+            <div class="d-flex align-items-center" onclick="document.getElementById('authInfo').classList.toggle('open')" style="cursor:pointer;">
+                <div class="position-relative">
+                    <img class="header__dropdown-profile-image"
+                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54088iJjHpn-y9FCxGAh5NBEdHugwIXewWQ&usqp=CAU"
+                         alt="">
+                    <span>
+                        <span class="mx-1"> @User.Identity.Name</span>
+                        <i class="fa fa-angle-down"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="header__dropdown-info" id="authInfo" style="background-color:rgba(120,120,120,.9)">
+                <ul>
+                    <li class="header__dropdown-item">
+                        <a class="header__dropdown-link d-flex align-items-center text-white" asp-area="Authentication" asp-controller="Account" asp-action="ChangePassword">
+                            <i class="fa fa-edit ms-2"></i>
+                            تغییر رمز عبور
+                        </a>
+                    </li>
+                    <li class="header__dropdown-item">
+                        <a class="header__dropdown-link d-flex align-items-center text-white" asp-area="Authentication" asp-controller="Account" asp-action="Logout">
+                            <i class="fa fa-sign-out ms-2"></i>
+                            خروج
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <div class="sidebar__wrapper">
+            <ul class="sidebar__list">
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Managment" asp-controller="Festival" asp-action="Index">
+                        <i class="fa-phoenix-framework fab ms-2 sidebar-icon"></i>
+                        جشنواره
+                    </a>
+                </li>
+                <li class="sidebar__item ">
+                    <a class="sidebar__link" asp-area="Managment" asp-controller="Match" asp-action="Index">
+                        <i class="fa-trophy-alt fas sidebar-icon ms-3" aria-hidden="true"></i>
+                        مسابقات ورزشی
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Managment" asp-controller="Extracurricular" asp-action="Index">
+                        <i class="fas fa-users-class sidebar-icon ms-3"></i>
+                        فوق برنامه
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Authentication" asp-controller="User" asp-action="Index">
+                        <i class="fa fa-user sidebar-icon ms-3"></i>
+                        کاربران
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Managment" asp-controller="Notification" asp-action="Index">
+                        <i class="fa-mailbox fas sidebar-icon ms-3"></i>
+                        مدیریت اطلاعیه ها
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Places" asp-controller="Place" asp-action="Index">
+                        <i class="fa-map-marker-alt fas sidebar-icon ms-3"></i>
+                        اماکن ورزشی
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Sports" asp-controller="Coach" asp-action="Index">
+                        <i class="fa-whistle fas sidebar-icon ms-3" style="font-size:1.2rem;"></i>
+                        مربیان
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Sports" asp-controller="Sport" asp-action="Index">
+                        <i class="fa-running fas sidebar-icon ms-3" style="font-size:1.5rem;"></i>
+                        رشته های ورزشی
+                    </a>
+                </li>
+
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="Sports" asp-controller="SportType" asp-action="Index">
+                        <i class="fa-cog fas sidebar-icon ms-3" style="font-size:1.5rem;"></i>
+                        مدیریت اطلاعات پایه
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a class="sidebar__link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fas fa-sign-out-alt sidebar-icon ms-3" style="font-size:1.5rem;"></i>
+                        خروج
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="main">
+        <partial name="_NotificationsPartial" />
+        @RenderBody()
+    </main>
+
+    @*************** Jquery ****************@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    @*************** Bootstarp ****************@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  
+    @***************** SweetAlert **************@
+    <script src="~/lib/bootstrap-sweetalert/sweetalert.min.js"></script>
+
+    @***************** Summernote **************@
+    <script src="~/lib/summernote/summernote-bs4.min.js"></script>
+
+    @*************** Custom ****************@
+    <script src="~/js/site.js"></script>
+    <script src="~/js/utility/removeAlert.js"></script>
+    <script src="~/js/utility/collapse.js"></script>
+    <script src="~/js/utility/dropdown.js"></script>
+    <script src="~/js/utility/pagenation.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

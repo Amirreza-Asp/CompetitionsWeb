@@ -1,0 +1,62 @@
+﻿.multi-select {
+    position: relative;
+}
+
+    .multi-select::before {
+        content: '>';
+        position: absolute;
+        left: 2%;
+        top: 0;
+        transform: translate(50%, 40%) rotate(-90deg) scaleX(1) scaleY(2);
+    }
+
+.text-input {
+    cursor: pointer;
+}
+
+.multi-select-list {
+    list-style: none;
+    border: 1px solid rgba(0,0,0,.6);
+    padding: 0;
+    margin: 0;
+    display: none;
+    translate: all .2s linear;
+}
+
+    .multi-select-list.active {
+        display: block;
+    }
+
+
+.multi-select-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.multi-select-check {
+    position: relative;
+}
+
+.check-icon {
+    width: 27px;
+    aspect-ratio: 1;
+    border: 1px solid rgba(0,0,0,.5);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .check-icon > i {
+        font-size: 17px;
+        color: rgb(0, 85, 197);
+        display: none;
+    }
+
+    .check-icon.active > i {
+        display: initial;
+    }

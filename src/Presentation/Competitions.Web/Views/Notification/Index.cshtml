@@ -1,0 +1,55 @@
+﻿@using Competitions.Common.Helpers
+@using Competitions.Domain.Entities
+@model Competitions.Web.Models.Notifications.NotifDataVM
+
+@section Styles{
+
+    <link rel="stylesheet" href="~/css/home/place-list.css" />
+}
+
+    <form method="get">
+        <div class="wrapper">
+            <section class="top">
+                <section>
+                    <div class="registry-bg">
+                        <h3 class="registry-title-top">اخبار و اطلاعیه</h3>
+                    </div>
+                </section>
+            </section>
+            <div class="m-3">
+
+                <div class="card-wrapper">
+                @foreach ( var item in Model.Notifications )
+                {
+                    <div class="card-item card px-3" style="width:100%;position:relative;">
+
+                        <div class="d-md-flex  justify-content-between align-items-center ">
+                
+                            <div class="col-md-6 col-12 mb-md-0 mb-4">
+                                <h3>عنوان: @item.Title</h3>
+                            </div>
+                            <div class="col-md-6 col-12 d-flex justify-content-md-end justify-content-center">
+                                <img src="@StaticEntitiesDetails.NotificationPath@item.Image.Name" alt="@item.Title" class="imagePlace" style="width:calc(100px + 50%);aspect-ratio:3;border-radius:10px 100px 10px 100px;"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p>شرح:  @Html.Raw(item.Description)</p>
+                        </div>
+
+                        <span style="position:absolute;left:10px;bottom:10px;font-size:14px;" class="text-secondary">
+                             @item.CreateDate.ToShamsi()
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <partial name="_PagenationPartial" model="@Model.Pagenation" />
+</form>
+
+@section Scripts{
+    <script src="~/js/utility/collapse.js"></script>
+    <script src="~/js/utility/dropdown.js"></script>
+    <script src="~/js/utility/pagenation.js"></script>
+}

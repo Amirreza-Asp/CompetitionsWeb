@@ -1,0 +1,28 @@
+﻿@model String
+
+@{
+	List<(String Action, String Name)> steps = new List<(String Action , String name)>
+    {
+		("FirstInfo" , "اطلاعات پایه بخش اول"),
+		("SecondInfo" , "اطلاعات پایه بخش دوم"),
+        ("MatchCondition" , "شرایط مسابقه"),
+        ("MatchDocument" , "مدارک"),
+        ("MatchAward" , "جوایز")
+    };
+}
+
+
+<div class="tab-visibility">
+	<div class="tab d-flex mb-4">
+		<div class="tab__list">
+			@foreach (var step in steps)
+			{
+				String classes = Model == step.Action ? "tab__item tab__item--active dec-font" : "tab__item dec-font";
+				<span   class="@classes">
+					@step.Name
+				</span>
+			}
+		</div>
+	</div>
+	<hr />
+</div>

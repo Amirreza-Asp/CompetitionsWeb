@@ -1,0 +1,102 @@
+﻿@using Competitions.Common.Helpers
+@using Competitions.Domain.Entities
+@model Competitions.Web.Models.Home.MatchHomeVM
+
+@section Styles{
+    <link href="~/css/home/index.css" rel="stylesheet" />
+}
+
+    <div class="d-flex justify-content-between flex-xl-row flex-column pb-4 pt-3">
+        <div class="col-xl-9 col-12  ms-3 sport-matches">
+            <div class="d-flex px-3 h-100">
+                <div class="d-flex flex-column sport-matches-content">
+                    <h2>مسابقات ورزشی دانشگاه رازی</h2>
+                    <p>
+                        هدف این سامانه اطلاع رسانی ، ثبت نام و شرکت دانشجویان و دیگر مخاطبین در مسابقات ورزشی دانشگاه رازی است
+                    </p>
+
+                </div>
+                <div class="sport-matches-img"></div>
+            </div>
+        </div>
+        <div class=" col-xl-3 col-12 cards-icons left-card-2">
+
+            <div routerLink="/Matchs" class="vs mb-3">
+
+                <a href="#">
+                <span class="register">ثبت نام</span>
+                </a>
+                <a asp-controller="Match" asp-action="Index">
+                <span class="matches ">مسابقات</span>
+                </a>
+                
+            </div>
+            <div routerLink="/Notifications" class="sport-fields mb-3">
+                <a asp-controller="Notification" asp-action="Index" style="text-decoration:none;">
+                <span class="text-white"> اطلاعیه ها </span>
+                </a>
+            </div>
+            <div routerLink="/Places" class="sport-places-2">
+                <a asp-controller="Place" asp-action="Index" style="text-decoration:none;">
+                <span class="text-white"> اماکن ورزشی دانشگاه</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="d-xl-flex">
+        <div class="col-xl-4  mx-xl-2 col-sm-12 mb-2">
+            <h3 class="py-3">
+                نزدیک ترین مسابقات
+                <a asp-controller="Match" asp-action="Index" class="notif-link">( آرشیو )</a>
+            </h3>
+        @foreach ( var item in Model.Matches )
+        {
+            <a href="#">
+                <div class="notification mb-3" style="background:linear-gradient(rgba(0,0,0,.3) , rgba(0,0,0,.5)) , url(@StaticEntitiesDetails.MatchImagePath@item.Image.Name) center center/cover;">
+                    <div class="p-relative d-flex align-items-center justify-content-between">
+                        <div>
+                            <p (click)="DetailNotification(item.id)" class="pe-2 text-light">عنوان : @item.Name</p>
+                            <p (click)="DetailNotification(item.id)" class="pe-2 text-light">برگذاری : @item.PutOn.From.ToShamsi() @item.PutOn.From.TimeOfDay.ToString().Substring(0,5)</p>
+                            <p (click)="DetailNotification(item.id)" class="pe-2 text-light">رشته ورزشی : @item.Sport.Name</p>
+                        </div>
+                        <div class="match-time">
+                            <p class="no-date text-light text-secondary ">@item.CreateDate.ToShamsi()</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+    <div routerLink="/Calender" class="col-xl-4 col-12  mx-xl-1 col-sm-12 mb-2">
+        <h3 class="py-3">تقویم مسابقات</h3>
+        <div class="calender-condition">
+            <a asp-controller="Match" asp-action="Calender">
+            <img src="~/images/Component 1 – 1.svg" alt="" />
+            <div class="back-drop">
+                <p class="text-white">نمایش تقویم مسابقات</p>
+            </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-4 mx-xl-2 col-sm-12">
+        <h3 class="py-3">
+            آخرین اطلاعیه ها
+            <a asp-controller="Notification" asp-action="Index" class="notif-link">( آرشیو )</a>
+        </h3>
+        @foreach ( var item in Model.Notifications )
+        {
+            <a asp-controller="Notification" asp-action="Index">
+                <div class="notification mb-3" style="background:linear-gradient(rgba(0,0,0,.3) , rgba(0,0,0,.5)) , url(@StaticEntitiesDetails.NotificationPath@item.Image.Name) center center/cover;">
+                    <div class="p-relative d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <p  class="pe-2 text-light">عنوان : @item.Title</p>
+                        </div>
+                        <div class="notif-time">
+                            <p class="no-date text-light text-secondary ">@item.CreateDate.ToShamsi()</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

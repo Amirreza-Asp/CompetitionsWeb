@@ -1,0 +1,25 @@
+.tab {
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+.tab__list {
+  min-width: max-content;
+}
+.tab__item {
+  display: inline-block;
+  background-color: white;
+  border-radius: 1.3rem 1.3rem 0 0;
+  padding: 0.6em 2em;
+  text-align: center;
+  color: black;
+  flex-shrink: 0;
+}
+.tab__item--active {
+  background-color: var(--c1);
+  color: white;
+}
+.tab__item + a {
+  margin-right: 0.5rem;
+}
+
+/*# sourceMappingURL=tabs.css.map */

@@ -1,0 +1,72 @@
+﻿@using Competitions.Web.Models
+@model Competitions.Web.Areas.Managment.Models.Extracurriculars.GetAllExtracurricularsVM
+
+
+@{
+    Layout = "_AdminLayout";
+}
+<div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+    <h3>لیست فوق برنامه ها</h3>
+    <div class="d-flex align-items-center">
+        <a asp-action="Create" class="btn btn--add d-flex align-items-center"><i class="fa fa-plus ms-2"></i>افزودن فوق برنامه جدید</a>
+
+        <button type="button" onclick="ShowFilters('ext-filters')" class="btn btn--filter d-flex align-items-center  me-2">
+            <i class="fa fa-filter ms-2"></i>فیلتر
+        </button>
+    </div>
+
+</div>
+
+
+<form method="get">
+
+    <partial name="_FilterPartial" model="@Model.Filter" />
+
+    <div class="table-overflow card shadow-sm">
+        <div class="table ">
+            <table class="table text-center" width="100%">
+                <thead>
+                    <tr>
+                        <th class="table__row">ردیف</th>
+                        <th>نام دوره</th>
+                        <th>رشته ورزشی</th>
+                        <th>نوع مخاطبین</th>
+                        <th>مکان برگذاری</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for ( int i = 0 ; i < Model.Extracurriculars.Count() ; i++ )
+                    {
+                        <tr>
+                            <td>
+                                @(
+                                    i + 1 + Model.Filter.Skip
+                                    )
+                            </td>
+                            <td>@Model.Extracurriculars.ElementAt(i).Name</td>
+                            <td>@Model.Extracurriculars.ElementAt(i).Sport</td>
+                            <td>@Model.Extracurriculars.ElementAt(i).AudienceType</td>
+                            <td>@Model.Extracurriculars.ElementAt(i).Place</td>
+                            <td>
+                                <div class="table__action">
+                                    <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Extracurriculars.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
+
+                                    <a class="btn btn--edit" asp-action="Update" asp-route-id="@Model.Extracurriculars.ElementAt(i).Id"><i class="fa fa-edit"></i></a>
+                                    <button type="button" class="btn btn--delete me-2" onclick="Delete('/Managment/Extracurricular/Remove/@Model.Extracurriculars.ElementAt(i).Id' , 'فوق برنامه')">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @{
+        var pagenation = new Pagenation(Model.Filter.Skip , Model.Filter.Take , Model.Filter.Total);
+    }
+    <partial name="_PagenationPartial" model="@pagenation" />
+</form>

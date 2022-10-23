@@ -1,0 +1,94 @@
+﻿@using Competitions.Application.Shared
+@model Competitions.Domain.Dtos.Sports.Coaches.UpdateCoachDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+        <h3 class="mb-4 mb-lg-0">ویرایش مربی</h3>
+    </div>
+    <section class="card shadow-sm ">
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نام:</label>
+                <input type="text" asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نام خانوادگی:</label>
+                <input type="text" asp-for="Family" class="form-control">
+                <span asp-validation-for="Family" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">کد ملی:</label>
+                <input type="text" asp-for="NationalCode" class="form-control">
+                <span asp-validation-for="NationalCode" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">شماره تلفن:</label>
+                <input type="text" asp-for="PhoneNumber" class="form-control">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 col-md-4">
+                <label class="form-label">انتخاب تحصیلات:</label>
+                <div class="dropdown">
+                    <select class="form-control" asp-for="Education" asp-items="@EducationList.GetSelectedItems()">
+                        <option selected disabled></option>
+                    </select>
+                </div>
+                <span asp-validation-for="Education" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 col-md-4">
+                <label class="form-label">انتخاب مدرک ورزشی:</label>
+                <div class="dropdown">
+                    <select class="form-control" asp-for="CETId" asp-items="@Model.CETs">
+                        <option selected disabled></option>
+                    </select>
+                </div>
+                <span asp-validation-for="CETId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 col-md-4">
+                <label class="form-label">انتخاب رشته ورزشی:</label>
+                <div class="dropdown">
+                    <select class="form-control" asp-for="SportId" asp-items="@Model.Sports">
+                        <option selected disabled></option>
+                    </select>
+                </div>
+                <span asp-validation-for="SportId" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">شرح:</label>
+            <textarea class="form-control summernote" asp-for="Description" rows="5"></textarea>
+        </div>
+    </section>
+
+    <div class="mt-3 text-center d-flex justify-content-center align-items-center">
+        <button onclick="return validateInput()" class="btn btn--submit mx-3 px-3">
+            ثبت
+        </button>
+        <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+            <i class="fas fa-reply my-1 mx-2"></i>
+        </button>
+    </div>
+
+</form>
+
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250
+            });
+        });
+    </script>
+}

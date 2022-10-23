@@ -1,0 +1,50 @@
+.table {
+  border-spacing: 0 .5rem;
+  border-collapse: separate;
+  min-width: max-content !important;
+
+  * {
+    border: none;
+  }
+  &__rows-per-page{
+    margin-top: 5px;
+  }
+
+  &-overflow {
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  th, tbody td {
+    text-align: center;
+  }
+
+  th {
+    padding: 1rem;
+    color: var(--c11);
+  }
+
+  tbody td {
+    padding: 1em;
+  }
+
+  tbody tr {
+    background-color: var(--c7);
+
+    & + tr {
+      margin-bottom: 1em;
+    }
+  }
+
+
+  &__action a + a {
+    margin-right: .3em;
+  }
+
+  &__action {
+
+    a:hover {
+      color: white !important;
+    }
+  }
+}

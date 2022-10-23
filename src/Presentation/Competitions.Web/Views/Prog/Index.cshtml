@@ -1,0 +1,52 @@
+﻿@using Competitions.Web.Models
+@model Competitions.Web.Models.Progs.GetAllProgsVM
+
+
+@{
+    Layout = "_Layout";
+}
+<div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+    <h3>لیست کلاس ها</h3>
+</div>
+
+
+<form method="get">
+
+    <div class="table-overflow card shadow-sm">
+        <div class="table ">
+            <table class="table text-center" width="100%">
+                <thead>
+                    <tr>
+                        <th class="table__row">ردیف</th>
+                        <th>نام دوره</th>
+                        <th>رشته ورزشی</th>
+                        <th>نوع مخاطبین</th>
+                        <th>مکان برگذاری</th>
+                        <th>مشاهده</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for ( int i = 0 ; i < Model.Extracurriculars.Count() ; i++ )
+                    {
+                        <tr>
+                            <td>
+                                @(i + 1 + Model.Pagenation.Skip)
+                            </td>
+                            <td>@Model.Extracurriculars.ElementAt(i).Name</td>
+                            <td>@Model.Extracurriculars.ElementAt(i).Sport</td>
+                            <td>@Model.Extracurriculars.ElementAt(i).AudienceType</td>
+                            <td>@Model.Extracurriculars.ElementAt(i).Place</td>
+                            <td>
+                                <div class="table__action">
+                                    <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Extracurriculars.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <partial name="_PagenationPartial" model="@Model.Pagenation" />
+</form>

@@ -1,0 +1,70 @@
+.hide {
+    display: none;
+}
+
+.dropdown {
+    position: relative;
+}
+
+    .dropdown::before {
+        content: '';
+        position: absolute;
+        width: 15px;
+        aspect-ratio: 1/1;
+        background-image: url("../lib/icons/icons8-expand-arrow-50.png");
+        background-clip: border-box;
+        background-position: center;
+        background-size: contain;
+        left: 2%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all .2s linear;
+    }
+
+select {
+    cursor: pointer;
+}
+
+option {
+    cursor: pointer;
+}
+
+.load {
+    animation: rotate .8s linear infinite;
+}
+
+i.sidebar-icon{
+    font-size:1.4rem;
+    margin-right:3px;
+}
+
+img.sidebar-icon{
+    width:32px !important;
+    aspect-ratio:1 !important;
+    object-fit:cover;
+    object-position:center;
+}
+
+.img-table {
+    width: 60px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+    border-radius:3px;
+    box-shadow:0 0 2px black;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(-1turn);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+@media only screen and (max-width: 1400px) and (min-width:1300px) {
+    .dec-font {
+        font-size: 14px;
+    }
+}

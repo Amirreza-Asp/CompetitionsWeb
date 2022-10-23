@@ -1,0 +1,115 @@
+﻿@using Competitions.Domain.Entities
+@model Competitions.Domain.Entities.Places.Place
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/home/place.css"/>
+    <link rel="stylesheet" href="~/css/home/place-list.css"/>
+
+}
+
+<div class="d-flex justify-content-end mb-4">
+    <a asp-action="Index" class="btn btn-secondary">
+        بازگشت
+            <i class="fas fa-reply my-1 mx-2"></i>
+    </a>
+</div>
+
+
+<section class="card shadow-sm px-5">
+
+
+        <h2 class="place-title text-info">نام : @Model.Title</h2>
+        <hr />
+
+    <div class="carou-container">
+        <div id="carouselExampleIndicators" class="carousel slide place-carousel" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @for ( int i = 0 ; Model.Images.Count() > 1 && i < Model.Images.Count() ; i++ )
+            {
+                if ( i == 0 )
+                {
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#carouselExampleIndicators" data-slide-to="@i"></li>
+                }
+            }
+        </ol>
+        <div class="carousel-inner">
+            @for ( int i = 0 ; i < Model.Images.Count() ; i++ )
+            {
+                if ( i == 0 )
+                {
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="@StaticEntitiesDetails.PlaceImagePath@Model.Images.ElementAt(0).Image.Name" alt="عکس @i">
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="@StaticEntitiesDetails.PlaceImagePath@Model.Images.ElementAt(i).Image.Name" alt="عکس @i">
+                    </div>
+                }
+            }
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">قبلی</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">بعدی</span>
+        </a>
+    </div>
+    </div>
+    <hr />
+    <p class="place-type mt-3">نوع : @Model.PlaceType.Title</p>
+    <p class="place-address">آدرس : @Model.Address</p>
+    <p class="place-supervisor-name">نام سرپرست : @Model.Supervisor.Name</p>
+    <p class="place-supervisor-phone">شماره سرپرست : @Model.Supervisor.PhoneNumber</p>
+    <p class="place-meterage">متراژ : @Model.Meterage</p>
+    <p class="place-sports mb-3">
+        ورزش های قابل اجرا :  @String.Join( ',' ,  Model.Sports.Select(u=>$" {u.Sport.Name} "))
+    </p>
+    <p class="mb-5">
+        <a asp-action="DownloadActivityPlan" asp-route-id="@Model.Id" class="btn btn-info text-white">دانلود برنامه فعالیت</a>
+    </p>
+
+    @if (Model.SubPlaces.Count() > 0)
+    {
+        <h5 class="mb-3 registry-bg">زیر مجموعه ها</h5>
+
+        <div class="card-wrapper">
+            @foreach (var item in Model.SubPlaces)
+            {
+                <div class="card-item card">
+                    <div style="margin:auto">
+                        <img src="@StaticEntitiesDetails.PlaceImagePath@item.Images.ElementAt(0).Image.Name" alt="" class="imagePlace" />
+                    </div>
+                    <div>
+                        <div>
+                            <p>نام مجموعه : @item.Title</p>
+                            <p>آدرس : @item.Address</p>
+                        </div>
+
+                        <div>
+                            <p>نام سرپرست : @item.Supervisor.Name</p>
+                            <p>شماره تماس : @item.Supervisor.PhoneNumber.Value</p>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center">
+                        <a asp-action="DownloadActivityPlan" asp-route-id="@item.Id" class="btn btn btn-primary m-2">
+                            دانلود برنامه فعالیت
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn btn-warning m-2">
+                            جزئیات
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

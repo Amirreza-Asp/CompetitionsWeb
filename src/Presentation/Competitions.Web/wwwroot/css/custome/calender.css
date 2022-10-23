@@ -1,0 +1,131 @@
+﻿.container {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    grid-gap: 10px;
+}
+
+.calender {
+    text-align: center;
+}
+
+.container > div {
+    background-image: linear-gradient(315deg, #E0EAFC4e 0%, white 100%);
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow:0 0 10px rgba(50,50,50,.5);
+}
+
+
+.month {
+    font-weight: bold;
+    font-size: large;
+    border-bottom: 1px solid rgba(30, 144, 255, .4);
+}
+
+.week {
+    border-bottom: 1px solid rgba(30, 144, 255 , .4);
+}
+
+.day,
+.week {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    grid-gap: 3px;
+}
+
+    .day p {
+        aspect-ratio: 2.5/1;
+        margin: 0;
+        margin-block:2px;
+    }
+
+.day {
+    position: relative;
+}
+
+.day p {
+    position: relative;
+}
+
+    .day p span {
+        height:100%;
+        aspect-ratio:1;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .day p.calender-men-day:hover > span ,
+    .day p.calender-women-day:hover > span {
+        background: lightskyblue;
+        color: white;
+        border-radius: 75%;
+        cursor:pointer;
+    }
+
+    .day p.calender-women-day:hover > span {
+        background-color: #fc7703 !important;
+    }
+
+        .day p:not(.calender-men-day),
+        .day p:not(.calender-women-day) {
+            cursor: initial;
+        }
+
+.has-meeting.calender-men-day {
+    color: rgb(30, 144, 255);
+}
+
+.has-meeting.calender-women-day {
+    color: #fc7703;
+}
+
+    .has-meeting.calender-men-day:hover > span {
+        background: rgb(30,144,255) !important;
+    }
+.has-meeting.calender-women-day:hover > span {
+    background: #fc7703 !important;
+}
+    .has-meeting:hover > span::before {
+        display:none;
+    }
+
+    .has-meeting > span {
+        position: relative;
+    }
+
+.has-meeting>span::before{
+    content:'';
+    position:absolute;
+    background-color:rgb(30,144,255);
+    width:8%;
+    aspect-ratio:1;
+    border-radius:50%;
+    right:10%;
+    top:10%;
+    animation:anim-point 2s ease-in-out infinite;
+}
+
+.has-meeting.calender-women-day > span::before {
+    background-color: #fc7703;
+}
+
+@keyframes anim-point {
+    from{
+        opacity:0;
+    }
+    50%{
+        opacity:1;
+    }
+    to{
+        opacity:0;
+    }
+}

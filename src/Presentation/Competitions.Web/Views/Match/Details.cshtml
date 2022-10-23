@@ -1,0 +1,61 @@
+﻿@using Competitions.Common.Helpers
+@using Competitions.Domain.Entities
+@model Competitions.Domain.Entities.Managment.Match
+
+@section Styles{
+    <style>
+        .match-img{
+            width:calc(40vw + 200px);
+            aspect-ratio:2;
+            object-size:cover;
+            object-position:center;
+            box-shadow:0 0 10px black;
+        }
+    </style>
+}
+
+<section class="card  shadow-sm ">
+    <div class="p-3">
+        <h3>@Model.Name</h3>
+        <hr />
+        <div class="d-flex justify-content-center">
+            <img src="@StaticEntitiesDetails.MatchImagePath@Model.Image.Name" class="match-img" alt="image"/>
+         </div>
+        <hr />
+        <div class="row">
+            <p class="col-md-6 mb-3">رشته ورزشی : @Model.Sport.Name</p>
+            <p class="col-md-6 mb-3">مکان : @Model.Place.Title</p>
+            <p class="col-md-6 mb-3">سطح : @Model.Level</p>
+            <p class="col-md-6 mb-3">جنسیت : @(Model.Gender ? "دختران" : "پسران")</p>
+            <p class="col-md-6 mb-3">ظرفیت : @Model.Capacity نفر</p>
+            <p class="col-md-6 mb-3">تعداد افراد هر تیم : @Model.TeamCount نفر</p>
+            <p class="col-md-6 mb-3">شروع ثبت نام : @Model.Register.From.ToShamsi() @Model.Register.From.TimeOfDay.ToString().Substring(0,5)</p>
+            <p class="col-md-6 mb-3">اتمام ثبت نام : @Model.Register.To.ToShamsi() @Model.Register.To.TimeOfDay.ToString().Substring(0,5)</p>
+            <p class="col-md-6 mb-3">تاریخ برگذاری : @Model.PutOn.From.ToShamsi()  @Model.PutOn.From.TimeOfDay.ToString().Substring(0,5)</p>
+            <p class="col-md-6 mb-3">تاریخ اتمام  : @Model.PutOn.To.ToShamsi()  @Model.PutOn.To.TimeOfDay.ToString().Substring(0,5)</p>
+            <p class="col-md-6 mb-3">افراد مجاز : @String.Join(',' , Model.AudienceTypes.Select(u=>u.AudienceType.Title))</p>
+            <p class="col-md-6 mb-3">هزینه : @(Model.Conditions.Free ? "رایگان" : $"{Model.Conditions.Payment} تومان")</p>
+            <p class="col-md-6 mb-3">شرایط : <a src="@StaticEntitiesDetails.MatchConditionsRegulationsPath@Model.Conditions.Regulations.Name">دانلود</a></p>
+        </div>
+        <p>
+           مدارک  :
+            @foreach ( var item in Model.Documents )
+            {
+                <span class="badge bg-info" style="font-size:.9rem;">
+                     @item.Evidence.Title
+                </span>
+            }
+        </p>
+        <p>
+            جوایز :
+            @foreach ( var item in Model.Awards )
+            {
+                <span class="badge bg-info" style="font-size:.9rem;">
+                   رتبه :  @item.Score &nbsp; جایزه : @item.Prize
+                </span>
+            }
+        </p>
+     
+        <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">ثبت نام</a>
+    </div>
+</section>

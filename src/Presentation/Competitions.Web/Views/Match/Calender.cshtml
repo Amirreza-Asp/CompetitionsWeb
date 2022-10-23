@@ -1,0 +1,166 @@
+﻿@using System.Globalization;
+@using Competitions.Common.Helpers
+@using PersianTools.Core
+@model Competitions.Web.Models.Calenders.MatchCalenderFilter
+
+
+
+@section Styles{
+    <link href="~/css/custome/modal.min.css" rel="stylesheet" />
+    <link href="~/css/custome/calender.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar-5.5.1/lib/main.min.css" rel="stylesheet" />
+    <style>
+        .fc-day-today{
+            background-color:initial !important;
+        }
+        .gender-box{
+            width:35px;
+            aspect-ratio:1;
+        }
+    </style>
+}
+
+    <div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+        <h3>برنامه برگذاری مسابقات</h3>
+        <div class="d-flex align-items-center mb-3">
+            <span>پسران</span>
+            <div class="gender-box me-2 ms-4" style="background-color:#03a5fc"></div>
+            <span>دختران</span>
+            <div class="gender-box mx-2" style="background-color:#fc7703;"></div>
+        </div>
+    </div>
+    <hr />
+
+       @{
+            List<(String Text, String Value)> steps = new List<(String Text, String Value)>();
+            Model.GetLevels().ToList().ForEach(item => steps.Add(new(item.Text , item.Value)));
+        }
+
+    <div class="tab-visibility mt-4">
+        <div class="tab d-flex justify-content-center mb-4">
+            <div class="tab__list">
+            @foreach ( var step in steps )
+            {
+                String classes = Model.Level == step.Value ? "tab__item tab__item--active dec-font" : "tab__item dec-font";
+                    <a asp-action="Calender" asp-route-Level="@step.Value" class="@classes">
+                        @step.Text
+                    </a>
+                
+            }
+        </div>
+    </div>
+</div>
+
+
+
+    <div id="calendar2"></div>
+    @{
+            var UnixEpochTicks = ( new DateTime(1970 , 1 , 1 , 0 , 0 , 0 , DateTimeKind.Utc) ).Ticks;
+    var d = ( Model.MatchDate.ToUniversalTime().Ticks - UnixEpochTicks ) / 10000;
+    }
+    <input id="matchDate" value="@d" hidden />
+    <div class="backdrop"></div>
+
+    @section Scripts{
+    <script src="~/lib/moment/moment.min.js"></script>
+    <script src="~/js/calender/calender.js"></script>
+    <script src="~/lib/fullcalendar-5.5.1/lib/main.min.js"></script>
+    <script src="~/lib/fullcalendar-shamsi-main/fullcalendar.min.js"></script>
+    <script src="~/lib/fullcalendar-5.5.1/lib/locales-all.min.js"></script>
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let initialLocaleCode = "fa";
+            let localeSelectorEl = document.getElementById("locale-selector");
+            let calendarEl = document.getElementById("calendar2");
+
+
+
+            let today =new Date(Number.parseInt(document.getElementById("matchDate").value));
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy + "-" + mm + "-" + dd;
+
+            console.log("today : "  , today)
+            const matchDate = document.getElementById("matchDate");
+
+            var data = []
+
+            $.ajax({
+                url: `/Match/CalenderInfo`,
+                type: "GET",
+                success: function (info) {
+
+                    if (info.success) {
+                        let events = info.data;
+
+                        data = []
+                        Array.from(events).forEach(item=>{
+                            data.push({
+                                title : item.name,
+                                start : item.start,
+                                end : item.end,
+                                url : item.url,
+                                color: item.gender == true ? "#fc7703" : "#03a5fc"
+                            })
+                        })
+
+                        AddCalender();
+                    }
+                }
+            });
+
+   
+
+            function AddCalender(){
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    headerToolbar: {
+                        left: "prev,next",
+                        center: "title",
+                        right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+                    },
+                    initialDate: today,
+                    locale: initialLocaleCode,
+                    buttonIcons: true, // show the prev/next text
+                    navLinks: false, // can click day/week names to navigate views
+                    editable: true,
+                    dayMaxEvents: true, // allow "more" link when too many events
+                    customButtons: {
+                        prev: {
+                            text: 'Prev',
+                            click: function () {
+
+                                    const link = document.createElement("a");
+                                    link.href = "/Match/Calender?dir=prev"
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    link.remove();
+                                
+                            }
+                        },
+                        next: {
+                            text: 'Next',
+                            click: function () {
+
+                                const link = document.createElement("a");
+                                link.href = "/Match/Calender?dir=next"
+                                document.body.appendChild(link);
+                                link.click();
+                                link.remove();
+                            }
+                        },
+                    },
+                    events: data
+                });
+
+                calendar.render();
+            }
+
+            
+        });
+
+    </script>
+}

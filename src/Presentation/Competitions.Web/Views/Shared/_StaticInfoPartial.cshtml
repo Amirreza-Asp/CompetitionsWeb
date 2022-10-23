@@ -1,0 +1,28 @@
+﻿@model String
+
+@{
+	List<(String Area, String Controller, String Name)> steps = new List<(String area, String controller, String name)>
+    {
+        ("Sports","SportType" , "نوع ورزش"),
+        ("Places" , "PlaceType" , "نوع مکان های ورزشی"),
+        ("Static" , "Evidence" , "مدارک"),
+        ("Sports" , "CoachEvidenceType" , "نوع مدارک مربیگری"),
+        ("Static" , "AudienceType" , "نوع مخاطب")
+    };
+}
+
+
+<div class="tab-visibility">
+	<div class="tab d-flex mb-4">
+		<div class="tab__list">
+			@foreach (var step in steps)
+			{
+				String classes = Model == step.Controller ? "tab__item tab__item--active dec-font" : "tab__item dec-font";
+				<a asp-area="@step.Area" asp-controller="@step.Controller" asp-action="Index"   class="@classes">
+					@step.Name
+				</a>
+			}
+		</div>
+	</div>
+	<hr />
+</div>
