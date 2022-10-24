@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Competitions.Application;
 using Competitions.Application.Sports.Interfaces;
 using Competitions.Common;
 using Competitions.Common.Helpers;
@@ -80,6 +79,13 @@ namespace Competitions.Web.Areas.Sports.Controllers
                 return View(command);
             }
 
+            if ( files.Any() && files[0].ReadBytes().Length > SD.ImageSizeLimit )
+            {
+                command.SportTypes = _sportTypeService.GetSelectedList();
+                TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                return View(command);
+            }
+
             var entity = new Sport(command.Name , command.Description ,
                 new Document(files[0].FileName , files[0].ReadBytes()) , command.SportTypeId);
             entity.SaveImage();
@@ -114,6 +120,13 @@ namespace Competitions.Web.Areas.Sports.Controllers
 
             var entity = await _sportRepo.FindAsync(command.Id);
             var files = HttpContext.Request.Form.Files;
+
+            if ( files.Any() && files[0].ReadBytes().Length > SD.ImageSizeLimit )
+            {
+                command.SportTypes = _sportTypeService.GetSelectedList();
+                TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                return View(command);
+            }
 
             if ( files.Any() )
             {

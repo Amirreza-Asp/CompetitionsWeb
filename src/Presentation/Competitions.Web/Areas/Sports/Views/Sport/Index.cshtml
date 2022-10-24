@@ -34,7 +34,7 @@
                         <tr class="text-center">
                             <th>ردیف</th>
                             <th>عنوان</th>
-                            <th>عکس</th>
+                            @*<th>عکس</th>*@
                             <th>تاریخ ایجاد</th>
                             <th>عملیات</th>
                         </tr>
@@ -45,9 +45,9 @@
                             <tr class="text-center">
                                 <td>@(i + 1 + Model.Filters.Skip)</td>
                                 <td>@Model.Entities.ElementAt(i).Name</td>
-                                <td>
+                         @*       <td>
                                     <img class="img-table" src="@StaticEntitiesDetails.SportImagePath@Model.Entities.ElementAt(i).Image">
-                                </td>
+                                </td>*@
                                 <td>@Model.Entities.ElementAt(i).CreateDate.ToShamsi()</td>
                                 <td>
                                     <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-eye"></i></a>

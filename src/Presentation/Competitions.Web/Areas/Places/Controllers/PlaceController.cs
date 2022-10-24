@@ -84,16 +84,8 @@ namespace Competitions.Web.Areas.Places.Controllers
 
         public async Task<IActionResult> Create ()
         {
-            var dto = new CreatePlaceDto
-            {
-                Places = await _placeRepo.GetAllAsync<SelectListItem>(
-                    filter: entity => entity.ParentPlaceId == null ,
-                    select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() }) ,
-
-                Types = await _placeTypeRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() }) ,
-                Sports = await _sportRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Name , Value = entity.Id.ToString() })
-            };
-
+            var dto = new CreatePlaceDto();
+            dto = await FillPlaceInfo(dto);
             return View(dto);
         }
         [HttpPost]
@@ -101,15 +93,24 @@ namespace Competitions.Web.Areas.Places.Controllers
         {
             if ( !ModelState.IsValid )
             {
-                command.Places = await _placeRepo.GetAllAsync<SelectListItem>(
-                    filter: entity => entity.ParentPlaceId == null ,
-                    select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
-                command.Types = await _placeTypeRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
-                command.Sports = await _sportRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Name , Value = entity.Id.ToString() });
+                command = await FillPlaceInfo(command);
                 return View(command);
             }
 
             var files = HttpContext.Request.Form.Files;
+            if ( files.Any() )
+            {
+                foreach ( var file in files )
+                {
+                    if ( file.Length > SD.ImageSizeLimit )
+                    {
+                        command = await FillPlaceInfo(command);
+                        TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                        return View(command);
+                    }
+                }
+            }
+
             await _placeService.CreateAsync(command , files);
             TempData[SD.Success] = "مکان با موفقیت ذخیره شد";
             return RedirectToAction(nameof(Index) , _filters);
@@ -132,13 +133,7 @@ namespace Competitions.Web.Areas.Places.Controllers
                 return RedirectToAction(nameof(Index) , _filters);
             }
 
-            place.Places = await _placeRepo.GetAllAsync<SelectListItem>(
-                filter: entity => entity.Id != place.Id && entity.ParentPlaceId == null ,
-                select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
-
-            place.Types = await _placeTypeRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
-            place.Sports = await _sportRepo.GetAllAsync<SelectListItem>(
-                select: entity => new SelectListItem { Text = entity.Name , Value = entity.Id.ToString() });
+            place = ( UpdatePlaceDto ) await FillPlaceInfo(place);
             return View(place);
         }
         [HttpPost]
@@ -146,14 +141,8 @@ namespace Competitions.Web.Areas.Places.Controllers
         {
             if ( !ModelState.IsValid )
             {
-                command.Places = await _placeRepo.GetAllAsync<SelectListItem>(
-                        filter: entity => entity.Id != command.Id && entity.ParentPlaceId == null ,
-                       select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
 
-                command.Types = await _placeTypeRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
-
-                command.Sports = await _sportRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Name , Value = entity.Id.ToString() });
-
+                command = ( UpdatePlaceDto ) await FillPlaceInfo(command);
                 command.CurrentImages = await _placeImageRepo.GetAllAsync<PlaceImageDto>(
                     filter: u => u.PlaceId == command.Id ,
                     select: entity => _mapper.Map<PlaceImageDto>(entity));
@@ -162,6 +151,20 @@ namespace Competitions.Web.Areas.Places.Controllers
             }
 
             var files = HttpContext.Request.Form.Files;
+
+            if ( files.Any() )
+            {
+                foreach ( var file in files )
+                {
+                    if ( file.Length > SD.ImageSizeLimit )
+                    {
+                        command = ( UpdatePlaceDto ) await FillPlaceInfo(command);
+                        TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                        return View(command);
+                    }
+                }
+            }
+
             await _placeService.UpdateAsync(command , files);
             TempData[SD.Info] = "ویرایش با موفقیت انجام شد";
 
@@ -271,6 +274,20 @@ namespace Competitions.Web.Areas.Places.Controllers
             string filePath = _hostEnv.WebRootPath + StaticEntitiesDetails.PlaceImagePath + file;
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes , "application/force-download" , $"{new Random().Next(100 , int.MaxValue)}{Path.GetExtension(file)}");
+        }
+
+
+
+        private async Task<CreatePlaceDto> FillPlaceInfo ( CreatePlaceDto command )
+        {
+
+            command.Places = await _placeRepo.GetAllAsync<SelectListItem>(
+                filter: entity => entity.ParentPlaceId == null ,
+                select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
+            command.Types = await _placeTypeRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
+            command.Sports = await _sportRepo.GetAllAsync<SelectListItem>(select: entity => new SelectListItem { Text = entity.Name , Value = entity.Id.ToString() });
+
+            return command;
         }
     }
 }

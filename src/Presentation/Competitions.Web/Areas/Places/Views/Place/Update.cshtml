@@ -27,7 +27,6 @@
                     <label class="form-label">نوع مجموعه:</label>
                     <div class="dropdown">
                         <select asp-for="PlaceTypeId" asp-items="@Model.Types" class="form-control">
-                            <option selected disabled></option>
                         </select>
                     </div>
                     <span asp-validation-for="Title" class="text-danger"></span>
@@ -77,7 +76,7 @@
                 </div>
                 <div class="mb-3 col-12">
                     <label class="form-label">عکس:</label>
-                    <input type="file" id="uploadBox" accept="Image/*" multiple hidden asp-for="NewImages" onchange="$('#choose-file').html(this.value)" />
+                    <input type="file" id="uploadBox" accept="image/*" multiple hidden asp-for="NewImages" onchange="$('#choose-file').html(this.value)" />
                     <button type="button" onclick="$('#uploadBox').click()" id="choose-file" class="form-control">انتخاب عکس</button>
                 </div>
             </div>

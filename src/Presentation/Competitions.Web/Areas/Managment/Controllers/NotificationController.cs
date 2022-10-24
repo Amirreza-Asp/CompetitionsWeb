@@ -63,6 +63,12 @@ namespace Competitions.Web.Areas.Managment.Controllers
             if ( !ModelState.IsValid || !files.Any() )
                 return View(command);
 
+            if ( files.Any() && files[0].ReadBytes().Length > SD.ImageSizeLimit )
+            {
+                TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                return View(command);
+            }
+
             var notif = new Notification(command.Title , command.Description , new Document(files[0].FileName , files[0].ReadBytes()));
             notif.SaveImage();
             _notifRepo.Add(notif);
@@ -94,6 +100,12 @@ namespace Competitions.Web.Areas.Managment.Controllers
 
             var files = HttpContext.Request.Form.Files;
             Notification notif = await _notifRepo.FindAsync(command.Id);
+
+            if ( files.Any() && files[0].ReadBytes().Length > SD.ImageSizeLimit )
+            {
+                TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                return View(command);
+            }
 
             if ( files.Any() )
             {

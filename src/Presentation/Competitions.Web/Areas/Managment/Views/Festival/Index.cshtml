@@ -23,7 +23,7 @@
 						<th>عنوان</th>
 						<th> شروع</th>
 						<th>پایان</th>
-						<th>تصویر</th>
+						@*<th>تصویر</th>*@
 						<th>عملیات</th>
 					</tr>
 				</thead>
@@ -35,9 +35,9 @@
 							<td>@Model.Entities.ElementAt(i).Title</td>
 							<td>@Model.Entities.ElementAt(i).Duration.From.ToShamsi()</td>
 							<td>@Model.Entities.ElementAt(i).Duration.To.ToShamsi()</td>
-							<td>
+			@*				<td>
                                     <img class="img-table" src="@StaticEntitiesDetails.FestivalImagePath@Model.Entities.ElementAt(i).Image.Name">
-							</td>
+							</td>*@
 							<td>
 								<a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
 								<a class="btn btn--edit me-2" asp-action="Update" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-edit"></i></a>

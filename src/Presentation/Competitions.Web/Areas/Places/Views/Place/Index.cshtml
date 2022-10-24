@@ -19,7 +19,7 @@
 					<tr class="text-center">
 						<th>ردیف</th>
 						<th>عنوان</th>
-						<th>تصویر</th>
+						@*<th>تصویر</th>*@
 						<th>آدرس</th>
 						<th>نام سرپرست</th>
 						<th>برنامه فعالیت</th>
@@ -32,9 +32,9 @@
 						<tr class="text-center">
 							<td>@(i+1+Model.Filters.Skip)</td>
 							<td>@Model.Places.ElementAt(i).Title</td>
-							<td>   
+	@*						<td>   
 								<img class="img-table" src="@StaticEntitiesDetails.PlaceImagePath@Model.Places.ElementAt(i).Image">
-                             </td>
+                             </td>*@
 							<td>@Model.Places.ElementAt(i).Address</td>
 							<td>@Model.Places.ElementAt(i).SupervisorName</td>
 							<td>

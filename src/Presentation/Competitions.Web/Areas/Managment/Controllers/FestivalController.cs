@@ -72,6 +72,18 @@ namespace Competitions.Web.Areas.Managment.Controllers
 
             var files = HttpContext.Request.Form.Files;
 
+            if ( files.Count() == 0 )
+            {
+                TempData[SD.Error] = "عکس جشنواره را وارد کنید";
+                return View(command);
+            }
+
+            if ( files[0].ReadBytes().Length > SD.ImageSizeLimit )
+            {
+                TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                return View(command);
+            }
+
             var entity = new Festival(command.Title , new DateTimeRange(command.Start , command.End) ,
                 command.Description , new Document(files[0].FileName , files[0].ReadBytes()));
 
@@ -116,6 +128,13 @@ namespace Competitions.Web.Areas.Managment.Controllers
 
             if ( files.Any() )
             {
+                if ( files[0].ReadBytes().Length > SD.ImageSizeLimit )
+                {
+                    TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                    return View(command);
+                }
+
+
                 entity.DeleteImage();
                 entity.WithImage(new Document(files[0].FileName , files[0].ReadBytes()));
                 entity.SaveImage();

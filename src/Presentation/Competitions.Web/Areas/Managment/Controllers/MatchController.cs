@@ -199,6 +199,12 @@ namespace Competitions.Web.Areas.Managment.Controllers
                 return View(command);
             }
 
+            if ( files.Any() && files[0].ReadBytes().Length > SD.ImageSizeLimit )
+            {
+                TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
+                return View(command);
+            }
+
             if ( files.Any() )
             {
                 command.ImageFile = files[0].ReadBytes();

@@ -21,7 +21,7 @@
                         <tr class="text-center">
                             <th>ردیف</th>
                             <th>عنوان</th>
-                            <th>تصویر</th>
+                            @*<th>تصویر</th>*@
                             <th>عملیات</th>
                         </tr>
                     </thead>
@@ -31,9 +31,9 @@
                             <tr class="text-center">
                                 <td>@(i + 1 + Model.Filters.Skip)</td>
                                 <td>@Model.Entities.ElementAt(i).Title</td>
-                                <td>
+                 @*               <td>
                                     <img class="img-table" src="@StaticEntitiesDetails.NotificationPath@Model.Entities.ElementAt(i).Image.Name">
-                                </td>
+                                </td>*@
                                 <td>
                                     <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn--edit me-2" asp-action="Update" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-edit"></i></a>
