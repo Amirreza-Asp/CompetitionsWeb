@@ -41,6 +41,7 @@ namespace Competitions.Web
 				options.IdleTimeout = TimeSpan.FromMinutes(60);
 				options.Cookie.HttpOnly = true;
 				options.Cookie.IsEssential = true;
+
 			});
 
 
@@ -65,7 +66,7 @@ namespace Competitions.Web
 
 			app.UseAuthentication();
 			app.UseAuthorization();
-
+			app.UseSession();
 			dbInitializer.Execute();
 			app.UseEndpoints(endpoints =>
 			{

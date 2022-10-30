@@ -23,6 +23,9 @@
                 </div>
                 <div class="row">
                     <h5 class="my-4">مدارک</h5>
+                    @if(Model.Documents==null){
+                    Model.Documents = new List<Competitions.Domain.Entities.Managment.MatchDocument>();
+                }
                     @for ( int j = 0 ; j < Model.Documents.Count() ; j++ )
                     {
                         <div class="col-md-4 mb-3">

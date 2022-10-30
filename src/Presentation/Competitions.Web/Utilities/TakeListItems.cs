@@ -12,10 +12,10 @@ namespace Competitions.Web.Utilities
 			50
 		};
 
-		public static IEnumerable<SelectListItem> GetSelectedNumbers() =>
+		public static IEnumerable<SelectListItem> GetSelectedNumbers () =>
 			_numbers.Select(number => new SelectListItem
 			{
-				Text = number.ToString(),
+				Text = number.ToString() ,
 				Value = number.ToString()
 			});
 	}

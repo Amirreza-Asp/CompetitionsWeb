@@ -24,12 +24,14 @@ document.querySelectorAll(".sidebar__collapse").forEach(item => {
 
 //dropdown
 window.addEventListener('click', function (e) {
-    if (document.getElementById('dropdown-auth').contains(e.target)) {
-        if (document.querySelector(".header__dropdown-info"))
-            document.querySelector(".header__dropdown-info").classList.toggle("open")
-    } else {
-        if (document.querySelector(".header__dropdown-info"))
-            document.querySelector(".header__dropdown-info").classList.remove("open")
+    if (document.getElementById('dropdown-auth') != null) {
+        if (document.getElementById('dropdown-auth').contains(e.target)) {
+            if (document.querySelector(".header__dropdown-info"))
+                document.querySelector(".header__dropdown-info").classList.toggle("open")
+        } else {
+            if (document.querySelector(".header__dropdown-info"))
+                document.querySelector(".header__dropdown-info").classList.remove("open")
+        }
     }
 });
 

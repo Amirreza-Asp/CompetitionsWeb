@@ -21,5 +21,7 @@
 		public const long ImageSizeLimit = 2 * 1024 * 1024;
 		public const String ImageSizeLimitDisplay = "2 مگابایت";
 
+		public const String Match = "Match";
+
 	}
 }

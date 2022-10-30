@@ -89,7 +89,7 @@ namespace Competitions.Web.Controllers
         }
 
 
-        private static RegisterMatchListDto _registerMatchList = new RegisterMatchListDto();
+        private static RegisterMatchListDto matchList = new RegisterMatchListDto();
         public async Task<IActionResult> Register ( Guid id )
         {
             var match = await _matchRepo.FirstOrDefaultAsync(u => u.Id == id ,
@@ -103,7 +103,7 @@ namespace Competitions.Web.Controllers
                 return RedirectToAction(nameof(Index) , _filters);
             }
 
-            _registerMatchList = new RegisterMatchListDto()
+            matchList = new RegisterMatchListDto()
             {
                 MatchId = match.Id ,
                 TeamCount = match.TeamCount ,
@@ -119,7 +119,7 @@ namespace Competitions.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register ( RegisterMatchDto command )
         {
-            command.Documents = _registerMatchList.Documents;
+            command.Documents = matchList.Documents;
             if ( !ModelState.IsValid )
                 return View(command);
 
@@ -130,20 +130,20 @@ namespace Competitions.Web.Controllers
                 return View(command);
             }
 
-            if ( user.Gender != _registerMatchList.Gender )
+            if ( user.Gender != matchList.Gender )
             {
                 TempData[SD.Error] = "جنسیت شخص انتخاب شده خلاف قوانین مسابقه است";
                 return View(command);
             }
 
-            if ( _userTeamRepo.FirstOrDefault(u => u.UserId == user.Id && u.Team.Match.Id == _registerMatchList.MatchId) != null )
+            if ( _userTeamRepo.FirstOrDefault(u => u.UserId == user.Id && u.Team.Match.Id == matchList.MatchId) != null )
             {
                 TempData[SD.Warning] = $"کاربر {user.Name + ' ' + user.Family} با شماره دانشجویی {user.StudentNumber.Value} قبلا در تیمی دیگر عضو شده است";
                 return View(command);
             }
 
             var files = HttpContext.Request.Form.Files;
-            if ( files.Count() < _registerMatchList.Documents.Count() )
+            if ( files.Count() < matchList.Documents.Count() )
             {
                 TempData[SD.Error] = "فایل های لازم را کامل کنید";
                 return View(command);
@@ -154,22 +154,22 @@ namespace Competitions.Web.Controllers
             foreach ( var file in files )
                 command.FilesBytes.Add(new(file.FileName , file.ReadBytes()));
 
-            _registerMatchList.RegisterMatches.Add(command);
+            matchList.RegisterMatches.Add(command);
 
-            if ( _registerMatchList.TeamCount != _registerMatchList.RegisterMatches.Count() )
+            if ( matchList.TeamCount != matchList.RegisterMatches.Count() )
             {
                 var rg = new RegisterMatchDto()
                 {
-                    TeamCount = _registerMatchList.TeamCount ,
-                    Number = _registerMatchList.RegisterMatches.Count() + 1 ,
-                    Documents = _registerMatchList.Documents
+                    TeamCount = matchList.TeamCount ,
+                    Number = matchList.RegisterMatches.Count() + 1 ,
+                    Documents = matchList.Documents
                 };
 
                 return View(rg);
             }
 
-            Team team = new Team(_registerMatchList.MatchId);
-            foreach ( var item in _registerMatchList.RegisterMatches )
+            Team team = new Team(matchList.MatchId);
+            foreach ( var item in matchList.RegisterMatches )
             {
                 var userId = _userRepo.FirstOrDefaultSelect(filter: u => u.StudentNumber.Value == item.StudentNumber.ToString() , select: u => u.Id);
                 var userTeam = new UserTeam(team.Id , userId);
@@ -187,7 +187,7 @@ namespace Competitions.Web.Controllers
             _teamRepo.Add(team);
             await _teamRepo.SaveAsync();
 
-            TempData[SD.Success] = _registerMatchList.TeamCount == 1 ? "شخص انتخاب شده با موفقیت وارد مسابقه شد" : "تیم وارد شده با موفقیت به مسابقه اضافه شدند";
+            TempData[SD.Success] = matchList.TeamCount == 1 ? "شخص انتخاب شده با موفقیت وارد مسابقه شد" : "تیم وارد شده با موفقیت به مسابقه اضافه شدند";
             return RedirectToAction(nameof(Index) , _filters);
         }
 
