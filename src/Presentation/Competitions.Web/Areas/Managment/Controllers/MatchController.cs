@@ -8,6 +8,7 @@ using Competitions.Domain.Entities.Managment.Spec;
 using Competitions.Domain.Entities.Places;
 using Competitions.Domain.Entities.Static;
 using Competitions.Web.Areas.Managment.Models.Matches;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ using Newtonsoft.Json;
 namespace Competitions.Web.Areas.Managment.Controllers
 {
     [Area("Managment")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class MatchController : Controller
     {
         private readonly IRepository<Match> _matchRepo;
@@ -27,10 +29,11 @@ namespace Competitions.Web.Areas.Managment.Controllers
         private readonly IMapper _mapper;
         private readonly IRepository<Evidence> _evdRepo;
         private readonly IMatchService _matchService;
+        private readonly IRepository<Team> _teamRepo;
 
         private static MatchFilter _filters = new MatchFilter();
 
-        public MatchController ( IRepository<Match> matchRepo , IMapper mapper , IRepository<Festival> festivalRepo , IRepository<Place> placeRepo , IRepository<AudienceType> audRepo , IRepository<MatchConditions> mcoRepo , IRepository<MatchDocument> matchDocRepo , IRepository<Evidence> evdRepo , IMatchService matchService )
+        public MatchController ( IRepository<Match> matchRepo , IMapper mapper , IRepository<Festival> festivalRepo , IRepository<Place> placeRepo , IRepository<AudienceType> audRepo , IRepository<MatchConditions> mcoRepo , IRepository<MatchDocument> matchDocRepo , IRepository<Evidence> evdRepo , IMatchService matchService , IRepository<Team> teamRepo )
         {
             _matchRepo = matchRepo;
             _mapper = mapper;
@@ -41,6 +44,7 @@ namespace Competitions.Web.Areas.Managment.Controllers
             _matchDocRepo = matchDocRepo;
             _evdRepo = evdRepo;
             _matchService = matchService;
+            _teamRepo = teamRepo;
         }
 
         public IActionResult Index ( MatchFilter filters )
@@ -58,6 +62,8 @@ namespace Competitions.Web.Areas.Managment.Controllers
 
             return View(vm);
         }
+
+        //https://172.17.194.31:7125/Authentication/Account/Login?ReturnUrl=%2F
 
 
         #region Create/Update/Details
@@ -119,7 +125,7 @@ namespace Competitions.Web.Areas.Managment.Controllers
 
             if ( DateTimeConvertor.GetDateFromString(command.StartPutOn) > DateTimeConvertor.GetDateFromString(command.EndPutOn) )
             {
-                TempData[SD.Error] = "تاریخ برگذاری مسابقه نمیتواند از اتمام ان بزرگتر باشد";
+                TempData[SD.Error] = "تاریخ برگزاری مسابقه نمیتواند از اتمام ان بزرگتر باشد";
 
                 command = ChangePutOn(command);
                 command = await FillLists(command);
@@ -378,6 +384,17 @@ namespace Competitions.Web.Areas.Managment.Controllers
             return RedirectToAction(nameof(Index) , _filters);
         }
         #endregion
+
+        public async Task<IActionResult> ShowTeams ( Guid id )
+        {
+            var teams = await _teamRepo.GetAllAsync(
+                filter: u => u.MatchId == id ,
+                include: source => source
+                .Include(u => u.Users)
+                .ThenInclude(u => u.User));
+
+            return View(teams);
+        }
 
         [HttpDelete]
         public async Task<JsonResult> Remove ( Guid id )

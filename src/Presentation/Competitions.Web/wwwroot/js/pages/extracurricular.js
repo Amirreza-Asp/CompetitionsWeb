@@ -3,7 +3,7 @@ function ClickSubmit(event) {
     const timeBox = document.getElementById("time-box")
     const boxes = timeBox.children;
     if (boxes.length == 0) {
-        toastr.error('روز و ساعت برگذاری دوره را وارد کنید')
+        toastr.error('روز و ساعت برگزاری دوره را وارد کنید')
         event.preventDefault();
     }
 

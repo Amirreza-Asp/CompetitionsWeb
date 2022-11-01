@@ -42,7 +42,7 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="mb-3 col-md-4">
-                    <label class="form-label">مکان برگذاری:</label>
+                    <label class="form-label">مکان برگزاری:</label>
                     <div class="dropdown">
                         <select asp-items="@Model.Places" id="place" onchange="SelectPlace(this)" class="form-control">
                             <option selected disabled></option>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="mb-3 col-md-4">
                     <input hidden value="@Model.PlaceId" id="placeId-input" />
-                    <label class="form-label">زیر مجموعه مکان برگذاری:</label>
+                    <label class="form-label">زیر مجموعه مکان برگزاری:</label>
                     <div class="dropdown">
                         <select asp-for="PlaceId" id="sub-places" class="form-control" onchange="SelectSubPlace(this)">
                         </select>
@@ -90,7 +90,7 @@
                 </div>
                 @*---------------------------*@
                 <div class="mb-3 col-md-5">
-                    <label class="form-label">روز برگذاری:</label>
+                    <label class="form-label">روز برگزاری:</label>
                     <div class="dropdown">
                         <input asp-for="Times" hidden />
                         <select class="form-control" id="day-picker">
@@ -141,7 +141,7 @@
 
             </div>
             <div class="mb-3 col-md-3 d-flex justify-content-center align-items-end">
-                <button type="button" class="btn btn--edit" onclick="AddTime()">افزودن روز و ساعت برگذاری</button>
+                <button type="button" class="btn btn--edit" onclick="AddTime()">افزودن روز و ساعت برگزاری</button>
             </div>
             @*---------------------------*@
             <div class="mb-4 mt-1 d-flex flex-wrap align-items-center" id="time-box">
@@ -178,7 +178,7 @@
                 <span asp-validation-for="Capacity" class="text-danger"></span>
             </div>
             <div class="mb-3 col-md-4">
-                <label class="form-label">حداقل تعداد برای برگذاری:</label>
+                <label class="form-label">حداقل تعداد برای برگزاری:</label>
                 <input type="number" min="1" asp-for="MinimumPlacements" class="form-control" />
                 <span asp-validation-for="MinimumPlacements" class="text-danger"></span>
             </div>

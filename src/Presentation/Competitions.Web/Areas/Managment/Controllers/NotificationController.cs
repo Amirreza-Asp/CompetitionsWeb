@@ -6,11 +6,13 @@ using Competitions.Domain.Entities.Managment;
 using Competitions.Domain.Entities.Managment.Spec;
 using Competitions.SharedKernel.ValueObjects;
 using Competitions.Web.Areas.Managment.Models.Notifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Competitions.Web.Areas.Managment.Controllers
 {
     [Area("Managment")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class NotificationController : Controller
     {
         private readonly IRepository<Notification> _notifRepo;

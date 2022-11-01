@@ -3,11 +3,13 @@ using Competitions.Domain.Dtos.Static.Evidences;
 using Competitions.Domain.Entities.Static;
 using Competitions.Web.Models;
 using Competitions.Web.Models.Evidences;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Competitions.Web.Areas.Static.Controllers
 {
     [Area("Static")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class EvidenceController : Controller
     {
         private readonly IRepository<Evidence> _repo;

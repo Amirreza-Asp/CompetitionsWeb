@@ -7,12 +7,14 @@ using Competitions.Domain.Entities.Sports;
 using Competitions.Domain.Entities.Sports.Spec;
 using Competitions.SharedKernel.ValueObjects;
 using Competitions.Web.Areas.Sports.Models.Sports;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Competitions.Web.Areas.Sports.Controllers
 {
     [Area("Sports")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class SportController : Controller
     {
         private readonly IRepository<Sport> _sportRepo;

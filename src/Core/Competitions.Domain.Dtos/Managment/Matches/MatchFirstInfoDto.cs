@@ -30,7 +30,7 @@ namespace Competitions.Domain.Dtos.Managment.Matches
         [Required(ErrorMessage = "تاریخ پایان ثبت نام را وارد کنید")]
         public String EndRegister { get; set; }
 
-        [Required(ErrorMessage = "تاریخ برگذاری مسابقه را وارد کنید")]
+        [Required(ErrorMessage = "تاریخ برگزاری مسابقه را وارد کنید")]
         public String StartPutOn { get; set; }
 
         [Required(ErrorMessage = "تاریخ اتمام مسابقه را وارد کنید")]
@@ -38,7 +38,7 @@ namespace Competitions.Domain.Dtos.Managment.Matches
 
         public Guid? FestivalId { get; set; }
 
-        [Required(ErrorMessage = "مکان برگذاری را مشخص کنید")]
+        [Required(ErrorMessage = "مکان برگزاری را مشخص کنید")]
         public Guid PlaceId { get; set; }
 
         [Required(ErrorMessage = "رشته ورزشی را وارد کنید")]

@@ -13,8 +13,8 @@
             <p class="col-md-6 mb-3">مکان : @Model.Place.Title</p>
             <p class="col-md-6 mb-3">جنسیت : @(Model.Gender ? "دختران" : "پسران")</p>
             <p class="col-md-6 mb-3">ظرفیت : @Model.Capacity نفر</p>
-            <p class="col-md-6 mb-3">حداقل افراد برای برگذاری : @Model.MinimumPlacements نفر</p>
-            <p class="col-md-6 mb-3">تاریخ برگذاری : @Model.PutOn.From.ToShamsi()</p>
+            <p class="col-md-6 mb-3">حداقل افراد برای برگزاری : @Model.MinimumPlacements نفر</p>
+            <p class="col-md-6 mb-3">تاریخ برگزاری : @Model.PutOn.From.ToShamsi()</p>
             <p class="col-md-6 mb-3">تاریخ اتمام کلاس ها : @Model.PutOn.To.ToShamsi()</p>
             <p class="col-md-6 mb-3">شروع ثبت نام : @Model.Register.From.ToShamsi()</p>
             <p class="col-md-6 mb-3">مهلت ثبت نام : @Model.Register.To.ToShamsi()</p>
@@ -23,7 +23,7 @@
 
         </div>
         <p>
-            روز های برگذاری :
+            روز های برگزاری :
             @foreach ( var item in Model.Times )
             {
                 <span class="badge bg-info" style="font-size:.9rem;">

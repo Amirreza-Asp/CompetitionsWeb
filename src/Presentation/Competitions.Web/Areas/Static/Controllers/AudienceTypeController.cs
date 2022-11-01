@@ -3,11 +3,13 @@ using Competitions.Domain.Dtos.Static.AudienceTypes;
 using Competitions.Domain.Entities.Static;
 using Competitions.Web.Models;
 using Competitions.Web.Models.AudienceTypes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Competitions.Web.Areas.Static.Controllers
 {
     [Area("Static")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class AudienceTypeController : Controller
     {
         private readonly IRepository<AudienceType> _repo;

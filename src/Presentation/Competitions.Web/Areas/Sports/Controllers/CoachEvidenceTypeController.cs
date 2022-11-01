@@ -4,11 +4,13 @@ using Competitions.Domain.Dtos.Sports.CoachEvidenceTypes;
 using Competitions.Domain.Entities.Sports;
 using Competitions.Web.Areas.Sports.Models.CoachEvidenceTypes;
 using Competitions.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Competitions.Web.Areas.Sports.Controllers
 {
 	[Area("Sports")]
+	[Authorize($"{SD.Publisher},{SD.Admin}")]
 	public class CoachEvidenceTypeController : Controller
 	{
 		private readonly IRepository<CoachEvidenceType> _repo;

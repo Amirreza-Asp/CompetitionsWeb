@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Competitions.Domain.Entities.Managment.Team>
+<section class="card shadow-sm ">
+    لیست تیم های مسابقه
+    <ul class="row">
+        @foreach(var item in Model){
+            <li class="border p-4 m-3">
+                @foreach(var user in item.Users){
+                    <p></p>
+                }
+            </li>
+        }
+    </ul>
+</section>

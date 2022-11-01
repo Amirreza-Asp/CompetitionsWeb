@@ -11,6 +11,7 @@ using Competitions.Domain.Entities.Places.Spec;
 using Competitions.Domain.Entities.Sports;
 using Competitions.SharedKernel.ValueObjects;
 using Competitions.Web.Areas.Places.Models.Places;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Competitions.Web.Areas.Places.Controllers
 {
     [Area("Places")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class PlaceController : Controller
     {
         private readonly IMapper _mapper;

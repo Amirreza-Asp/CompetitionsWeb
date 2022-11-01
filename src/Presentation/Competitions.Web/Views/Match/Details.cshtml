@@ -31,7 +31,7 @@
             <p class="col-md-6 mb-3">تعداد افراد هر تیم : @Model.TeamCount نفر</p>
             <p class="col-md-6 mb-3">شروع ثبت نام : @Model.Register.From.ToShamsi() @Model.Register.From.TimeOfDay.ToString().Substring(0,5)</p>
             <p class="col-md-6 mb-3">اتمام ثبت نام : @Model.Register.To.ToShamsi() @Model.Register.To.TimeOfDay.ToString().Substring(0,5)</p>
-            <p class="col-md-6 mb-3">تاریخ برگذاری : @Model.PutOn.From.ToShamsi()  @Model.PutOn.From.TimeOfDay.ToString().Substring(0,5)</p>
+            <p class="col-md-6 mb-3">تاریخ برگزاری : @Model.PutOn.From.ToShamsi()  @Model.PutOn.From.TimeOfDay.ToString().Substring(0,5)</p>
             <p class="col-md-6 mb-3">تاریخ اتمام  : @Model.PutOn.To.ToShamsi()  @Model.PutOn.To.TimeOfDay.ToString().Substring(0,5)</p>
             <p class="col-md-6 mb-3">افراد مجاز : @String.Join(',' , Model.AudienceTypes.Select(u=>u.AudienceType.Title))</p>
             <p class="col-md-6 mb-3">هزینه : @(Model.Conditions.Free ? "رایگان" : $"{Model.Conditions.Payment} تومان")</p>

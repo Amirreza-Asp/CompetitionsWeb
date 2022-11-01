@@ -5,12 +5,14 @@ using Competitions.Domain.Dtos.Sports.Coaches;
 using Competitions.Domain.Entities.Sports;
 using Competitions.Domain.Entities.Sports.Spec;
 using Competitions.Web.Areas.Sports.Models.Coaches;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Competitions.Web.Areas.Sports.Controllers
 {
     [Area("Sports")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class CoachController : Controller
     {
         private readonly IRepository<Coach> _coachRepo;

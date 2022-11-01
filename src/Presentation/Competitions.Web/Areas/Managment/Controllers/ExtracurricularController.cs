@@ -9,6 +9,7 @@ using Competitions.Domain.Entities.Places;
 using Competitions.Domain.Entities.Sports;
 using Competitions.Domain.Entities.Static;
 using Competitions.Web.Areas.Managment.Models.Extracurriculars;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ using Newtonsoft.Json;
 namespace Competitions.Web.Areas.Managment.Controllers
 {
     [Area("Managment")]
+    [Authorize($"{SD.Publisher},{SD.Admin}")]
     public class ExtracurricularController : Controller
     {
         private readonly IRepository<Extracurricular> _extRepo;
@@ -153,7 +155,7 @@ namespace Competitions.Web.Areas.Managment.Controllers
                select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
                 command.AudienceTypes = await _audRepo.GetAllAsync<SelectListItem>(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
 
-                TempData[SD.Error] = "حداقل ظرفیت برای برگذاری دوره باید از ظرفیت دوره کمتر باشد";
+                TempData[SD.Error] = "حداقل ظرفیت برای برگزاری دوره باید از ظرفیت دوره کمتر باشد";
                 return View(command);
             }
 
@@ -240,7 +242,7 @@ namespace Competitions.Web.Areas.Managment.Controllers
                select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
                 command.AudienceTypes = await _audRepo.GetAllAsync<SelectListItem>(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
 
-                TempData[SD.Error] = "حداقل ظرفیت برای برگذاری دوره باید از ظرفیت دوره کمتر باشد";
+                TempData[SD.Error] = "حداقل ظرفیت برای برگزاری دوره باید از ظرفیت دوره کمتر باشد";
                 return View(command);
             }
 

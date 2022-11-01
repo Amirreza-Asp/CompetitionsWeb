@@ -5,6 +5,7 @@ using Competitions.Domain.Dtos.Authentication.User;
 using Competitions.Domain.Entities.Authentication;
 using Competitions.Domain.Entities.Authentication.Spec;
 using Competitions.Web.Areas.Authentication.Models.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Competitions.Web.Areas.Authentication.Controllers
 {
     [Area("Authentication")]
+    [Authorize($"{SD.Admin}")]
     public class UserController : Controller
     {
         private readonly IRepository<User> _userRepo;
@@ -38,7 +40,9 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             _filters = filter;
             var spec = new GetFilteredUsersSpec(filter.Name , filter.Family , filter.RoleId , filter.NationalCode , filter.Skip , filter.Take);
             filter.Total = _userRepo.GetCount();
-            filter.Roles = await _roleRepo.GetAllAsync<SelectListItem>(select: u => new SelectListItem { Text = u.Display , Value = u.Id.ToString() });
+            filter.Roles = await _roleRepo.GetAllAsync<SelectListItem>(
+                filter: u => u.Title != SD.User ,
+                select: u => new SelectListItem { Text = u.Display , Value = u.Id.ToString() });
 
             var vm = new GetAllUsersVM
             {

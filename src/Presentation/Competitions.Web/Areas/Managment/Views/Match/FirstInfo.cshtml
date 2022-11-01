@@ -104,7 +104,7 @@
                 <span asp-validation-for="FestivalId" class="text-danger"></span>
             </div>
             <div class="mb-3 col-md-3">
-                <label class="form-label">مکان برگذاری:</label>
+                <label class="form-label">مکان برگزاری:</label>
                 <div class="dropdown">
                     @if ( Model.ReadOnly )
                     {
@@ -123,7 +123,7 @@
             </div>
             <div class="mb-3 col-md-3">
                 <input hidden value="@Model.PlaceId" id="placeId-input" />
-                <label class="form-label">زیر مجموعه مکان برگذاری:</label>
+                <label class="form-label">زیر مجموعه مکان برگزاری:</label>
                 <div class="dropdown">
                     @if ( Model.ReadOnly )
                     {
@@ -238,7 +238,7 @@
             </div>
             @*--------------------------------*@
             <div class="mb-3 col-md-6 pr-5">
-                <label class="form-label">تاریخ برگذاری مسابقات:</label>
+                <label class="form-label">تاریخ برگزاری مسابقات:</label>
                 @{
                     String startPutOnClick = Model.ReadOnly ? "" : "$('.start-puton').toggleClass('hide')";
                 }
@@ -346,7 +346,7 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
     <script src="~/lib/persian-web-toolkit/jquery/dist/jquery.js"></script>
-    <script src="~/lib/persian-web-toolkit/persian-date/dist/persian-date.min.js"></script>
+    <script src="~/lib/persian-web-toolkit/persian-date/dist/persian-date.js"></script>
     <script src="~/lib/persian-web-toolkit/persian-datepicker/dist/js/persian-datepicker.min.js"></script>
 
     <script src="~/lib/toastr/scripts/toastr.min.js"></script>

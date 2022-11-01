@@ -11,7 +11,7 @@ namespace Competitions.Domain.Dtos.Managment.Extracurriculars
         [Required(ErrorMessage = "رشته ورزشی را وارد کنید")]
         public long SportId { get; set; }
 
-        [Required(ErrorMessage = "مکان برگذاری را وارد کنید")]
+        [Required(ErrorMessage = "مکان برگزاری را وارد کنید")]
         public Guid PlaceId { get; set; }
 
         [Required(ErrorMessage = "نوع مخاطبین را مشخص کنید")]
@@ -21,8 +21,8 @@ namespace Competitions.Domain.Dtos.Managment.Extracurriculars
         [Range(1 , int.MaxValue , ErrorMessage = "ظرفیت دوره باید بیشتر از صفر باشد")]
         public int Capacity { get; set; } = 1;
 
-        [Required(ErrorMessage = "حداقل تعداد افراد برای برگذاری را وارد کنید")]
-        [Range(1 , int.MaxValue , ErrorMessage = "حداقل تعداد افراد برای برگذاری باید بیشتر از صفر باشد")]
+        [Required(ErrorMessage = "حداقل تعداد افراد برای برگزاری را وارد کنید")]
+        [Range(1 , int.MaxValue , ErrorMessage = "حداقل تعداد افراد برای برگزاری باید بیشتر از صفر باشد")]
         public int MinimumPlacements { get; set; } = 1;
 
         [Required(ErrorMessage = "تاریخ شروع دوره را وارد کنید")]
@@ -43,7 +43,7 @@ namespace Competitions.Domain.Dtos.Managment.Extracurriculars
         [Required(ErrorMessage = "توضیحات را وارد کنید")]
         public String Description { get; set; }
 
-        [Required(ErrorMessage = "روز و زمان برگذاری را مشخص کنید")]
+        [Required(ErrorMessage = "روز و زمان برگزاری را مشخص کنید")]
         public String Times { get; set; }
 
         [Required(ErrorMessage = "نام مربی را وارد کنید")]

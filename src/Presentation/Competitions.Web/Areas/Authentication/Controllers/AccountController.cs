@@ -67,7 +67,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             }
 
             TempData[SD.Error] = res.Message;
-            return View(command);
+            return RedirectToAction("Index" , "Home");
         }
 
         public IActionResult Login ()
