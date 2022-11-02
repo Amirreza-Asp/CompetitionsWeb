@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Competitions.Web.Areas.Sports.Controllers
 {
 	[Area("Sports")]
-	[Authorize($"{SD.Publisher},{SD.Admin}")]
+	[Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
 	public class SportTypeController : Controller
 	{
 		private readonly IRepository<SportType> _repo;

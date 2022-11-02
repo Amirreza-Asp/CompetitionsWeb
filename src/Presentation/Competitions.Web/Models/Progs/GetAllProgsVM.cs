@@ -1,4 +1,4 @@
-﻿using Competitions.Domain.Dtos.Managment.Extracurriculars;
+﻿using Competitions.Domain.Dtos.Extracurriculars;
 
 namespace Competitions.Web.Models.Progs
 {

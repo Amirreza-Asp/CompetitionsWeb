@@ -1,4 +1,4 @@
-﻿using Competitions.Domain.Entities.Managment;
+﻿using Competitions.Domain.Entities.Extracurriculars;
 using Competitions.SharedKernel.ValueObjects;
 
 namespace Competitions.Domain.Entities.Sports

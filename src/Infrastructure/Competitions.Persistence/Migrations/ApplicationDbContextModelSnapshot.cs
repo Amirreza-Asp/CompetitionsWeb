@@ -84,7 +84,7 @@ namespace Competitions.Persistence.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.Extracurricular", b =>
+            modelBuilder.Entity("Competitions.Domain.Entities.Extracurriculars.Extracurricular", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -131,7 +131,7 @@ namespace Competitions.Persistence.Migrations
                     b.ToTable("Extracurricular");
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.ExtracurricularTime", b =>
+            modelBuilder.Entity("Competitions.Domain.Entities.Extracurriculars.ExtracurricularTime", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,7 @@ namespace Competitions.Persistence.Migrations
                     b.ToTable("ExtracurricularTime");
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.ExtracurricularUser", b =>
+            modelBuilder.Entity("Competitions.Domain.Entities.Extracurriculars.ExtracurricularUser", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,62 +197,6 @@ namespace Competitions.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Festival");
-                });
-
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.InviteResult", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<bool>("Accepted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("InviteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InviteId")
-                        .IsUnique();
-
-                    b.ToTable("InviteResult");
-                });
-
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.InviteToMatch", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("InvitedId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("InviterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("MatchId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("SendTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InvitedId");
-
-                    b.HasIndex("InviterId");
-
-                    b.HasIndex("MatchId");
-
-                    b.ToTable("InviteToMatch");
                 });
 
             modelBuilder.Entity("Competitions.Domain.Entities.Managment.Match", b =>
@@ -397,30 +341,6 @@ namespace Competitions.Persistence.Migrations
                     b.ToTable("MatchDocument");
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.Notification", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notification");
-                });
-
             modelBuilder.Entity("Competitions.Domain.Entities.Managment.Team", b =>
                 {
                     b.Property<Guid>("Id")
@@ -482,6 +402,55 @@ namespace Competitions.Persistence.Migrations
                     b.HasIndex("UserTeamId");
 
                     b.ToTable("UserTeamDocument");
+                });
+
+            modelBuilder.Entity("Competitions.Domain.Entities.Notifications.Notification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notification");
+                });
+
+            modelBuilder.Entity("Competitions.Domain.Entities.Notifications.NotificationImage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("NotificationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("SendDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotificationId");
+
+                    b.ToTable("NotificationImage");
                 });
 
             modelBuilder.Entity("Competitions.Domain.Entities.Places.ActivityPlan", b =>
@@ -842,7 +811,7 @@ namespace Competitions.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.Extracurricular", b =>
+            modelBuilder.Entity("Competitions.Domain.Entities.Extracurriculars.Extracurricular", b =>
                 {
                     b.HasOne("Competitions.Domain.Entities.Static.AudienceType", "AudienceType")
                         .WithMany("Extracurriculars")
@@ -925,9 +894,9 @@ namespace Competitions.Persistence.Migrations
                     b.Navigation("Sport");
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.ExtracurricularTime", b =>
+            modelBuilder.Entity("Competitions.Domain.Entities.Extracurriculars.ExtracurricularTime", b =>
                 {
-                    b.HasOne("Competitions.Domain.Entities.Managment.Extracurricular", "Extracurricular")
+                    b.HasOne("Competitions.Domain.Entities.Extracurriculars.Extracurricular", "Extracurricular")
                         .WithMany("Times")
                         .HasForeignKey("ExtracurricularId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -960,9 +929,9 @@ namespace Competitions.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.ExtracurricularUser", b =>
+            modelBuilder.Entity("Competitions.Domain.Entities.Extracurriculars.ExtracurricularUser", b =>
                 {
-                    b.HasOne("Competitions.Domain.Entities.Managment.Extracurricular", "Extracurricular")
+                    b.HasOne("Competitions.Domain.Entities.Extracurriculars.Extracurricular", "Extracurricular")
                         .WithMany("Users")
                         .HasForeignKey("ExtracurricularId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1027,44 +996,6 @@ namespace Competitions.Persistence.Migrations
 
                     b.Navigation("Image")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.InviteResult", b =>
-                {
-                    b.HasOne("Competitions.Domain.Entities.Managment.InviteToMatch", "Invite")
-                        .WithOne("InviteResult")
-                        .HasForeignKey("Competitions.Domain.Entities.Managment.InviteResult", "InviteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invite");
-                });
-
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.InviteToMatch", b =>
-                {
-                    b.HasOne("Competitions.Domain.Entities.Authentication.User", "Invited")
-                        .WithMany("Inviteds")
-                        .HasForeignKey("InvitedId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Competitions.Domain.Entities.Authentication.User", "Inviter")
-                        .WithMany("Inviters")
-                        .HasForeignKey("InviterId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Competitions.Domain.Entities.Managment.Match", "Match")
-                        .WithMany("Invites")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invited");
-
-                    b.Navigation("Inviter");
-
-                    b.Navigation("Match");
                 });
 
             modelBuilder.Entity("Competitions.Domain.Entities.Managment.Match", b =>
@@ -1244,32 +1175,6 @@ namespace Competitions.Persistence.Migrations
                     b.Navigation("Match");
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.Notification", b =>
-                {
-                    b.OwnsOne("Competitions.SharedKernel.ValueObjects.Document", "Image", b1 =>
-                        {
-                            b1.Property<long>("NotificationId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .IsUnicode(false)
-                                .HasColumnType("varchar(50)")
-                                .HasColumnName("Image");
-
-                            b1.HasKey("NotificationId");
-
-                            b1.ToTable("Notification");
-
-                            b1.WithOwner()
-                                .HasForeignKey("NotificationId");
-                        });
-
-                    b.Navigation("Image")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Competitions.Domain.Entities.Managment.Team", b =>
                 {
                     b.HasOne("Competitions.Domain.Entities.Managment.Match", "Match")
@@ -1332,6 +1237,40 @@ namespace Competitions.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("UserTeam");
+                });
+
+            modelBuilder.Entity("Competitions.Domain.Entities.Notifications.NotificationImage", b =>
+                {
+                    b.HasOne("Competitions.Domain.Entities.Notifications.Notification", "Notification")
+                        .WithMany("Images")
+                        .HasForeignKey("NotificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Competitions.SharedKernel.ValueObjects.Document", "Image", b1 =>
+                        {
+                            b1.Property<long>("NotificationImageId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .IsUnicode(false)
+                                .HasColumnType("varchar(50)")
+                                .HasColumnName("Image");
+
+                            b1.HasKey("NotificationImageId");
+
+                            b1.ToTable("NotificationImage");
+
+                            b1.WithOwner()
+                                .HasForeignKey("NotificationImageId");
+                        });
+
+                    b.Navigation("Image")
+                        .IsRequired();
+
+                    b.Navigation("Notification");
                 });
 
             modelBuilder.Entity("Competitions.Domain.Entities.Places.ActivityPlan", b =>
@@ -1576,14 +1515,10 @@ namespace Competitions.Persistence.Migrations
                 {
                     b.Navigation("Extracurriculars");
 
-                    b.Navigation("Inviteds");
-
-                    b.Navigation("Inviters");
-
                     b.Navigation("Teams");
                 });
 
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.Extracurricular", b =>
+            modelBuilder.Entity("Competitions.Domain.Entities.Extracurriculars.Extracurricular", b =>
                 {
                     b.Navigation("Times");
 
@@ -1593,12 +1528,6 @@ namespace Competitions.Persistence.Migrations
             modelBuilder.Entity("Competitions.Domain.Entities.Managment.Festival", b =>
                 {
                     b.Navigation("Matchs");
-                });
-
-            modelBuilder.Entity("Competitions.Domain.Entities.Managment.InviteToMatch", b =>
-                {
-                    b.Navigation("InviteResult")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Competitions.Domain.Entities.Managment.Match", b =>
@@ -1612,8 +1541,6 @@ namespace Competitions.Persistence.Migrations
 
                     b.Navigation("Documents");
 
-                    b.Navigation("Invites");
-
                     b.Navigation("Teams");
                 });
 
@@ -1625,6 +1552,11 @@ namespace Competitions.Persistence.Migrations
             modelBuilder.Entity("Competitions.Domain.Entities.Managment.UserTeam", b =>
                 {
                     b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("Competitions.Domain.Entities.Notifications.Notification", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Competitions.Domain.Entities.Places.Place", b =>

@@ -1,4 +1,5 @@
-﻿using Competitions.Domain.Entities.Managment;
+﻿using Competitions.Domain.Entities.Extracurriculars;
+using Competitions.Domain.Entities.Managment;
 using Competitions.Domain.Entities.Places;
 using Competitions.Domain.Entities.Sports.Events;
 using Competitions.SharedKernel.ValueObjects;

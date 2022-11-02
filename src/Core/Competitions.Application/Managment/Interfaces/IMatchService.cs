@@ -1,4 +1,4 @@
-﻿using Competitions.Domain.Dtos.Managment.Matches;
+﻿using Competitions.Domain.Dtos.Matches.Matches;
 
 namespace Competitions.Application.Managment.Interfaces
 {

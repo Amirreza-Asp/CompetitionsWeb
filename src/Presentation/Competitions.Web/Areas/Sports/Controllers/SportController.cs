@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Competitions.Web.Areas.Sports.Controllers
 {
     [Area("Sports")]
-    [Authorize($"{SD.Publisher},{SD.Admin}")]
+    [Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
     public class SportController : Controller
     {
         private readonly IRepository<Sport> _sportRepo;

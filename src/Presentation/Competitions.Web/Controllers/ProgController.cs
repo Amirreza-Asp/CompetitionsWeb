@@ -1,18 +1,20 @@
 ﻿using AutoMapper;
 using Competitions.Common;
 using Competitions.Common.Helpers;
-using Competitions.Domain.Dtos.Managment.Extracurriculars;
+using Competitions.Domain.Dtos.Extracurriculars;
 using Competitions.Domain.Entities.Authentication;
-using Competitions.Domain.Entities.Managment;
+using Competitions.Domain.Entities.Extracurriculars;
 using Competitions.Web.Models;
 using Competitions.Web.Models.Calenders;
 using Competitions.Web.Models.Progs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Competitions.Web.Controllers
 {
+    [Authorize]
     public class ProgController : Controller
     {
         private readonly IRepository<Extracurricular> _extRepo;

@@ -10,7 +10,7 @@ namespace Competitions.Web.Areas.Places.Controllers
 {
 
 	[Area("Places")]
-	[Authorize($"{SD.Publisher},{SD.Admin}")]
+	[Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
 	public class PlaceTypeController : Controller
 	{
 		private readonly IRepository<PlaceType> _repo;

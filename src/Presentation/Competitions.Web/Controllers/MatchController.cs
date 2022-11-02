@@ -1,16 +1,18 @@
 ﻿using Competitions.Common;
 using Competitions.Common.Helpers;
-using Competitions.Domain.Dtos.Managment.Matches;
+using Competitions.Domain.Dtos.Matches.Matches;
 using Competitions.Domain.Entities.Authentication;
 using Competitions.Domain.Entities.Managment;
 using Competitions.SharedKernel.ValueObjects;
 using Competitions.Web.Models.Calenders;
 using Competitions.Web.Models.Matches;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Competitions.Web.Controllers
 {
+    [Authorize]
     public class MatchController : Controller
     {
         private readonly IRepository<Match> _matchRepo;

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-using Competitions.Domain.Dtos.Managment.Extracurriculars;
-using Competitions.Domain.Dtos.Managment.Festivals;
-using Competitions.Domain.Dtos.Managment.Matches;
-using Competitions.Domain.Dtos.Managment.Notifications;
+using Competitions.Domain.Dtos.Extracurriculars;
+using Competitions.Domain.Dtos.Matches.Festivals;
+using Competitions.Domain.Dtos.Matches.Matches;
+using Competitions.Domain.Dtos.Notifications;
+using Competitions.Domain.Entities.Extracurriculars;
 using Competitions.Domain.Entities.Managment;
+using Competitions.Domain.Entities.Notifications;
 
 namespace Competitions.Common.Managment
 {
@@ -12,8 +14,7 @@ namespace Competitions.Common.Managment
         public ManagmentProfile ()
         {
             // Notification
-            CreateMap<Notification , UpdateNotificationDto>()
-                .ForMember(dto => dto.Image , entity => entity.MapFrom(b => b.Image.Name));
+            CreateMap<Notification , UpdateNotificationDto>();
 
 
             // Extracurricular

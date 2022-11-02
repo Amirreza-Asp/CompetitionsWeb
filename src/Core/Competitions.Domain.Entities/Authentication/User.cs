@@ -1,4 +1,5 @@
-﻿using Competitions.Domain.Entities.Managment;
+﻿using Competitions.Domain.Entities.Extracurriculars;
+using Competitions.Domain.Entities.Managment;
 using Competitions.SharedKernel.ValueObjects;
 
 namespace Competitions.Domain.Entities.Authentication
@@ -39,8 +40,6 @@ namespace Competitions.Domain.Entities.Authentication
         public Role Role { get; private set; }
         public ICollection<UserTeam> Teams { get; private set; }
         public ICollection<ExtracurricularUser> Extracurriculars { get; private set; }
-        public ICollection<InviteToMatch> Inviters { get; private set; }
-        public ICollection<InviteToMatch> Inviteds { get; private set; }
 
         public User WithPassword ( String password )
         {

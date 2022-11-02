@@ -33,11 +33,11 @@
                 </div>
                 <div class="mb-3 col-md-6">
                     <label class="form-label">نوع مکان:</label>
-    
+
                     <div class="dropdown">
                         <select class="form-control" onchange="ChangeSubPlace(this)">
-                            <option selected="@(Model.ParentPlaceId == null)"  value="0">مجموعه</option>
-                        <option selected="@(Model.ParentPlaceId != null)" value="1">زیر مجموعه</option>
+                            <option selected="@(Model.ParentPlaceId == null)" value="0">مجموعه</option>
+                            <option selected="@(Model.ParentPlaceId != null)" value="1">زیر مجموعه</option>
                         </select>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <label class="form-label">انتخاب زیر مجموعه:</label>
                     <div class="dropdown">
                         <select class="form-control" id="subplace" asp-for="ParentPlaceId" asp-items="@Model.Places" disabled="@(Model.ParentPlaceId == null)">
-                            <option selected  disabled></option>
+                            <option selected disabled></option>
                         </select>
                     </div>
                 </div>
@@ -98,8 +98,8 @@
                         </li>
                     }
                 }
-            </ul>
-        </div>
+                </ul>
+            </div>
 
     </section>
 
@@ -126,9 +126,9 @@
 
         function ChangeSubPlace(select) {
             const value = select.value;
-            if (value == 0){
+            if (value == 0) {
                 subPlace.disabled = true;
-                subPlace.value='';
+                subPlace.value = '';
             }
             else
                 subPlace.disabled = false;

@@ -1,5 +1,7 @@
 ﻿using Competitions.Domain.Entities.Authentication;
+using Competitions.Domain.Entities.Extracurriculars;
 using Competitions.Domain.Entities.Managment;
+using Competitions.Domain.Entities.Notifications;
 using Competitions.Domain.Entities.Places;
 using Competitions.Domain.Entities.Sports;
 using Competitions.Domain.Entities.Static;
@@ -25,14 +27,18 @@ namespace Competitions.Persistence.Data
         public DbSet<Role> Role { get; set; }
         #endregion
 
-        #region Managment
+        #region Notifications
         public DbSet<Notification> Notification { get; set; }
+        public DbSet<NotificationImage> NotificationImage { get; set; }
+        #endregion
 
-
+        #region Extracurriculars
         public DbSet<Extracurricular> Extracurricular { get; set; }
         public DbSet<ExtracurricularTime> ExtracurricularTime { get; set; }
         public DbSet<ExtracurricularUser> ExtracurricularUser { get; set; }
+        #endregion
 
+        #region Matches
         public DbSet<Festival> Festival { get; set; }
 
         public DbSet<Match> Match { get; set; }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Competitions.Web.Areas.Sports.Controllers
 {
     [Area("Sports")]
-    [Authorize($"{SD.Publisher},{SD.Admin}")]
+    [Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
     public class CoachController : Controller
     {
         private readonly IRepository<Coach> _coachRepo;

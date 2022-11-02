@@ -1,0 +1,196 @@
+﻿@using Competitions.Domain.Dtos.Matches.Matches
+@using Newtonsoft.Json
+@model Competitions.Domain.Dtos.Matches.Matches.MatchAwardListDto
+
+@{
+    Layout = "_AdminLayout";
+    String stepModel = "MatchAward";
+    <partial name="_MatchStepsPartial" model="stepModel" />
+}
+
+
+@section Styles{
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+
+    </style>
+}
+
+
+    <form method="post" enctype="multipart/form-data">
+
+
+    @if ( Model.Id.HasValue )
+    {
+        <input asp-for="Id" hidden />
+    }
+
+    <input name="Data" value="@Json.Serialize(Model.Info)" id="data-input" hidden />
+
+    <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+        @if ( Model.ReadOnly )
+        {
+            <h3 class="mb-4 mb-lg-0">مشاهده مسابقه</h3>
+        }
+        else if ( Model.Id == default )
+        {
+            <h3 class="mb-4 mb-lg-0">افزودن مسابقه</h3>
+        }
+        else
+        {
+            <h3 class="mb-4 mb-lg-0">ویرایش مسابقه</h3>
+        }
+    </div>
+    <section class="card shadow-sm ">
+        @if (!Model.ReadOnly)
+        {
+            <div class="row">
+                <div class="mb-3 col-5">
+                <label class="form-label">رتبه:</label>
+                <input type="number" value="" min="1" class="form-control" id="rank-input" />
+            </div>
+            <div class="mb-3 col-5">
+                <label class="form-label">جایزه:</label>
+                <input type="text" value="" class="form-control" id="prize-input" />
+            </div>
+            <div class="mb-3 col-2 pt-4">
+                <button type="button" class="btn btn-success mt-2" onclick="AddAward()">افزودن</button>
+            </div>
+        </div>
+        }
+
+        <div class="table-overflow">
+            <div class="table ">
+                <table class="table text-center" width="100%">
+                    <thead>
+                        <tr class="text-center">
+                            <th>رتبه</th>
+                            <th>جایزه</th>
+                            @if (!Model.ReadOnly)
+                            {
+                                <th> عملیات</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody id="file-body">
+                        @{
+                            if ( Model.Info != null )
+                            {
+                                for ( int i = 0 ; i < Model.Info.Count() ; i++ )
+                                {
+                                    <tr class="text-center" data='{ Rank : @Model.Info.ElementAt(i).Rank , Prize : "@Model.Info.ElementAt(i).Prize" }'>
+                                        <td>@Model.Info.ElementAt(i).Rank</td>
+                                        <td>@Model.Info.ElementAt(i).Prize</td>
+                                        @if (!Model.ReadOnly)
+                                        {
+                                            <td>
+                                                <button onclick="RemoveAward(this)" type="button" class="btn btn--delete me-2"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </section>
+
+    <div class="mt-3 text-center d-flex justify-content-end align-items-center">
+        <a asp-action="MatchDocument" asp-route-id="@Model.Id" asp-route-ReadOnly="@Model.ReadOnly" class="btn btn-secondary d-flex align-items-center">
+            <i class="fas fa-reply my-1 mx-2" style="transform:rotateY(180deg)"></i>
+        </a>
+        @if (!Model.ReadOnly)
+        {
+            <button onclick="return validateInput()" class="btn btn--submit mx-3 px-3">
+                ثبت
+        </button>
+        }
+    </div>
+
+</form>
+
+
+
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+
+    <script>
+        const rankInput = document.getElementById("rank-input");
+        const prizeInput = document.getElementById("prize-input");
+        const tBody = document.getElementById("file-body");
+        const dataInput = document.getElementById("data-input");
+
+        function AddAward() {
+            const rank = rankInput.value;
+            const prize = prizeInput.value;
+
+            rankInput.value = ""
+            prizeInput.value = ""
+
+            AddElement(rank, prize);
+        }
+
+        function AddElement(rank, prize) {
+            const tr = document.createElement("tr");
+            tr.className = "text-center";
+            tr.setAttribute("data", `{ Rank : ${rank} , Prize : "${prize}" }`)
+
+            const evTd = document.createElement("td");
+            evTd.innerHTML = rank;
+
+            const typeTd = document.createElement("td");
+            typeTd.innerHTML = prize;
+
+            const removeTd = document.createElement("td");
+            const removeBtn = document.createElement("button");
+            removeBtn.className = "btn btn-danger";
+            removeBtn.onclick = () => {
+                tr.remove();
+            }
+            removeBtn.type = "button";
+
+            const removeIcon = document.createElement("i");
+            removeIcon.className = "fa fa-trash";
+
+            removeBtn.appendChild(removeIcon);
+            removeTd.appendChild(removeBtn);
+
+            tr.appendChild(evTd);
+            tr.appendChild(typeTd);
+            tr.appendChild(removeTd);
+
+            tBody.appendChild(tr);
+        }
+
+        function RemoveAward(btn) {
+            btn.parentElement.parentElement.remove();
+        }
+
+        function validateInput() {
+            if (tBody.children.length == 0) {
+                toastr.error('مدارک لازم را وارد کنید');
+                return false;
+            }
+
+            dataInput.value = "[ ";
+
+            Array.from(tBody.children).forEach((tr, index) => {
+                dataInput.value += tr.getAttribute("data");
+                if (index != tBody.children.length - 1)
+                    dataInput.value += " , ";
+            })
+            dataInput.value += "]";
+
+            return true;
+        }
+    </script>
+}

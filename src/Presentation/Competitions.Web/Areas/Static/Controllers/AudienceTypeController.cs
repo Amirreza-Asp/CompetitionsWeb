@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Competitions.Web.Areas.Static.Controllers
 {
     [Area("Static")]
-    [Authorize($"{SD.Publisher},{SD.Admin}")]
+    [Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
     public class AudienceTypeController : Controller
     {
         private readonly IRepository<AudienceType> _repo;

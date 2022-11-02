@@ -2,11 +2,13 @@
 using Competitions.Domain.Entities;
 using Competitions.Domain.Entities.Places;
 using Competitions.Web.Models.Places;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Competitions.Web.Controllers
 {
+    [Authorize]
     public class PlaceController : Controller
     {
         private readonly IRepository<Place> _placeRepo;

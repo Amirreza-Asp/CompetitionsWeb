@@ -1,4 +1,5 @@
 ﻿using Competitions.Domain.Entities.Managment;
+using Competitions.Domain.Entities.Notifications;
 using Competitions.Domain.Entities.Sports;
 using Competitions.Web.Models;
 using Competitions.Web.Models.Home;

@@ -1,10 +1,12 @@
-﻿using Competitions.Domain.Entities.Managment;
+﻿using Competitions.Domain.Entities.Notifications;
 using Competitions.Web.Models;
 using Competitions.Web.Models.Notifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Competitions.Web.Controllers
 {
+    [Authorize]
     public class NotificationController : Controller
     {
         private readonly IRepository<Notification> _notifRepo;

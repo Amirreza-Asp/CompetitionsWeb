@@ -1,4 +1,4 @@
-﻿using Competitions.Domain.Entities.Managment;
+﻿using Competitions.Domain.Entities.Notifications;
 
 namespace Competitions.Web.Models.Notifications
 {

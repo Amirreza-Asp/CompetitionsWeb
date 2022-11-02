@@ -19,7 +19,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Competitions.Web.Areas.Places.Controllers
 {
     [Area("Places")]
-    [Authorize($"{SD.Publisher},{SD.Admin}")]
+    [Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
     public class PlaceController : Controller
     {
         private readonly IMapper _mapper;

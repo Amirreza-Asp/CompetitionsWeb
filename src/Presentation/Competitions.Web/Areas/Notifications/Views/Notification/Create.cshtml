@@ -1,0 +1,77 @@
+﻿@model Competitions.Domain.Dtos.Notifications.CreateNotificationDto
+
+@{
+    Layout = "_AdminLayout";
+}
+
+@section Styles{
+    <style>
+        #filebtn {
+            border: dotted 1px #006ab1;
+            color: #006ab1;
+            background-color: #e7f5ff;
+        }
+    </style>
+}
+
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+            <h3 class="mb-4 mb-lg-0">افزودن اطلاعیه</h3>
+        </div>
+        <section class="card shadow-sm ">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label class="form-label">عنوان:</label>
+                    <input type="text" asp-for="Title" class="form-control">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">شرح:</label>
+                <textarea class="form-control summernote" asp-for="Description" rows="5"></textarea>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+
+            <div class="mb-3">
+                <input asp-for="NewImages" accept="image/*" type="file" onchange="$('#filebtn').html(this.value);" id="uploadbox" hidden />
+                <button type="button" id="filebtn" onclick="$('#uploadbox').click()" class="form-control">انتخاب عکس</button>
+            </div>
+        </section>
+
+        <div class="mt-3 text-center d-flex justify-content-center align-items-center">
+            <button onclick="return validateInput();" class="btn btn--submit mx-3 px-3">
+                ثبت
+            </button>
+            <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+                <i class="fas fa-reply my-1 mx-2"></i>
+            </button>
+        </div>
+
+    </form>
+
+
+    @section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250
+            });
+        });
+        function validateInput() {
+            if (document.getElementById("uploadbox").value == "") {
+                swal({
+                    title: `هشدار!`,
+                    text: "عکس را وارد کنید",
+                    type: "error",
+                    cancelButtonText: "بازگشت"
+                })
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

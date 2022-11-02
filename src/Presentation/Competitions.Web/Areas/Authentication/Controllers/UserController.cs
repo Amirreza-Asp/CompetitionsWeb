@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Competitions.Web.Areas.Authentication.Controllers
 {
     [Area("Authentication")]
-    [Authorize($"{SD.Admin}")]
+    [Authorize(Roles = $"{SD.Admin}")]
     public class UserController : Controller
     {
         private readonly IRepository<User> _userRepo;
