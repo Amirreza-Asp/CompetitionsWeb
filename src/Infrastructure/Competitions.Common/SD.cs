@@ -22,6 +22,6 @@
 		public const String ImageSizeLimitDisplay = "2 مگابایت";
 
 		public const String Match = "Match";
-
+		public const String Home = "Home";
 	}
 }

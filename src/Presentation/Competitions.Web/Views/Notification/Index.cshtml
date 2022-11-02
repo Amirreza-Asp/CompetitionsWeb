@@ -5,14 +5,26 @@
 @section Styles{
 
     <link rel="stylesheet" href="~/css/home/place-list.css" />
+    <style>
+        #raw{
+            color:gray;
+            font-size:.9rem;
+        }
+        #raw>p{
+            color:inherit;
+        }
+    </style>
 }
 
     <form method="get">
+
+
+
         <div class="wrapper">
             <section class="top">
                 <section>
                     <div class="registry-bg">
-                        <h3 class="registry-title-top">اخبار و اطلاعیه</h3>
+                        <h3 class="registry-title-top">اطلاعیه ها</h3>
                     </div>
                 </section>
             </section>
@@ -21,25 +33,30 @@
                 <div class="card-wrapper">
                 @foreach ( var item in Model.Notifications )
                 {
-                    <div class="card-item card px-3" style="width:100%;position:relative;">
-
-                        <div class="d-md-flex  justify-content-between align-items-center ">
-                
-                            <div class="col-md-6 col-12 mb-md-0 mb-4">
-                                <h3>عنوان: @item.Title</h3>
-                            </div>
-                            <div class="col-md-6 col-12 d-flex justify-content-md-end justify-content-center">
-                                @*<img src="@StaticEntitiesDetails.NotificationPath@item.Image.Name" alt="@item.Title" class="imagePlace" style="width:calc(100px + 50%);aspect-ratio:3;border-radius:10px 100px 10px 100px;"/>*@
-                            </div>
+                    String imgPath = item.Images.Any() ? item.Images.Select(u => u.Image.Name).First() : "";
+                    <div class="card-item card">
+                        <div style="margin:auto;">
+                            <img src="@StaticEntitiesDetails.NotificationPath@imgPath" alt="" class="imagePlace" />
                         </div>
-
                         <div>
-                            <p>شرح:  @Html.Raw(item.Description)</p>
+                            <div class="mt-4">
+                                <h4>عنوان : @item.Title</h4>
+                            </div>
+
+                            @{
+                                String shortDesc = String.Join(' ' , item.Description.Split(' ').Take(12));
+                            }
+                            <div class="mt-2" id="raw">
+                              @Html.Raw(shortDesc)
+                            </div>
+
                         </div>
 
-                        <span style="position:absolute;left:10px;bottom:10px;font-size:14px;" class="text-secondary">
-                             @item.CreateDate.ToShamsi()
-                        </span>
+                        <div class="text-center">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn btn-warning m-2">
+                                جزئیات
+                            </a>
+                        </div>
                     </div>
                 }
             </div>

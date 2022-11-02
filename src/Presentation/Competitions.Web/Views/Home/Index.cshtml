@@ -52,7 +52,8 @@
         @foreach ( var item in Model.Matches )
         {
             <a href="#">
-                <div class="notification mb-3" style="background:linear-gradient(rgba(0,0,0,.6) , rgba(0,0,0,.8)) , url(@StaticEntitiesDetails.MatchImagePath@item.Image.Name) center center/cover;">
+                <div class="notification mb-3" style="background:linear-gradient(rgba(0,0,0,.6) , rgba(0,0,0,.8)) ,
+                            url(@StaticEntitiesDetails.MatchImagePath@item.Image.Name) center center/cover;">
                     <div class="p-relative d-flex align-items-center justify-content-between">
                         <div>
                             <p (click)="DetailNotification(item.id)" class="pe-2 text-light">عنوان : @item.Name</p>
@@ -85,8 +86,12 @@
         </h3>
         @foreach ( var item in Model.Notifications )
         {
-            <a asp-controller="Notification" asp-action="Index">
-                <div class="notification mb-3" style="background:linear-gradient(rgba(0,0,0,.6) , rgba(0,0,0,.8));">
+                <a asp-controller="Notification" asp-action="Index">
+                    @{
+                        String imgPath = item.Images.Any() ? @item.Images.ElementAt(0).Image.Name : "";
+                    }
+                <div class="notification mb-3" style="background:linear-gradient(rgba(0,0,0,.6) , rgba(0,0,0,.8)) 
+                        , url(@StaticEntitiesDetails.NotificationPath@imgPath) center center/cover;">
                     <div class="p-relative d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
                             <p class="pe-2 text-light">عنوان : @item.Title</p>

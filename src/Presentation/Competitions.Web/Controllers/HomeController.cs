@@ -1,12 +1,10 @@
 ﻿using Competitions.Domain.Entities.Managment;
 using Competitions.Domain.Entities.Notifications;
 using Competitions.Domain.Entities.Sports;
-using Competitions.Web.Models;
 using Competitions.Web.Models.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace Competitions.Web.Controllers
 {
@@ -28,7 +26,7 @@ namespace Competitions.Web.Controllers
 
         public async Task<IActionResult> Index ()
         {
-            var vm = new MatchHomeVM
+            var data = new MatchHomeVM
             {
                 Matches = await _matchRepo.GetAllAsync(
                     include: source => source.Include(u => u.Sport) ,
@@ -36,13 +34,13 @@ namespace Competitions.Web.Controllers
                     take: 2) ,
                 Notifications = await _notifRepo.GetAllAsync(
                     orderBy: source => source.OrderByDescending(u => u.CreateDate) ,
+                    include: source => source.Include(u => u.Images) ,
                     take: 3)
             };
 
-            return View(vm);
+            return View(data);
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> Prog ()
         {
             var sports = await _sportRepo.GetAllAsync(
@@ -51,15 +49,5 @@ namespace Competitions.Web.Controllers
             return View(sports);
         }
 
-        public IActionResult Privacy ()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0 , Location = ResponseCacheLocation.None , NoStore = true)]
-        public IActionResult Error ()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
