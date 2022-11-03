@@ -1,0 +1,44 @@
+﻿.team {
+    padding: 2rem;
+
+    &-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        list-style: none;
+
+        &-item {
+            border: 1px solid gray;
+            padding: 10px 20px;
+            text-align: right;
+            margin: 10px;
+            box-shadow: inset 0 0 5px rgb(217, 243, 248), -2px 2px 5px gray;
+            border-radius: 2px;
+            transition: all 0.2s linear;
+
+            &:hover,
+            &:active {
+                transform: scale(1.05);
+            }
+
+            &-header {
+                text-align: center;
+                border-bottom: 1px solid black;
+                padding-bottom: 5px;
+            }
+
+            &-person {
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: rgb(227, 243, 246);
+                padding: 3px 20px;
+                transition: all 0.3s;
+
+                &:hover,
+                &:active {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}

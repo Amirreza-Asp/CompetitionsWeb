@@ -37,7 +37,7 @@
                                 <td>
                                     <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn--edit me-2" asp-action="Update" asp-route-id="@Model.Entities.ElementAt(i).Id"><i class="fa fa-edit"></i></a>
-                                    <button type="button" class="btn btn--delete me-2" onclick="Delete('/Managment/Notification/Remove/@Model.Entities.ElementAt(i).Id' , 'اطلاعیه')">
+                                    <button type="button" class="btn btn--delete me-2" onclick="Delete('/Notifications/Notification/Remove/@Model.Entities.ElementAt(i).Id' , 'اطلاعیه')">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>

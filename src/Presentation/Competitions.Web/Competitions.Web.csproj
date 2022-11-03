@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 	  <Content Remove="Areas\Authentication\Views\Account\Register.cshtml" />
+	  <Content Remove="compilerconfig.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,6 +47,7 @@
 
 	<ItemGroup>
 	  <None Include="Areas\Authentication\Views\Account\Register.cshtml" />
+	  <None Include="compilerconfig.json" />
 	</ItemGroup>
 
 </Project>

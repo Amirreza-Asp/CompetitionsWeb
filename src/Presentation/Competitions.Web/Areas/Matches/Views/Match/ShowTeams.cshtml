@@ -1,13 +1,50 @@
 ﻿@model IEnumerable<Competitions.Domain.Entities.Managment.Team>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/pages/show-teams.min.css" />
+}
+
+
 <section class="card shadow-sm ">
-    لیست تیم های مسابقه
-    <ul class="row">
-        @foreach(var item in Model){
-            <li class="border p-4 m-3">
-                @foreach(var user in item.Users){
-                    <p></p>
-                }
-            </li>
+
+    @if (Model.Any())
+    {
+        if (Model.ElementAt(0).Users.Count() > 1)
+        {
+            <h2 class="text-info">
+                لیست تیم های مسابقه
+            </h2>
         }
-    </ul>
+        else
+        {
+            <h2 class="text-info">
+                لیست افراد مسابقه
+            </h2>
+        }
+        <hr />
+        <div class="team">
+            <ul class="team-list">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    String title = Model.ElementAt(i).Users.Count() > 1 ? "تیم" : "نفر";
+                    <li class="team-list-item">
+                        <h3 class="team-list-item-header">@title @(
+                    i + 1
+                    )</h3>
+                        @foreach (var person in Model.ElementAt(i).Users)
+                        {
+                            <p class="team-list-item-person">@String.Concat(person.User.Name , " " , person.User.Family)</p>
+                        }
+                    </li>
+                }
+            </ul>
+    </div>
+    }else{
+        <h4 class="text-danger p-5 text-center">هیچ کس در این مسابقه شرکت نکرده است</h4>
+    }
 </section>
