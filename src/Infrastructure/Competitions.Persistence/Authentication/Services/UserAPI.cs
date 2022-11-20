@@ -1,4 +1,5 @@
 ﻿using Competitions.Application.Authentication.Interfaces;
+using Competitions.Common;
 using Competitions.Domain.Dtos.Authentication.User;
 using Newtonsoft.Json;
 
@@ -9,7 +10,7 @@ namespace Competitions.Persistence.Authentication.Services
 
         public async Task<UserInfo> GetUserAsync ( String nationalCode )
         {
-            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=details&username=GXBsBt9n&password=qwe159asd753&nationalCode={nationalCode}";
+            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=details&username={SD.KhedmatRaziUserName}&password={SD.KhedmatRaziPassword}&nationalCode={nationalCode}";
             var request = new HttpRequestMessage(HttpMethod.Post , url);
             var handler = new HttpClientHandler()
             {

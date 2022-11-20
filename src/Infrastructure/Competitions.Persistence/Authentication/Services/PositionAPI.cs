@@ -1,4 +1,5 @@
 ﻿using Competitions.Application.Authentication.Interfaces;
+using Competitions.Common;
 using Competitions.Domain.Dtos.Authentication.Positions;
 using Newtonsoft.Json;
 
@@ -8,7 +9,7 @@ namespace Competitions.Persistence.Authentication.Services
     {
         public async Task<IEnumerable<Position>> GetPositionsAsync ()
         {
-            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=getAllPositions&username=GXBsBt9n&password=qwe159asd753";
+            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=getAllPositions&username=${SD.KhedmatRaziUserName}&password={SD.KhedmatRaziPassword}";
             var request = new HttpRequestMessage(HttpMethod.Post , url);
             var handler = new HttpClientHandler()
             {
@@ -35,7 +36,7 @@ namespace Competitions.Persistence.Authentication.Services
 
         public async Task<IEnumerable<UserByPosition>> GetUsersAsync ( String position )
         {
-            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=usersWithJobPosition&username=GXBsBt9n&password=qwe159asd753&position={position}";
+            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=usersWithJobPosition&username={SD.KhedmatRaziUserName}&password={SD.KhedmatRaziPassword}&position={position}";
             var request = new HttpRequestMessage(HttpMethod.Post , url);
             var handler = new HttpClientHandler()
             {

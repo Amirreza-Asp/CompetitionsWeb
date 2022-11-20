@@ -23,5 +23,10 @@
 
 		public const String Match = "Match";
 		public const String Home = "Home";
+
+
+		// Razi Api
+		public const String KhedmatRaziUserName = "GXBsBt9n";
+		public const String KhedmatRaziPassword = "f3EDwlbmrjiFH24234Whr";
 	}
 }

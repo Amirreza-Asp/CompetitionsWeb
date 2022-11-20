@@ -1,4 +1,5 @@
 ﻿using Competitions.Application.Managment.Interfaces;
+using Competitions.Common;
 
 namespace Competitions.Persistence.Managment.Services
 {
@@ -6,7 +7,7 @@ namespace Competitions.Persistence.Managment.Services
     {
         public async Task<bool> SendAsync ( String message , String phoneNumber )
         {
-            String url = "https://khedmat.razi.ac.ir/api/KhedmatAPI/message?action=sendSMS&username=GXBsBt9n&password=qwe159asd753&text="
+            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/message?action=sendSMS&username={SD.KhedmatRaziUserName}&password={SD.KhedmatRaziPassword}&text="
                 + message + "&FromOutside=true&MobileNumber={\"MobileNumber\":[\"" + phoneNumber + "\"]}";
             var request = new HttpRequestMessage(HttpMethod.Post , url);
             var handler = new HttpClientHandler()
