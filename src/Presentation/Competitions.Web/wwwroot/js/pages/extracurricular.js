@@ -63,7 +63,7 @@ function AddSport(id) {
     const sportId = document.getElementById("sport-input").value;
 
     $.ajax({
-        url: `/Managment/Extracurricular/GetSportsByPlaceId/${id}`,
+        url: `/Extracurriculars/Extracurricular/GetSportsByPlaceId/${id}`,
         type: "GET",
         success: function (info) {
 
@@ -103,7 +103,7 @@ function AddSubPlaces(id) {
     const placeId = document.getElementById("placeId-input").value;
     document.getElementById("placeId-input").value = "00000000-0000-0000-0000-000000000000";
     $.ajax({
-        url: `/Managment/Extracurricular/GetSubPlacesByPlaceId/${id}`,
+        url: `/Extracurriculars/Extracurricular/GetSubPlacesByPlaceId/${id}`,
         type: "GET",
         success: function (info) {
 
@@ -136,7 +136,7 @@ function AddCoach(id) {
     const select = document.getElementById('coach');
 
     $.ajax({
-        url: `/Managment/Extracurricular/GetCoachBySportId/${id}`,
+        url: `/Extracurriculars/Extracurricular/GetCoachBySportId/${id}`,
         type: "GET",
         success: function (info) {
 
@@ -208,7 +208,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         const select = document.getElementById("place");
         $.ajax({
-            url: `/Managment/Extracurricular/GetParentPlaceByChildPlaceId/${placeId}`,
+            url: `/Extracurriculars/Extracurricular/GetParentPlaceByChildPlaceId/${placeId}`,
             type: "GET",
             success: function (info) {
 

@@ -15,41 +15,41 @@
             <div class="d-flex px-3 h-100">
                 <div class="d-flex flex-column justify-content-around align-items-start sport-matches-content">
                     <h2>کلاس های فوق برنامه و اوقات فراغت</h2>
-                    <p>
+                    <p class="sport-matches-content-para">
                         هدف این سامانه اطلاع رسانی ، ارائه خدمات مرتبط با برگزاری دوره های فوق برنامه ورزشی به صورت الکترونیکی است
                     </p>
-                    <a asp-controller="Prog" asp-action="Index"  class="btn btn-info text-white" style="cursor:pointer;z-index:2;"st>مشاهده برنامه کلاسی</a>
+                    <a asp-controller="Prog" asp-action="Index" class="btn btn-info text-white" style="cursor:pointer;z-index:2;" st>مشاهده برنامه کلاسی</a>
                 </div>
                 <div class="sport-matches-img"></div>
             </div>
         </div>
         <div class=" col-xl-3 col-12 cards-icons left-card-2">
 
-            <div class="prog-places-2 mb-3">
-                <a asp-controller="Place" asp-action="Index">
-                <span class="text-white"> اماکن ورزشی دانشگاه</span>
-                </a>
-            </div>
-            <div  class="prog-fields mb-3">
-                <a asp-controller="Prog" asp-action="Calender">
+            <a asp-controller="Place" asp-action="Index">
+                <div class="prog-places-2 mb-3">
+                    <span class="text-white"> اماکن ورزشی دانشگاه</span>
+                </div>
+            </a>
+            <a asp-controller="Prog" asp-action="Calender">
+                <div class="prog-fields mb-3">
                     <span class="text-white"> تقویم کلاس ها </span>
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
     </div>
     <h3 class="text-center">مسابقات ورزشی</h3>
     <hr class="hr-text" />
     <div class="my-3">
-    <ul class="carou">
-    @foreach ( var item in Model )
-    {
-        <li class="carou-item">
-            <a>
-                <img class="carou-item-image" src="@StaticEntitiesDetails.SportImagePath@item.Image">
-                <h5 class="carou-item-title">@item.Name</h5>
-            </a>
-        </li>
-    }
-</ul>
+        <ul class="carou">
+        @foreach ( var item in Model )
+        {
+            <li class="carou-item">
+                <a>
+                    <img class="carou-item-image" src="@StaticEntitiesDetails.SportImagePath@item.Image">
+                    <h5 class="carou-item-title">@item.Name</h5>
+                </a>
+            </li>
+        }
+    </ul>
 
 </div>
