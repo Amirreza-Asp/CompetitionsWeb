@@ -7,10 +7,10 @@ namespace Competitions.Persistence.Authentication.Services
 {
     public class PositionAPI : IPositionAPI
     {
-        public async Task<IEnumerable<Position>> GetPositionsAsync ()
+        public async Task<IEnumerable<Position>> GetPositionsAsync()
         {
-            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=getAllPositions&username=${SD.KhedmatRaziUserName}&password={SD.KhedmatRaziPassword}";
-            var request = new HttpRequestMessage(HttpMethod.Post , url);
+            String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=getAllPositions&username={SD.KhedmatRaziUserName}&password={SD.KhedmatRaziPassword}";
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
             var handler = new HttpClientHandler()
             {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
@@ -24,7 +24,7 @@ namespace Competitions.Persistence.Authentication.Services
 
             var res = await client.SendAsync(request);
 
-            if ( res.IsSuccessStatusCode )
+            if (res.IsSuccessStatusCode)
             {
                 var strContent = await res.Content.ReadAsStringAsync();
                 var positions = JsonConvert.DeserializeObject<IEnumerable<Position>>(strContent);
@@ -34,10 +34,10 @@ namespace Competitions.Persistence.Authentication.Services
             return new List<Position>();
         }
 
-        public async Task<IEnumerable<UserByPosition>> GetUsersAsync ( String position )
+        public async Task<IEnumerable<UserByPosition>> GetUsersAsync(String position)
         {
             String url = $"https://khedmat.razi.ac.ir/api/KhedmatAPI/khedmat/users?action=usersWithJobPosition&username={SD.KhedmatRaziUserName}&password={SD.KhedmatRaziPassword}&position={position}";
-            var request = new HttpRequestMessage(HttpMethod.Post , url);
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
             var handler = new HttpClientHandler()
             {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
@@ -51,7 +51,7 @@ namespace Competitions.Persistence.Authentication.Services
 
             var res = await client.SendAsync(request);
 
-            if ( res.IsSuccessStatusCode )
+            if (res.IsSuccessStatusCode)
             {
                 var strContent = await res.Content.ReadAsStringAsync();
                 var user = JsonConvert.DeserializeObject<IEnumerable<UserByPosition>>(strContent);
