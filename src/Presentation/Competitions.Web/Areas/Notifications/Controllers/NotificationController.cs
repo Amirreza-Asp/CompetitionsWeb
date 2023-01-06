@@ -24,7 +24,7 @@ namespace Competitions.Web.Areas.Notifications.Controllers
 
         private static NotificationFilter _filters = new NotificationFilter();
 
-        public NotificationController ( IWebHostEnvironment hostEnv , IRepository<Notification> notifRepo , IMapper mapper , IRepository<NotificationImage> notifImageRepo )
+        public NotificationController(IWebHostEnvironment hostEnv, IRepository<Notification> notifRepo, IMapper mapper, IRepository<NotificationImage> notifImageRepo)
         {
             _hostEnv = hostEnv;
             _notifRepo = notifRepo;
@@ -32,50 +32,50 @@ namespace Competitions.Web.Areas.Notifications.Controllers
             _notifImageRepo = notifImageRepo;
         }
 
-        public IActionResult Index ( NotificationFilter filters )
+        public IActionResult Index(NotificationFilter filters)
         {
             _filters = filters;
 
-            var spec = new GetFilteredNotificationsSpec(filters.Skip , filters.Take);
+            var spec = new GetFilteredNotificationsSpec(filters.Skip, filters.Take);
 
             var vm = new GetAllNotificationsVM
             {
-                Entities = _notifRepo.GetAll(spec) ,
-                Filters = new NotificationFilter { Skip = filters.Skip , Take = filters.Take , Total = _notifRepo.GetCount() }
+                Entities = _notifRepo.GetAll(spec),
+                Filters = new NotificationFilter { Skip = filters.Skip, Take = filters.Take, Total = _notifRepo.GetCount() }
             };
 
             return View(vm);
         }
 
 
-        public async Task<IActionResult> Details ( long id )
+        public async Task<IActionResult> Details(long id)
         {
             var notif = await _notifRepo.FirstOrDefaultAsync(
-                filter: u => u.Id == id ,
+                filter: u => u.Id == id,
                 include: source => source.Include(u => u.Images));
 
-            if ( notif == null )
+            if (notif == null)
             {
                 TempData[SD.Error] = "اطلاعیه انتخاب شده وجود ندارد";
-                return RedirectToAction(nameof(Index) , _filters);
+                return RedirectToAction(nameof(Index), _filters);
             }
 
             return View(notif);
         }
 
 
-        public IActionResult Create () => View();
+        public IActionResult Create() => View();
         [HttpPost]
-        public async Task<IActionResult> Create ( CreateNotificationDto command )
+        public async Task<IActionResult> Create(CreateNotificationDto command)
         {
             var files = HttpContext.Request.Form.Files;
-            if ( !ModelState.IsValid || !files.Any() )
+            if (!ModelState.IsValid || !files.Any())
                 return View(command);
 
 
-            foreach ( var file in files )
+            foreach (var file in files)
             {
-                if ( file.ReadBytes().Length > SD.ImageSizeLimit )
+                if (file.ReadBytes().Length > SD.ImageSizeLimit && Path.GetExtension(file.FileName).ToLower() != ".pdf")
                 {
                     TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
                     return View(command);
@@ -83,10 +83,10 @@ namespace Competitions.Web.Areas.Notifications.Controllers
 
             }
 
-            var notif = new Notification(command.Title , command.Description);
+            var notif = new Notification(command.Title, command.Description);
             files.ToList().ForEach(file =>
             {
-                var img = new NotificationImage(file.FileName , new Document(file.FileName , file.ReadBytes()));
+                var img = new NotificationImage(file.FileName, new Document(file.FileName, file.ReadBytes()));
                 img.SaveImage();
                 notif.AddImage(img);
             });
@@ -95,26 +95,26 @@ namespace Competitions.Web.Areas.Notifications.Controllers
             await _notifRepo.SaveAsync();
 
             TempData[SD.Success] = "اطلاعیه با موفقیت ثبت شد";
-            return RedirectToAction(nameof(Index) , _filters);
+            return RedirectToAction(nameof(Index), _filters);
         }
 
 
-        public async Task<IActionResult> Update ( long id )
+        public async Task<IActionResult> Update(long id)
         {
             var notif = await _notifRepo.FirstOrDefaultAsync(
-               filter: u => u.Id == id ,
+               filter: u => u.Id == id,
                include: source => source.Include(u => u.Images));
 
-            if ( notif == null )
+            if (notif == null)
             {
                 TempData[SD.Error] = "اطلاعیه انتخاب شده وجود ندارد";
-                return RedirectToAction(nameof(Index) , _filters);
+                return RedirectToAction(nameof(Index), _filters);
             }
 
             var dto = _mapper.Map<UpdateNotificationDto>(notif);
             dto.CurrentImages = await _notifImageRepo.GetAllAsync<NotificaionImageDto>(
-                filter: u => u.Notification.Id == id ,
-                    select: img => new NotificaionImageDto { Name = img.Image.Name , Id = img.Id });
+                filter: u => u.Notification.Id == id,
+                    select: img => new NotificaionImageDto { Name = img.Image.Name, Id = img.Id });
             //dto.CurrentImages = new List<NotificaionImageDto>();
 
             //foreach ( var img in notif.Images )
@@ -125,13 +125,13 @@ namespace Competitions.Web.Areas.Notifications.Controllers
             return View(dto);
         }
         [HttpPost]
-        public async Task<IActionResult> Update ( UpdateNotificationDto command )
+        public async Task<IActionResult> Update(UpdateNotificationDto command)
         {
-            if ( !ModelState.IsValid )
+            if (!ModelState.IsValid)
             {
                 command.CurrentImages = await _notifImageRepo.GetAllAsync<NotificaionImageDto>(
-                    filter: u => u.Notification.Id == command.Id ,
-                    select: img => new NotificaionImageDto { Name = img.Image.Name , Id = img.Id });
+                    filter: u => u.Notification.Id == command.Id,
+                    select: img => new NotificaionImageDto { Name = img.Image.Name, Id = img.Id });
 
                 return View(command);
             }
@@ -140,20 +140,21 @@ namespace Competitions.Web.Areas.Notifications.Controllers
             var notif = await _notifRepo.FindAsync(command.Id);
 
 
-            if ( files != null )
-                foreach ( var file in files )
+            if (files != null)
+                foreach (var file in files)
                 {
-                    if ( file.ReadBytes().Length > SD.ImageSizeLimit )
+                    if (file.ReadBytes().Length > SD.ImageSizeLimit && Path.GetExtension(file.FileName).ToLower() != ".pdf")
                     {
                         command.CurrentImages = await _notifImageRepo.GetAllAsync<NotificaionImageDto>(
-                            filter: u => u.Notification.Id == command.Id ,
-                            select: img => new NotificaionImageDto { Name = img.Image.Name , Id = img.Id });
+                            filter: u => u.Notification.Id == command.Id,
+                            select: img => new NotificaionImageDto { Name = img.Image.Name, Id = img.Id });
+
 
                         TempData[SD.Error] = $"سایز عکس وارد شده باید کمتر از {SD.ImageSizeLimitDisplay} باشد";
                         return View(command);
                     }
 
-                    var img = new NotificationImage(file.FileName , new Document(file.FileName , file.ReadBytes()));
+                    var img = new NotificationImage(file.FileName, new Document(file.FileName, file.ReadBytes()));
                     img.SaveImage();
                     notif.AddImage(img);
                 }
@@ -166,21 +167,21 @@ namespace Competitions.Web.Areas.Notifications.Controllers
             await _notifRepo.SaveAsync();
 
             TempData[SD.Info] = "ویرایش با موفقیت انجام شد";
-            return RedirectToAction(nameof(Index) , _filters);
+            return RedirectToAction(nameof(Index), _filters);
         }
 
 
         [HttpDelete]
-        public async Task<JsonResult> Remove ( long id )
+        public async Task<JsonResult> Remove(long id)
         {
             var notif = await _notifRepo.FirstOrDefaultAsync(
-                filter: u => u.Id == id ,
+                filter: u => u.Id == id,
                 include: source => source.Include(u => u.Images));
 
-            if ( notif == null )
+            if (notif == null)
                 return Json(new { Success = false });
 
-            if ( notif.Images != null )
+            if (notif.Images != null)
                 notif.Images.ToList().ForEach(img => img.DeleteImage());
 
             _notifRepo.Remove(notif);
@@ -189,10 +190,10 @@ namespace Competitions.Web.Areas.Notifications.Controllers
             return Json(new { Success = true });
         }
         [HttpDelete]
-        public async Task<JsonResult> RemoveImage ( long id )
+        public async Task<JsonResult> RemoveImage(long id)
         {
             var img = await _notifImageRepo.FindAsync(id);
-            if ( img == null )
+            if (img == null)
                 return Json(new { Success = false });
 
             img.DeleteImage();
@@ -202,17 +203,17 @@ namespace Competitions.Web.Areas.Notifications.Controllers
             return Json(new { Success = true });
         }
 
-        public async Task<FileResult> DownloadImage ( long id )
+        public async Task<FileResult> DownloadImage(long id)
         {
             var img = await _notifImageRepo.FindAsync(id);
-            if ( img == null )
+            if (img == null)
             {
                 return null;
             }
 
             string filePath = _hostEnv.WebRootPath + StaticEntitiesDetails.NotificationPath + img.Image.Name;
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes , "application/force-download" , img.Name);
+            return File(fileBytes, "application/force-download", img.Name);
 
         }
 

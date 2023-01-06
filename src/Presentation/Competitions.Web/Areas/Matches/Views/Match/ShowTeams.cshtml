@@ -28,23 +28,35 @@
         }
         <hr />
         <div class="team">
-            <ul class="team-list">
+            <ul class="team-list" style="cursor:pointer;">
                 @for (int i = 0; i < Model.Count(); i++)
                 {
+                    Model.ElementAt(i).Users.ToList().OrderByDescending(u => u.Leader);
                     String title = Model.ElementAt(i).Users.Count() > 1 ? "تیم" : "نفر";
                     <li class="team-list-item">
-                        <h3 class="team-list-item-header">@title @(
-                    i + 1
-                    )</h3>
-                        @foreach (var person in Model.ElementAt(i).Users)
-                        {
-                            <p class="team-list-item-person">@String.Concat(person.User.Name , " " , person.User.Family)</p>
-                        }
+                        <a style="display:block;width:100%;height:100%;" asp-action="TeamInfo" asp-route-teamId="@Model.ElementAt(i).Id">
+                            <h3 class="team-list-item-header text-dark">@title @(i + 1)</h3>
+
+                            @foreach (var person in Model.ElementAt(i).Users)
+                            {
+                                <p class="team-list-item-person">
+
+                                    @String.Concat(person.User.Name , " " , person.User.Family)
+                                    @if (person.Leader)
+                                    {
+                                        <span class="me-1" style="font-size:13px;">(نماینده)</span>
+                                    }
+                                </p>
+
+                            }
+                        </a>
                     </li>
                 }
             </ul>
-    </div>
-    }else{
+        </div>
+    }
+    else
+    {
         <h4 class="text-danger p-5 text-center">هیچ کس در این مسابقه شرکت نکرده است</h4>
     }
 </section>

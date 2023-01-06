@@ -32,6 +32,7 @@
                         <th>رشته ورزشی</th>
                         <th>نوع مخاطبین</th>
                         <th>مکان برگزاری</th>
+                        <th>دانش اموزان</th>
                         <th>عملیات</th>
                     </tr>
                 </thead>
@@ -49,8 +50,15 @@
                             <td>@Model.Extracurriculars.ElementAt(i).AudienceType</td>
                             <td>@Model.Extracurriculars.ElementAt(i).Place</td>
                             <td>
+                                <a class="btn btn--show" asp-action="Students" asp-route-extraId="@Model.Extracurriculars.ElementAt(i).Id">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                            </td>
+                            <td>
                                 <div class="table__action">
-                                    <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Extracurriculars.ElementAt(i).Id"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn--show" asp-action="Details" asp-route-id="@Model.Extracurriculars.ElementAt(i).Id">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
 
                                     <a class="btn btn--edit" asp-action="Update" asp-route-id="@Model.Extracurriculars.ElementAt(i).Id"><i class="fa fa-edit"></i></a>
                                     <button type="button" class="btn btn--delete me-2" onclick="Delete('/Extracurriculars/Extracurricular/Remove/@Model.Extracurriculars.ElementAt(i).Id' , 'فوق برنامه')">

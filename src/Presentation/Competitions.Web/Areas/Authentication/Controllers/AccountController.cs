@@ -173,5 +173,6 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             return RedirectToAction(nameof(ChangePassword));
         }
 
+
     }
 }

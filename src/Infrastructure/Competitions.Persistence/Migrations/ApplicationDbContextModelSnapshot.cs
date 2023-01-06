@@ -49,6 +49,9 @@ namespace Competitions.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("College")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -363,6 +366,9 @@ namespace Competitions.Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Leader")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");

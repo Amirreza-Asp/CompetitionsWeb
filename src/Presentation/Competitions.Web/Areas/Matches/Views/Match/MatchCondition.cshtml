@@ -74,19 +74,12 @@
                         <button type="button" id="filebtn" onclick="$('#uploadbox').click()" class="form-control">انتخاب آیین نامه عمومی و فنی مسابقات</button>
                     }
                 </div>
-                <p>
-                    نام فایل انتخاب شده :
-                    @if ( !String.IsNullOrEmpty(Model.File) )
-                    {
-                        <span id="file-name">
-                            @Model.File
-                        </span>
-                    }
-                    else
-                    {
-                        <span id="file-name"></span>
-                    }
-                </p>
+                @if (!String.IsNullOrEmpty(Model.File))
+                {
+                    <a asp-action="DownloadCondition" asp-route-fileName="@Model.File">
+                        دانلود آیین نامه مسابقات
+                    </a>   
+                }
             </div>
             <div class="mb-3 col-md-6">
                 <div class="mb-3">
@@ -176,7 +169,7 @@
         }
 
         function enterImage(imageInput) {
-            document.getElementById("file-name").innerHTML = getFileName(imageInput.value);
+            document.getElementById("filebtn").innerHTML = getFileName(imageInput.value);
         }
 
         function getFileName(fullPath) {

@@ -54,6 +54,12 @@ img.sidebar-icon{
     box-shadow:0 0 2px black;
 }
 
+.datepicker-navigator > pwt-btn pwt-btn-next,
+.datepicker-navigator > pwt-btn pwt-btn-prev {
+    direction: rtl;
+}
+
+
 @keyframes rotate {
     from {
         transform: rotate(-1turn);

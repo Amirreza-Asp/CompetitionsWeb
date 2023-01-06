@@ -8,7 +8,7 @@ namespace Competitions.Domain.Dtos.Matches.Matches
 
         public int TeamCount { get; set; }
 
-        public IEnumerable<MatchDocument> Documents { get; set; }
+        public IEnumerable<MatchDocument> Documents { get; set; } = new List<MatchDocument>();
 
 
         public Guid MatchId { get; set; }

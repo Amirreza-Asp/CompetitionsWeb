@@ -49,7 +49,7 @@
                 </h3>
             @foreach ( var item in Model.Matches )
             {
-                <a href="#">
+                <a asp-controller="Match" asp-action="Details" asp-route-id="@item.Id">
                     <div class="notification mb-3" style="background:linear-gradient(rgba(0,0,0,.6) , rgba(0,0,0,.8)) ,
                             url(@StaticEntitiesDetails.MatchImagePath@item.Image.Name) center center/cover;">
                         <div class="p-relative d-flex align-items-center justify-content-between">
@@ -84,7 +84,7 @@
             </h3>
             @foreach ( var item in Model.Notifications )
             {
-                <a asp-controller="Notification" asp-action="Index">
+                <a asp-controller="Notification" asp-action="Details" asp-route-id="@item.Id">
                     @{
                         String imgPath = item.Images.Any() ? @item.Images.ElementAt(0).Image.Name : "";
                     }

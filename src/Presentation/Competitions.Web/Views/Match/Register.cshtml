@@ -1,42 +1,49 @@
-﻿@model Competitions.Domain.Dtos.Matches.Matches.RegisterMatchDto
+﻿@using Competitions.Domain.Dtos.Matches.Matches;
+@model RegisterMatchListDto
 
 <form method="post" enctype="multipart/form-data">
     <input asp-for="TeamCount" hidden />
-    <input asp-for="Number" hidden />
+    <input asp-for="MatchId" hidden />
+    <input asp-for="Gender" hidden />
+    <input asp-for="Gender" hidden />
 
     <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
         <h3 class="mb-4 mb-lg-0">ثبت نام در مسابقه</h3>
-        <h5 dir="ltr">@Model.Number / @Model.TeamCount</h5>
     </div>
     <section class="card shadow-sm ">
-        @if ( Model.TeamCount > 1 )
-        {
-            <h4 class="mb-5">نفر @Model.Number</h4>
-
-        }
         <div class="row">
+            @for (int i = 0;i< Model.TeamCount; i++)
+            {
+                if(i==0 && Model.TeamCount > 1)
+                {
+                    <h4>نماینده</h4>
+                }
+
                 <div class="col-6 mb-3">
 
                     <label class="form-label">شماره دانشجویی</label>
-                    <input class="form-control" asp-for="StudentNumber" value="">
-                    <span class="text-danger" asp-validation-for="StudentNumber"></span>
+                    <input class="form-control" asp-for="RegisterMatches[i].StudentNumber" type="text">
+                    <span class="text-danger" asp-validation-for="RegisterMatches[i].StudentNumber"></span>
                 </div>
                 <div class="row">
-                    <h5 class="my-4">مدارک</h5>
-                    @if(Model.Documents==null){
-                    Model.Documents = new List<Competitions.Domain.Entities.Managment.MatchDocument>();
-                }
-                    @for ( int j = 0 ; j < Model.Documents.Count() ; j++ )
+                    <h5 class="my-3">مدارک</h5>
+                    @for (int j = 0; j < Model.Documents.Count(); j++)
                     {
                         <div class="col-md-4 mb-3">
                             <label class="form-label">@Model.Documents.ElementAt(j).Evidence.Title</label>
-                        <input name="FilesNames[@j]" value="@Model.Documents.ElementAt(j).Evidence.Title" hidden />
-                        <input name="Files[@j]" type="file" class="form-control" accept="@Model.Documents.ElementAt(j).Type" hidden onchange="this.parentElement.children[3].innerText = this.value.split('\\')[2]" />
-                        <button type="button" onclick="this.parentElement.children[2].click()" class="form-control">انتخاب @Model.Documents.ElementAt(j).Evidence.Title</button>
+                            <input name="registerMatches[@i].FilesNames[@j]" value="@Model.Documents.ElementAt(j).Evidence.Title" hidden />
+                            <input name="registerMatches[@i].Files[@j]" type="file" class="form-control" accept="@Model.Documents.ElementAt(j).Type" hidden onchange="this.parentElement.children[3].innerText = this.value.split('\\')[2]" />
+                            <button type="button" onclick="this.parentElement.children[2].click()" class="form-control">انتخاب @Model.Documents.ElementAt(j).Evidence.Title</button>
                         </div>
                     }
                 </div>
-            
+
+                @if (i != Model.TeamCount - 1)
+                {
+                    <hr />
+                }
+
+            }           
         </div>
 
     </section>

@@ -22,6 +22,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
     public class ExtracurricularController : Controller
     {
         private readonly IRepository<Extracurricular> _extRepo;
+        private readonly IRepository<ExtracurricularUser> _extUserRepo;
         private readonly IRepository<ExtracurricularTime> _extTimeRepo;
         private readonly IRepository<Sport> _sportRepo;
         private readonly IRepository<AudienceType> _audRepo;
@@ -30,7 +31,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
 
         private static ExtracurricularFilter _filters = new ExtracurricularFilter();
 
-        public ExtracurricularController ( IRepository<Extracurricular> extRepo , IRepository<Sport> sportRepo , IRepository<AudienceType> audRepo , IRepository<Place> placeRepo , IMapper mapper , IRepository<ExtracurricularTime> extTimeRepo )
+        public ExtracurricularController(IRepository<Extracurricular> extRepo, IRepository<Sport> sportRepo, IRepository<AudienceType> audRepo, IRepository<Place> placeRepo, IMapper mapper, IRepository<ExtracurricularTime> extTimeRepo, IRepository<ExtracurricularUser> extUserRepo)
         {
             _extRepo = extRepo;
             _sportRepo = sportRepo;
@@ -38,15 +39,16 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             _placeRepo = placeRepo;
             _mapper = mapper;
             _extTimeRepo = extTimeRepo;
+            _extUserRepo = extUserRepo;
         }
 
-        public async Task<IActionResult> Index ( ExtracurricularFilter filters )
+        public async Task<IActionResult> Index(ExtracurricularFilter filters)
         {
-            if ( _filters.AudienceTypes == null )
+            if (_filters.AudienceTypes == null)
             {
-                filters.AudienceTypes = await _audRepo.GetAllAsync(select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
-                filters.Sports = await _sportRepo.GetAllAsync(select: entity => new SelectListItem { Text = entity.Name , Value = entity.Id.ToString() });
-                filters.Places = await _placeRepo.GetAllAsync(select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
+                filters.AudienceTypes = await _audRepo.GetAllAsync(select: entity => new SelectListItem { Text = entity.Title, Value = entity.Id.ToString() });
+                filters.Sports = await _sportRepo.GetAllAsync(select: entity => new SelectListItem { Text = entity.Name, Value = entity.Id.ToString() });
+                filters.Places = await _placeRepo.GetAllAsync(select: entity => new SelectListItem { Text = entity.Title, Value = entity.Id.ToString() });
 
             }
             else
@@ -58,12 +60,12 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
 
             _filters = filters;
 
-            var spec = new GetFilteredExtracurricularSpec(filters.Name , filters.SportId , filters.AudienceTypeId , filters.PlaceId , filters.Skip , filters.Take);
+            var spec = new GetFilteredExtracurricularSpec(filters.Name, filters.SportId, filters.AudienceTypeId, filters.PlaceId, filters.Skip, filters.Take);
             filters.Total = _extRepo.GetCount(spec);
 
             var vm = new GetAllExtracurricularsVM
             {
-                Extracurriculars = _extRepo.GetAll(spec , entity => _mapper.Map<GetExtracurricularDetailsDto>(entity)) ,
+                Extracurriculars = _extRepo.GetAll(spec, entity => _mapper.Map<GetExtracurricularDetailsDto>(entity)),
                 Filter = filters
             };
 
@@ -71,11 +73,11 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
         }
 
 
-        public async Task<IActionResult> Details ( Guid id )
+        public async Task<IActionResult> Details(Guid id)
         {
             var entity = await _extRepo
                 .FirstOrDefaultAsync(
-                filter: u => u.Id == id ,
+                filter: u => u.Id == id,
                 include: source =>
                     source.Include(u => u.Times)
                     .Include(u => u.Sport)
@@ -83,33 +85,33 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                     .Include(u => u.AudienceType)
                     .Include(u => u.Coach));
 
-            if ( entity == null )
+            if (entity == null)
             {
                 TempData[SD.Error] = "فوق برنامه انتخاب شده وجود ندارد";
-                return RedirectToAction(nameof(Index) , _filters);
+                return RedirectToAction(nameof(Index), _filters);
             }
 
             return View(entity);
         }
 
 
-        public async Task<IActionResult> Create ()
+        public async Task<IActionResult> Create()
         {
             var dto = new CreateExtracurricularDto
             {
-                Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null , select: u => new SelectListItem
+                Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null, select: u => new SelectListItem
                 {
-                    Text = u.Title ,
+                    Text = u.Title,
                     Value = u.Id.ToString()
-                }) ,
+                }),
 
-                AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() })
+                AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() })
             };
 
             return View(dto);
         }
         [HttpPost]
-        public async Task<IActionResult> Create ( CreateExtracurricularDto command )
+        public async Task<IActionResult> Create(CreateExtracurricularDto command)
         {
 
             command.StartPutOn = command.StartPutOn.ToMiladi();
@@ -117,86 +119,86 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             command.StartRegister = command.StartRegister.ToMiladi();
             command.EndRegister = command.EndRegister.ToMiladi();
 
-            if ( !ModelState.IsValid )
+            if (!ModelState.IsValid)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-                    select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+                    select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
 
                 return View(command);
             }
 
-            if ( command.StartRegister >= command.EndRegister )
+            if (command.StartRegister >= command.EndRegister)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-                    select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+                    select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
 
                 TempData[SD.Error] = "زمان شروع ثبت نام نمیتواند از پایان بزرگتر باشد";
                 return View(command);
             }
 
-            if ( command.StartPutOn >= command.EndPutOn )
+            if (command.StartPutOn >= command.EndPutOn)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-               select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+               select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
 
                 TempData[SD.Error] = "زمان شروع دوره نمیتواند از پایان ان بزرگتر باشد";
                 return View(command);
             }
 
-            if ( command.MinimumPlacements > command.Capacity )
+            if (command.MinimumPlacements > command.Capacity)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-               select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+               select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
                 TempData[SD.Error] = "حداقل ظرفیت برای برگزاری دوره باید از ظرفیت دوره کمتر باشد";
                 return View(command);
             }
 
-            var entity = new Extracurricular(command.Name , command.SportId , command.PlaceId , command.AudienceTypeId , command.Capacity ,
-                new DateTimeRange(command.StartPutOn , command.EndPutOn) , command.Gender , new DateTimeRange(command.StartRegister , command.EndRegister) , command.Description ,
-                command.CoachId , command.MinimumPlacements);
+            var entity = new Extracurricular(command.Name, command.SportId, command.PlaceId, command.AudienceTypeId, command.Capacity,
+                new DateTimeRange(command.StartPutOn, command.EndPutOn), command.Gender, new DateTimeRange(command.StartRegister, command.EndRegister), command.Description,
+                command.CoachId, command.MinimumPlacements);
 
             var times = JsonConvert.DeserializeObject<List<ExtracurricularTimeDto>>(command.Times);
 
-            if ( times != null )
+            if (times != null)
                 times.ForEach(time =>
                 {
-                    entity.AddTime(new ExtracurricularTime(time.Day , new Time(time.GetHour() , time.GetMin()) , entity.Id));
+                    entity.AddTime(new ExtracurricularTime(time.Day, new Time(time.GetHour(), time.GetMin()), entity.Id));
                 });
 
             _extRepo.Add(entity);
             await _extRepo.SaveAsync();
 
             TempData[SD.Success] = "فوق برنامه با موفقیت ذخیره شد";
-            return RedirectToAction(nameof(Index) , _filters);
+            return RedirectToAction(nameof(Index), _filters);
         }
 
 
-        public async Task<IActionResult> Update ( Guid id )
+        public async Task<IActionResult> Update(Guid id)
         {
-            var entity = await _extRepo.FirstOrDefaultAsync(u => u.Id == id , include: source => source.Include(u => u.Times));
-            if ( entity == null )
+            var entity = await _extRepo.FirstOrDefaultAsync(u => u.Id == id, include: source => source.Include(u => u.Times));
+            if (entity == null)
             {
                 TempData[SD.Error] = "فوق برنامه انتخاب شده وجود ندارد";
-                return RedirectToAction(nameof(Index) , _filters);
+                return RedirectToAction(nameof(Index), _filters);
             }
 
             var dto = _mapper.Map<UpdateExtracurricularDto>(entity);
 
-            dto.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null , select: u => new SelectListItem
-            { Text = u.Title , Value = u.Id.ToString() });
-            dto.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+            dto.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null, select: u => new SelectListItem
+            { Text = u.Title, Value = u.Id.ToString() });
+            dto.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
             return View(dto);
         }
         [HttpPost]
-        public async Task<IActionResult> Update ( UpdateExtracurricularDto command )
+        public async Task<IActionResult> Update(UpdateExtracurricularDto command)
         {
 
             command.StartPutOn = command.StartPutOn.ToMiladi();
@@ -204,58 +206,58 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             command.StartRegister = command.StartRegister.ToMiladi();
             command.EndRegister = command.EndRegister.ToMiladi();
 
-            if ( !ModelState.IsValid )
+            if (!ModelState.IsValid)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-                    select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+                    select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
 
                 return View(command);
             }
 
-            if ( command.StartRegister >= command.EndRegister )
+            if (command.StartRegister >= command.EndRegister)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-                    select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+                    select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
 
                 TempData[SD.Error] = "زمان شروع ثبت نام نمیتواند از پایان بزرگتر باشد";
                 return View(command);
             }
 
-            if ( command.StartPutOn >= command.EndPutOn )
+            if (command.StartPutOn >= command.EndPutOn)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-               select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+               select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
 
                 TempData[SD.Error] = "زمان شروع دوره نمیتواند از پایان ان بزرگتر باشد";
                 return View(command);
             }
 
-            if ( command.MinimumPlacements > command.Capacity )
+            if (command.MinimumPlacements > command.Capacity)
             {
-                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null ,
-               select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
-                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title , Value = u.Id.ToString() });
+                command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
+               select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
+                command.AudienceTypes = await _audRepo.GetAllAsync(select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
 
                 TempData[SD.Error] = "حداقل ظرفیت برای برگزاری دوره باید از ظرفیت دوره کمتر باشد";
                 return View(command);
             }
 
-            var entity = await _extRepo.FirstOrDefaultAsync(u => u.Id == command.Id , include: source => source.Include(u => u.Times));
+            var entity = await _extRepo.FirstOrDefaultAsync(u => u.Id == command.Id, include: source => source.Include(u => u.Times));
 
             var times = JsonConvert.DeserializeObject<List<ExtracurricularTimeDto>>(command.Times);
 
-            if ( times != null )
+            if (times != null)
             {
                 entity.Times.ToList().ForEach(time => _extTimeRepo.Remove(time));
 
-                foreach ( var time in times )
-                    _extTimeRepo.Add(new ExtracurricularTime(time.Day.Trim() , time.Time.Trim() , entity.Id));
+                foreach (var time in times)
+                    _extTimeRepo.Add(new ExtracurricularTime(time.Day.Trim(), time.Time.Trim(), entity.Id));
             }
 
 
@@ -265,8 +267,8 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                 .WithSportId(command.SportId)
                 .WithCoachId(command.CoachId)
                 .WithPlaceId(command.PlaceId)
-                .WithPutOn(new DateTimeRange(command.StartPutOn , command.EndPutOn))
-                .WithRegister(new DateTimeRange(command.StartRegister , command.EndRegister))
+                .WithPutOn(new DateTimeRange(command.StartPutOn, command.EndPutOn))
+                .WithRegister(new DateTimeRange(command.StartRegister, command.EndRegister))
                 .WithAudienceTypeId(command.AudienceTypeId)
                 .WithMinimumPlacements(command.MinimumPlacements)
                 .WithName(command.Name);
@@ -275,15 +277,13 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             await _extRepo.SaveAsync();
 
             TempData[SD.Info] = "ویرایش با موفقیت انجام شد";
-            return RedirectToAction(nameof(Index) , _filters);
+            return RedirectToAction(nameof(Index), _filters);
         }
 
-
-
-        public async Task<IActionResult> Remove ( Guid id )
+        public async Task<IActionResult> Remove(Guid id)
         {
             var entity = await _extRepo.FindAsync(id);
-            if ( entity == null )
+            if (entity == null)
                 return Json(new { Success = false });
 
             _extRepo.Remove(entity);
@@ -291,61 +291,74 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             return Json(new { Success = true });
         }
 
-
-        public async Task<JsonResult> GetSportsByPlaceId ( Guid id )
+        public async Task<IActionResult> Students(Guid extraId)
         {
-            var sports = await _placeRepo.FirstOrDefaultSelectAsync(
-                filter: u => u.Id == id ,
-                include: source => source.Include(u => u.Sports).ThenInclude(u => u.Sport) ,
-                select: s => s.Sports.Select(u => new SelectListItem { Text = u.Sport.Name , Value = u.Sport.Id.ToString() }));
+            var users =
+                await _extUserRepo.GetAllAsync(
+                    user => user.ExtracurricularId == extraId,
+                    include: source => source.Include(u => u.User),
+                    orderBy: user => user
+                        .OrderBy(b => b.User.Name)
+                        .OrderBy(b => b.User.Family));
 
-            return Json(new { Exists = true , data = sports });
+            return View(users);
         }
 
-        public async Task<JsonResult> GetSubPlacesByPlaceId ( Guid id )
+
+        public async Task<JsonResult> GetSportsByPlaceId(Guid id)
         {
-            var subPlaces = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == id , select: u => new SelectListItem
+            var sports = await _placeRepo.FirstOrDefaultSelectAsync(
+                filter: u => u.Id == id,
+                include: source => source.Include(u => u.Sports).ThenInclude(u => u.Sport),
+                select: s => s.Sports.Select(u => new SelectListItem { Text = u.Sport.Name, Value = u.Sport.Id.ToString() }));
+
+            return Json(new { Exists = true, data = sports });
+        }
+
+        public async Task<JsonResult> GetSubPlacesByPlaceId(Guid id)
+        {
+            var subPlaces = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == id, select: u => new SelectListItem
             {
-                Text = u.Title ,
+                Text = u.Title,
                 Value = u.Id.ToString()
             });
 
-            if ( subPlaces.Any() )
-                return Json(new { Exists = true , data = subPlaces });
+            if (subPlaces.Any())
+                return Json(new { Exists = true, data = subPlaces });
 
-            return Json(new { Exists = true , data = new List<SelectListItem> { new SelectListItem { Text = "" , Value = id.ToString() } } });
+            return Json(new { Exists = true, data = new List<SelectListItem> { new SelectListItem { Text = "", Value = id.ToString() } } });
         }
 
-        public async Task<JsonResult> GetCoachBySportId ( long id )
+        public async Task<JsonResult> GetCoachBySportId(long id)
         {
             var coaches = await _sportRepo.FirstOrDefaultSelectAsync(
-                filter: u => u.Id == id ,
-                include: source => source.Include(u => u.Coaches) ,
-                select: entity => entity.Coaches.Select(u => new SelectListItem { Text = u.Name + " " + u.Family , Value = u.Id.ToString() }));
+                filter: u => u.Id == id,
+                include: source => source.Include(u => u.Coaches),
+                select: entity => entity.Coaches.Select(u => new SelectListItem { Text = u.Name + " " + u.Family, Value = u.Id.ToString() }));
 
-            if ( coaches.Any() )
-                return Json(new { Exists = true , data = coaches });
+            if (coaches.Any())
+                return Json(new { Exists = true, data = coaches });
             return Json(new { Exists = false });
         }
 
-        public async Task<JsonResult> GetParentPlaceByChildPlaceId ( Guid id )
+        public async Task<JsonResult> GetParentPlaceByChildPlaceId(Guid id)
         {
-            if ( id == default )
+            if (id == default)
                 return Json(new { Exists = false });
 
             var parent = await _placeRepo.FirstOrDefaultSelectAsync(
-                    filter: u => u.Id == id ,
-                    include: source => source.Include(u => u.ParentPlace) ,
-                    select: entity => new SelectListItem { Text = entity.ParentPlace.Title , Value = entity.ParentPlace.Id.ToString() });
+                    filter: u => u.Id == id,
+                    include: source => source.Include(u => u.ParentPlace),
+                    select: entity => new SelectListItem { Text = entity.ParentPlace.Title, Value = entity.ParentPlace.Id.ToString() });
 
-            if ( string.IsNullOrEmpty(parent.Value) )
+            if (string.IsNullOrEmpty(parent.Value))
             {
                 parent = await _placeRepo.FirstOrDefaultSelectAsync(
-                    filter: u => u.Id == id ,
-                    select: entity => new SelectListItem { Text = entity.Title , Value = entity.Id.ToString() });
+                    filter: u => u.Id == id,
+                    select: entity => new SelectListItem { Text = entity.Title, Value = entity.Id.ToString() });
             }
 
-            return Json(new { Exists = true , data = parent });
+            return Json(new { Exists = true, data = parent });
         }
 
     }

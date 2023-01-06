@@ -5,7 +5,7 @@
 @section Styles{
     <style>
         .match-img{
-            width:calc(40vw + 200px);
+            width:calc(30vw + 200px);
             aspect-ratio:2;
             object-size:cover;
             object-position:center;
@@ -27,16 +27,19 @@
             <p class="col-md-6 mb-3">مکان : @Model.Place.Title</p>
             <p class="col-md-6 mb-3">سطح : @Model.Level</p>
             <p class="col-md-6 mb-3">جنسیت : @(Model.Gender ? "دختران" : "پسران")</p>
-            <p class="col-md-6 mb-3">ظرفیت : @Model.Capacity نفر</p>
+            <p class="col-md-6 mb-3">ظرفیت : @(Model.Capacity == int.MaxValue ? "نامحدود" : $"{Model.Capacity} نفر")</p>
             <p class="col-md-6 mb-3">تعداد افراد هر تیم : @Model.TeamCount نفر</p>
-            <p class="col-md-6 mb-3">شروع ثبت نام : @Model.Register.From.ToShamsi() @Model.Register.From.TimeOfDay.ToString().Substring(0,5)</p>
-            <p class="col-md-6 mb-3">اتمام ثبت نام : @Model.Register.To.ToShamsi() @Model.Register.To.TimeOfDay.ToString().Substring(0,5)</p>
-            <p class="col-md-6 mb-3">تاریخ برگزاری : @Model.PutOn.From.ToShamsi()  @Model.PutOn.From.TimeOfDay.ToString().Substring(0,5)</p>
-            <p class="col-md-6 mb-3">تاریخ اتمام  : @Model.PutOn.To.ToShamsi()  @Model.PutOn.To.TimeOfDay.ToString().Substring(0,5)</p>
+            <p class="col-md-6 mb-3">شروع ثبت نام : @Model.Register.From.ToShamsi() </p>
+            <p class="col-md-6 mb-3">اتمام ثبت نام : @Model.Register.To.ToShamsi()</p>
+            <p class="col-md-6 mb-3"> تاریخ برگزاری مسابقه : @Model.PutOn.From.ToShamsi()</p>
+            <p class="col-md-6 mb-3">تاریخ اتمام مسابقه  : @Model.PutOn.To.ToShamsi()</p>
             <p class="col-md-6 mb-3">افراد مجاز : @String.Join(',' , Model.AudienceTypes.Select(u=>u.AudienceType.Title))</p>
             <p class="col-md-6 mb-3">هزینه : @(Model.Conditions.Free ? "رایگان" : $"{Model.Conditions.Payment} تومان")</p>
-            <p class="col-md-6 mb-3">شرایط : <a src="@StaticEntitiesDetails.MatchConditionsRegulationsPath@Model.Conditions.Regulations.Name">دانلود</a></p>
         </div>
+        <div class="mb-3">
+            <a asp-action="DownloadCondition" asp-route-fileName="@Model.Conditions.Regulations.Name">دانلود آیین نامه مسابقات</a>
+        </div>
+
         <p>
            مدارک  :
             @foreach ( var item in Model.Documents )
@@ -46,16 +49,19 @@
                 </span>
             }
         </p>
-        <p>
-            جوایز :
-            @foreach ( var item in Model.Awards )
-            {
-                <span class="badge bg-info" style="font-size:.9rem;">
-                   رتبه :  @item.Score &nbsp; جایزه : @item.Prize
-                </span>
-            }
-        </p>
+        @if (Model.Awards.Any())
+        {
+            <p>
+                جوایز :
+                @foreach (var item in Model.Awards)
+                {
+                    <span class="badge bg-info" style="font-size:.9rem;">
+                        رتبه :  @item.Score &nbsp; جایزه : @item.Prize
+                    </span>
+                }
+            </p>
+        }
      
-        <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">ثبت نام</a>
+        <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success mt-2">ثبت نام</a>
     </div>
 </section>

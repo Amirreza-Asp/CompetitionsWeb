@@ -12,47 +12,48 @@ namespace Competitions.Persistence.Data.Initializer
         private readonly IUserAPI _userApi;
         private readonly IPasswordHasher _hasher;
 
-        public DbInitializer ( ApplicationDbContext db , IUserAPI userApi , IPasswordHasher hasher )
+        public DbInitializer(ApplicationDbContext db, IUserAPI userApi, IPasswordHasher hasher)
         {
             _db = db;
             _userApi = userApi;
             _hasher = hasher;
         }
 
-        public async void Execute ()
+        public async Task Execute()
         {
             try
             {
-                if ( _db.Database.GetPendingMigrations().Count() > 0 )
+                if (_db.Database.GetPendingMigrations().Count() > 0)
                 {
-                    _db.Database.Migrate();
+                    await _db.Database.MigrateAsync();
                 }
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
 
             }
 
 
-            if ( !_db.Role.Any(u => u.Title == SD.Admin) )
+            if (!_db.Role.Any(u => u.Title == SD.Admin))
             {
-                _db.Role.Add(new Role(SD.Admin , "ادمین" , "دسترسی کامل سیستم"));
-                _db.Role.Add(new Role(SD.Publisher , "ناشر" , "دسترسی به تمام اطلاعات به جز تعیین عضو کمیته"));
-                _db.Role.Add(new Role(SD.User , "کاربر" , "بدون دسترسی"));
+                _db.Role.Add(new Role(SD.Admin, "ادمین", "دسترسی کامل سیستم"));
+                _db.Role.Add(new Role(SD.Publisher, "ناشر", "دسترسی به تمام اطلاعات به جز تعیین عضو کمیته"));
+                _db.Role.Add(new Role(SD.User, "کاربر", "بدون دسترسی"));
             }
             else
             {
                 return;
             }
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             var admin = _db.Role.First(u => u.Title == SD.Admin);
-            var user = _userApi.GetUserAsync(SD.DefaultNationalCode).GetAwaiter().GetResult();
+            var user = await _userApi.GetUserAsync(SD.DefaultNationalCode);
 
-            _db.User.Add(new User(user.Name , user.Lastname , user.Mobile , user.Idmelli , user.Idmelli , _hasher.HashPassword(user.Idmelli) , admin.Id , user.StudentNumber.ToString() , false));
+            _db.User.Add(new User(user.Name, user.Lastname, user.Mobile, user.Idmelli, user.Idmelli,
+                _hasher.HashPassword(user.Idmelli), admin.Id, user.StudentNumber.ToString(), user.Trend, false));
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
     }
 }

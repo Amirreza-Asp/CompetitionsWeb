@@ -6,10 +6,11 @@ namespace Competitions.Persistence.Managment.Mappings
 {
     public class UserTeamMappings : IEntityTypeConfiguration<UserTeam>
     {
-        public void Configure ( EntityTypeBuilder<UserTeam> builder )
+        public void Configure(EntityTypeBuilder<UserTeam> builder)
         {
             builder.Property(b => b.Id).ValueGeneratedNever();
             builder.HasKey(b => b.Id);
+            builder.Property(b => b.Leader);
 
             builder.HasOne(b => b.Team)
                 .WithMany(b => b.Users)

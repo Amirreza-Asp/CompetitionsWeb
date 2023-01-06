@@ -68,6 +68,7 @@
                             <th>نوع مسابقه</th>
                             <th>مکان</th>
                             <th>تاریخ برگزاری</th>
+                            <th>جزئیات</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
@@ -83,7 +84,13 @@
                                 <td>@Model.Matches.ElementAt(i).Sport.Name</td>
                                 <td>@Model.Matches.ElementAt(i).Sport.SportType.Title</td>
                                 <td>@Model.Matches.ElementAt(i).Place.Title</td>
-                                <td>@Model.Matches.ElementAt(i).PutOn.From.ToShamsi() @Model.Matches.ElementAt(i).PutOn.From.TimeOfDay.ToString().Substring(0,5)</td>
+                                <td>@Model.Matches.ElementAt(i).PutOn.From.TimeOfDay.ToString().Substring(0,5) <span class="px-1"></span>  @Model.Matches.ElementAt(i).PutOn.From.ToShamsi()</td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@Model.Matches.ElementAt(i).Id"
+                                       class="btn btn-info">
+                                       <i class="fa fa-eye text-white"></i>
+                                    </a>
+                                </td>
                                 <td>
                                     @if (Model.Matches.ElementAt(i).Register.From.Date <= DateTime.Now.Date && Model.Matches.ElementAt(i).Register.To.Date >= DateTime.Now)
                                     {

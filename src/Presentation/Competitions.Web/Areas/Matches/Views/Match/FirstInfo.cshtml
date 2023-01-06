@@ -5,7 +5,14 @@
 @using Newtonsoft.Json
 
 @{
+
+    String startRegister = Model.StartRegister != default ? Model.StartRegister.ToShamsi() : "";
+    String endRegister = Model.EndRegister != default ? Model.EndRegister.ToShamsi() : "";
+    String startPutOn = Model.StartPutOn != default ? Model.StartPutOn.ToShamsi() : "";
+    String endPutOn = Model.EndPutOn != default ? Model.EndPutOn.ToShamsi() : "";
+
     Layout = "_AdminLayout";
+
     String stepModel = "FirstInfo";
     <partial name="_MatchStepsPartial" model="stepModel" />
 }
@@ -16,39 +23,12 @@
     <link href="~/lib/persian-date/custom.input.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/partials/multi-select.css" />
     <link rel="stylesheet" href="~/css/custome/timepicker.css" />
-
-    <link rel="stylesheet" href="~/lib/persian-web-toolkit/persian-datepicker/dist/css/persian-datepicker.css" />
-    <style>
-
-        #start-register-validation,
-        #end-register-validation,
-        #start-put-on-validation,
-        #end-put-on-validation {
-            display: none;
-        }
-
-        .show-calender {
-            border-radius: 0 5px 5px 0;
-        }
-
-        .start-puton-alt,
-        .end-puton-alt,
-        .start-register-alt,
-        .end-register-alt{
-            border-radius: 5px 0 0 5px;
-        }
-
-        .hide {
-            display: none;
-        }
-
-    </style>
 }
 
+<form method="post" enctype="multipart/form-data">
 
-    <form method="post" enctype="multipart/form-data">
 
-    @if ( Model.Id.HasValue )
+    @if (Model.Id.HasValue)
     {
         <input asp-for="Id" hidden />
     }
@@ -56,26 +36,27 @@
     <input id="timesInput" name="Times" value="" hidden />
 
     <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
-        @if ( Model.ReadOnly )
+        @if (Model.ReadOnly)
         {
             <h3 class="mb-4 mb-lg-0">مشاهده مسابقه</h3>
         }
-        else if ( Model.Id == default )
+        else if (Model.Id == default)
         {
             <h3 class="mb-4 mb-lg-0">افزودن مسابقه</h3>
         }
         else
         {
-
             <h3 class="mb-4 mb-lg-0">ویرایش مسابقه</h3>
         }
     </div>
+
+
     <section class="card shadow-sm ">
         <div class="row">
             @*--------------------------*@
             <div class="mb-3 col-md-3">
                 <label class="form-label">نام مسابقه:</label>
-                @if ( Model.ReadOnly )
+                @if (Model.ReadOnly)
                 {
                     <input type="text" asp-for="Name" class="form-control" disabled>
                 }
@@ -88,7 +69,7 @@
             <div class="mb-3 col-md-3">
                 <label class="form-label">انتخاب جشنواره:</label>
                 <div class="dropdown">
-                    @if ( Model.ReadOnly )
+                    @if (Model.ReadOnly)
                     {
                         <select asp-for="FestivalId" asp-items="@Model.Festivals" class="form-control" disabled>
                             <option selected></option>
@@ -106,7 +87,7 @@
             <div class="mb-3 col-md-3">
                 <label class="form-label">مکان برگزاری:</label>
                 <div class="dropdown">
-                    @if ( Model.ReadOnly )
+                    @if (Model.ReadOnly)
                     {
                         <select asp-items="@Model.Places" id="place" onchange="SelectPlace(this)" class="form-control" disabled>
                             <option selected disabled></option>
@@ -125,7 +106,7 @@
                 <input hidden value="@Model.PlaceId" id="placeId-input" />
                 <label class="form-label">زیر مجموعه مکان برگزاری:</label>
                 <div class="dropdown">
-                    @if ( Model.ReadOnly )
+                    @if (Model.ReadOnly)
                     {
                         <select asp-for="PlaceId" onchange="SelectSubPlace(this)" id="sub-places" class="form-control" disabled>
                         </select>
@@ -142,7 +123,7 @@
                 <label class="form-label">رشته ورزشی:</label>
                 <div class="dropdown">
                     <input id="sport-input" value="@Model.SportId" hidden />
-                    @if ( Model.ReadOnly )
+                    @if (Model.ReadOnly)
                     {
                         <select asp-for="SportId" onchange="SelectSport(this)" id="sports" class="form-control" disabled>
                             <option selected disabled></option>
@@ -160,7 +141,7 @@
             <div class="mb-3 col-md-4">
                 <label class="form-label">جنسیت شرکت کنندگان:</label>
                 <div class="dropdown">
-                    @if ( Model.ReadOnly )
+                    @if (Model.ReadOnly)
                     {
                         <select asp-items="@Model.GetGenders()" asp-for="Gender" class="form-control" disabled>
                             <option selected disabled></option>
@@ -178,7 +159,7 @@
             <div class="mb-3 col-md-4">
                 <label class="form-label">سطح مسابقه:</label>
                 <div class="dropdown">
-                    @if ( Model.ReadOnly )
+                    @if (Model.ReadOnly)
                     {
                         <select asp-for="Level" asp-items="@Model.GetLevels()" class="form-control" disabled>
                             <option selected disabled></option>
@@ -196,106 +177,57 @@
             @*---------------------------*@
             <div class="mb-3 col-md-6 pr-5">
                 <label class="form-label">شروع ثبت نام:</label>
-                @{
-                    String startRegisterClick = Model.ReadOnly ? "" : "$('.start-register').toggleClass('hide')";
-                }
-                <div class="d-flex">
-                    <button type="button" class="btn btn-secondary show-calender" onclick="@startRegisterClick">
-                        <i class='fas fa-calendar-alt'></i>
-                    </button>
-                    <input name="StartRegister" class="form-control start-register-alt" id="start-register-alt" disabled="@Model.ReadOnly"/>
-                </div>
-                @if ( String.IsNullOrEmpty(Model.StartRegister) )
-                {
-                    <div class="start-register hide"></div>
-                }
-                else
-                {
-                    <div class="start-register hide" data-date="@Model.StartRegister"></div>
-                }
-                <span class="text-danger" asp-validation-for='StartRegister'></span>
+                <input width="100%" class="form-control" name="@nameof(Model.StartRegister)" value="@startRegister" id="start-register" disabled="@Model.ReadOnly">
+                <span id="start-register-validation" class="text-danger" style="visibility:hidden;">تاریخ شروع ثبت نام را وارد کنید</span>
             </div>
             <div class="mb-3 col-md-6 pr-5">
                 <label class="form-label">پایان ثبت نام:</label>
-                <div class="d-flex">
-                    @{
-                        String endRegisterClick = Model.ReadOnly ? "" :  "$('.end-register').toggleClass('hide')";
-                    }
-                    <button type="button" class="btn btn-secondary show-calender" onclick="@endRegisterClick">
-                        <i class='fas fa-calendar-alt'></i>
-                    </button>
-                    <input name="EndRegister" class="form-control end-register-alt" id="end-register-alt" disabled="@Model.ReadOnly"/>
-                </div>
-                @if ( String.IsNullOrEmpty(Model.EndRegister) )
-                {
-                    <div class="end-register hide"></div>
-                }
-                else
-                {
-                    <div class="end-register hide" data-date="@Model.EndRegister"></div>
-                }
-                <span class="text-danger" asp-validation-for='EndRegister'></span>
+                <input width="100%" class="form-control" name="@nameof(Model.EndRegister)" value="@endRegister" id="end-register" disabled="@Model.ReadOnly">
+                <span id="end-register-validation" class="text-danger" style="visibility:hidden;">تاریخ پایان ثبت نام را وارد کنید</span>
             </div>
             @*--------------------------------*@
             <div class="mb-3 col-md-6 pr-5">
-                <label class="form-label">تاریخ برگزاری مسابقات:</label>
-                @{
-                    String startPutOnClick = Model.ReadOnly ? "" : "$('.start-puton').toggleClass('hide')";
-                }
-                <div class="d-flex">
-                    <button type="button" class="btn btn-secondary show-calender" onclick="@startPutOnClick">
-                        <i class='fas fa-calendar-alt'></i>
-                    </button>
-                    <input name="StartPutOn" class="form-control start-puton-alt" id="start-puton-alt" disabled="@Model.ReadOnly" />
-                </div>
-                @if ( String.IsNullOrEmpty(Model.StartPutOn) )
-                {
-                    <div class="start-puton hide"></div>
-                }
-                else
-                {
-                    <div class="start-puton hide" data-date="@Model.StartPutOn"></div>
-                }
-                <span class="text-danger" asp-validation-for='StartPutOn'></span>
+                <label class="form-label">تاریخ برگذاری مسابقات:</label>
+                <input width="100%" class="form-control" name="@nameof(Model.StartPutOn)" value="@endRegister" id="start-putOn" disabled="@Model.ReadOnly">
+                <span id="start-putOn-validation" class="text-danger" style="visibility:hidden;">تاریخ برگذاری مسابقات را وارد کنید</span>
             </div>
             <div class="mb-3 col-md-6 pr-5">
-                <label class="form-label">تاریخ اتمام مسابقات:</label>
-                @{
-                    String endPutOnClick = Model.ReadOnly ? "" :  "$('.end-puton').toggleClass('hide')";
-                }
-                <div class="d-flex">
-                    <button type="button" class="btn btn-secondary show-calender" onclick="@endPutOnClick">
-                        <i class='fas fa-calendar-alt'></i>
-                    </button>
-                    <input name="EndPutOn" class="form-control end-puton-alt" id="end-puton-alt" disabled="@Model.ReadOnly" />
-                </div>
-                @if ( String.IsNullOrEmpty(Model.EndPutOn) )
-                {
-                    <div class="end-puton hide"></div>
-                }
-                else
-                {
-                    <div class="end-puton hide" data-date="@Model.EndPutOn"></div>
-                }
-                <span class="text-danger" asp-validation-for='EndPutOn'></span>
+                <label class="form-label">تاریخ پایان مسابقات:</label>
+                <input width="100%" class="form-control" name="@nameof(Model.EndPutOn)" value="@endRegister" id="end-putOn" disabled="@Model.ReadOnly">
+                <span id="end-putOn-validation" class="text-danger" style="visibility:hidden;">تاریخ پایان مسابقات را وارد کنید</span>
+
             </div>
             @*--------------------------------*@
             <div class="mb-3 col-md-3">
                 <label class="form-label">ظرفیت تعداد شرکت کننده:</label>
+                <div class="d-flex">
 
-                @if ( Model.ReadOnly )
-                {
-                    <input asp-for="Capacity" class="form-control" disabled />
-                }
-                else
-                {
-                    <input asp-for="Capacity" class="form-control" />
-                    <span asp-validation-for="Capacity" class="text-danger"></span>
-                }
+                    @{
+                        String inputStyle = Model.ReadOnly ? "" : "border-top-left-radius:0;border-bottom-left-radius:0;";
+                    }
+
+                    <input value="نامحدود" id="infinity-capacity" style="@inputStyle"
+                        type="@(Model.Capacity == int.MaxValue ? "text" : "hidden")" class="form-control" />
+
+
+
+                    <input type="@(Model.Capacity != int.MaxValue ? "text" : "hidden")" asp-for="Capacity" 
+                        id="capacity-input" class="form-control" style="@inputStyle" readonly="@Model.ReadOnly" />
+                    
+                    @if (!Model.ReadOnly)
+                    {
+                        <button type="button" id="capacity-btn" class="btn btn-secondary"
+                            style="font-size:12px;border-top-right-radius:0;border-bottom-right-radius:0;">
+                            @(Model.Capacity == int.MaxValue ? "محدود" : "نامحدود")
+                        </button>
+                    }
+
+                </div>
+                <span asp-validation-for="Capacity" class="text-danger"></span>
             </div>
             <div class="mb-3 col-md-3">
                 <label class="form-label">تعدادافراد هر تیم:</label>
-                @if ( Model.ReadOnly )
+                @if (Model.ReadOnly)
                 {
                     <input asp-for="TeamCount" class="form-control" disabled />
                 }
@@ -307,7 +239,7 @@
             </div>
             <div class="mb-3 col-6">
                 <label class="form-label">مخاطبین مسابقه:</label>
-                @if ( Model.ReadOnly )
+                @if (Model.ReadOnly)
                 {
                     var ids = Model.Audience.Split(',');
                     var texts = Model.AudienceTypes.Where(u => ids.Contains(u.Value)).Select(u => u.Text);
@@ -322,11 +254,12 @@
         </div>
     </section>
 
+
     <div class="mt-3 text-center d-flex justify-content-end align-items-center">
         <a asp-action="Index" class="btn btn-secondary d-flex align-items-center">
             بازگشت
         </a>
-        @if ( Model.ReadOnly )
+        @if (Model.ReadOnly)
         {
             <a asp-action="SecondInfo" asp-route-id="@Model.Id" asp-route-ReadOnly="@true" class="btn btn--submit mx-3 px-3">
                 مرحله بعد
@@ -345,111 +278,36 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-    <script src="~/lib/persian-web-toolkit/jquery/dist/jquery.js"></script>
-    <script src="~/lib/persian-web-toolkit/persian-date/dist/persian-date.js"></script>
-    <script src="~/lib/persian-web-toolkit/persian-datepicker/dist/js/persian-datepicker.min.js"></script>
-
+    <script src="~/lib/persian-date/jquery-1.9.1.min.js"></script>
+    <script src="~/lib/persian-date/jquery.min.js"></script>
+    <script src="~/lib/persian-date/JalaliDate.js"></script>
+    <script src="~/lib/persian-date/kendo.web.js"></script>
+    <script src="~/lib/persian-date/fa-IR.js"></script>
     <script src="~/lib/toastr/scripts/toastr.min.js"></script>
     <script src="~/js/pages/extracurricular.js"></script>
     <script src="~/js/partials/multi-select.js"></script>
     <script>
         // persian DateTime
         $(document).ready(function () {
-            $(".end-puton").persianDatepicker({
-                inline: true,
-                altField: '#end-puton-alt',
-                altFormat: 'LLLL',
-                toolbox: {
-                    calendarSwitch: {
-                        enabled: true
-                    }
-                },
-                navigator: {
-                    scroll: {
-                        enabled: false
-                    }
-                },
-                maxDate: new persianDate().add('month', 3).valueOf(),
-                minDate: new persianDate().subtract('month', 3).valueOf(),
-                timePicker: {
-                    enabled: true,
-                    meridiem: {
-                        enabled: true
-                    }
-                }
-            });
-            $(".start-puton").persianDatepicker({
-                inline: true,
-                altField: '#start-puton-alt',
-                altFormat: 'LLLL',
-                toolbox: {
-                    calendarSwitch: {
-                        enabled: true
-                    }
-                },
-                navigator: {
-                    scroll: {
-                        enabled: false
-                    }
-                },
-                maxDate: new persianDate().add('month', 3).valueOf(),
-                minDate: new persianDate().subtract('month', 3).valueOf(),
-                timePicker: {
-                    enabled: true,
-                    meridiem: {
-                        enabled: true
-                    }
-                }
-            });
-            $(".end-register").persianDatepicker({
-                inline: true,
-                altField: '#end-register-alt',
-                altFormat: 'LLLL',
-                toolbox: {
-                    calendarSwitch: {
-                        enabled: true
-                    }
-                },
-                navigator: {
-                    scroll: {
-                        enabled: false
-                    }
-                },
-                maxDate: new persianDate().add('month', 3).valueOf(),
-                minDate: new persianDate().subtract('month', 3).valueOf(),
-                timePicker: {
-                    enabled: true,
-                    meridiem: {
-                        enabled: true
-                    }
-                }
-            });
-            $(".start-register").persianDatepicker({
-                inline: true,
-                altField: '#start-register-alt',
-                altFormat: 'LLLL',
-                toolbox: {
-                    calendarSwitch: {
-                        enabled: true
-                    }
-                },
-                navigator: {
-                    scroll: {
-                        enabled: false
-                    }
-                },
-                maxDate: new persianDate().add('month', 3).valueOf(),
-                minDate: new persianDate().subtract('month', 3).valueOf(),
-                timePicker: {
-                    enabled: true,
-                    meridiem: {
-                        enabled: true
-                    }
-                }
-            });
+            $("#start-register").kendoDatePicker();
+            $("#end-register").kendoDatePicker();
+            $("#start-putOn").kendoDatePicker();
+            $("#end-putOn").kendoDatePicker();
 
-
+            $("#capacity-btn").click(()=>{
+                if($("#infinity-capacity").attr("type") == "hidden"){
+                    $("#infinity-capacity").attr("type" , "text");
+                    $("#capacity-input").val(@int.MaxValue);
+                    $("#capacity-input").attr("type" , "hidden");
+                    $("#capacity-btn").html("محدود");
+                }
+                else{
+                    $("#infinity-capacity").attr("type", "hidden");
+                    $("#capacity-input").attr("type", "text");
+                    $("#capacity-input").val(1);
+                    $("#capacity-btn").html("نامحدود");
+                }
+            });
         });
-
     </script>
 }

@@ -36,8 +36,8 @@
             </div>
 
             <div class="mb-3">
-                <input asp-for="NewImages" accept="image/*" type="file" onchange="$('#filebtn').html(this.value);" id="uploadbox" hidden />
-                <button type="button" id="filebtn" onclick="$('#uploadbox').click()" class="form-control">انتخاب عکس</button>
+            <input asp-for="NewImages" multiple accept="image/*,application/pdf" type="file" onchange="$('#filebtn').html(this.value);" id="uploadbox" hidden />
+                <button type="button" id="filebtn" onclick="$('#uploadbox').click()" class="form-control">انتخاب فایل</button>
             </div>
         </section>
 
@@ -65,7 +65,7 @@
             if (document.getElementById("uploadbox").value == "") {
                 swal({
                     title: `هشدار!`,
-                    text: "عکس را وارد کنید",
+                    text: "فایل را وارد کنید",
                     type: "error",
                     cancelButtonText: "بازگشت"
                 })

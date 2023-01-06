@@ -14,9 +14,8 @@ namespace Competitions.Domain.Dtos.Matches.Matches
         public IEnumerable<MatchDocument>? Documents { get; set; }
         public List<string> Files { get; set; } = new List<string>();
         public List<string> FilesNames { get; set; } = new List<string>();
-        public int TeamCount { get; set; }
 
 
-        public List<(string Name, byte[] Bytes)>? FilesBytes;
+        public List<(string Name, byte[] Bytes)> FilesBytes = new List<(string Name, byte[] Bytes)>();
     }
 }

@@ -1,0 +1,32 @@
+﻿@using Competitions.Web.Areas.Matches.Models.Matches;
+@model UserInfoVM
+
+
+
+@{
+    Layout = "_AdminLayout";
+}
+
+
+<section class="card shadow-sm ">
+
+    <h3 class="text-info">مشخصات</h3>
+    <hr />
+    <div class="row">
+        <p class="col-6">نام : @Model.User.Name</p>
+        <p class="col-6">نام خانوادگی : @Model.User.Family</p>
+        <p class="col-6">کد ملی : @Model.User.NationalCode</p>
+        <p class="col-6">شماره دانشجویی : @Model.User.StudentNumber</p>
+        <p class="col-6">رشته تحصیلی : @Model.User.College</p>
+        <p class="col-6">شماره موبایل : @Model.User.PhoneNumber</p>
+    </div>
+    <div class="row mb-3">
+        @foreach(var doc in Model.UserTeam.Documents)
+        {
+            <a class="btn btn-info text-white col-3" asp-action="DownloadDoc" asp-route-id="@doc.Id">@doc.Name</a>
+        }
+    </div>
+    <div class="col-3 mt-2">
+        <button onclick="window.history.back()" class="btn btn-secondary">بازگشت</button>
+    </div>
+</section>

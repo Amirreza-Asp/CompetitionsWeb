@@ -14,6 +14,10 @@
 
     <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
         <h3 class="mb-4 mb-lg-0">مشاهده مکان</h3>
+
+    <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+        <i class="fas fa-reply my-1 mx-2"></i>
+    </button>
     </div>
     <section class="card shadow-sm ">
         <div class="row">
@@ -55,7 +59,7 @@
             <input asp-for="Address" class="form-control" disabled />
         </div>
         <div class="mb-3 col-6">
-            <label class="form-label">متراژ:</label>
+            <label class="form-label">متراژ <span style="font-size:13px;">(متر مربع)</span> :</label>
             <input asp-for="Meterage" class="form-control" disabled />
         </div>
     </div>

@@ -11,12 +11,12 @@ namespace Competitions.Web
 			get;
 		}
 
-		public Startup ( IConfiguration configuration )
+		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
 		}
 
-		public void ConfigureServices ( IServiceCollection services , IWebHostEnvironment env )
+		public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
 		{
 			services.AddControllersWithViews()
 				.AddRazorRuntimeCompilation();
@@ -50,9 +50,9 @@ namespace Competitions.Web
 				.AddApplicationRegistration();
 		}
 
-		public void Configure ( WebApplication app , IWebHostEnvironment env , IDbInitializer dbInitializer )
+		public void Configure(WebApplication app, IWebHostEnvironment env, IDbInitializer dbInitializer)
 		{
-			if ( !app.Environment.IsDevelopment() )
+			if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -67,16 +67,16 @@ namespace Competitions.Web
 			app.UseAuthentication();
 			app.UseAuthorization();
 			app.UseSession();
-			dbInitializer.Execute();
+			dbInitializer.Execute().GetAwaiter().GetResult();
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
-					  name: "areas" ,
+					  name: "areas",
 					  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 				 );
 
 				endpoints.MapControllerRoute(
-					name: "default" ,
+					name: "default",
 					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
 

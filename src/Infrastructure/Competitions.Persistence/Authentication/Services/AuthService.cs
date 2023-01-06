@@ -24,7 +24,7 @@ namespace Competitions.Persistence.Authentication.Services
         private readonly string userName = "sportprog";
         private readonly string password = "i2Zu33gO$I";
 
-        public AuthService ( IRepository<User> userRepo , IRepository<Role> roleRepo , IHttpClientFactory clientFactory , IPasswordHasher passwordHasher , IHttpContextAccessor contextAccessor , IUserAPI userAPI )
+        public AuthService(IRepository<User> userRepo, IRepository<Role> roleRepo, IHttpClientFactory clientFactory, IPasswordHasher passwordHasher, IHttpContextAccessor contextAccessor, IUserAPI userAPI)
         {
             _userRepo = userRepo;
             _roleRepo = roleRepo;
@@ -36,10 +36,10 @@ namespace Competitions.Persistence.Authentication.Services
 
 
 
-        public async Task ChangePasswordAsync ( ChangePasswordDto command )
+        public async Task ChangePasswordAsync(ChangePasswordDto command)
         {
             var nationalCode = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-            if ( nationalCode == null )
+            if (nationalCode == null)
                 return;
 
             User user = await _userRepo.FirstOrDefaultAsync(u => u.NationalCode.Value == nationalCode.Value);
@@ -48,17 +48,25 @@ namespace Competitions.Persistence.Authentication.Services
             await _userRepo.SaveAsync();
         }
 
-        public async Task<LoginResultDto> LoginAsync ( LoginDto command )
+        public async Task<LoginResultDto> LoginAsync(LoginDto command)
         {
             var user = await _userRepo.FirstOrDefaultAsync(
-                u => u.UserName == command.UserName ,
+                u => u.UserName == command.UserName,
                 include: source =>
                     source.Include(u => u.Role));
 
-            if ( user != null )
+            if (user != null)
             {
-                if ( !_passwordHasher.VerifyPassword(user.Password , command.Password) )
+                if (!_passwordHasher.VerifyPassword(user.Password, command.Password))
                     return LoginResultDto.Faild("رمز وارد شده اشتباه است");
+
+                if (String.IsNullOrEmpty(user.College))
+                {
+                    var userAPI = await _userAPI.GetUserAsync(user.NationalCode);
+                    user.WithCollege(userAPI.Trend);
+                    _userRepo.Update(user);
+                    await _userRepo.SaveAsync();
+                }
 
                 await AddClaimsAsync(user);
                 return LoginResultDto.Successful();
@@ -68,16 +76,16 @@ namespace Competitions.Persistence.Authentication.Services
 
         }
 
-        public async Task<RegisterResultDto> RegisterAsync ( RegisterDto command )
+        public async Task<RegisterResultDto> RegisterAsync(RegisterDto command)
         {
             var userApi = await _userAPI.GetUserAsync(command.NationalCode);
-            if ( userApi == null )
+            if (userApi == null)
                 return RegisterResultDto.Faild("کاربر انتخاب شده در سیستم وجود ندارد");
 
 
             var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
-            var user = new User(userApi.Name , userApi.Lastname , userApi.Mobile , userApi.Idmelli , userApi.Idmelli , _passwordHasher.HashPassword(command.Password) ,
-                role.Id , command.StudentNumber , command.Gender);
+            var user = new User(userApi.Name, userApi.Lastname, userApi.Mobile, userApi.Idmelli, userApi.Idmelli, _passwordHasher.HashPassword(command.Password),
+                role.Id, command.StudentNumber, userApi.Trend, command.Gender);
 
             _userRepo.Add(user);
             await _userRepo.SaveAsync();
@@ -85,19 +93,19 @@ namespace Competitions.Persistence.Authentication.Services
             return RegisterResultDto.Successful();
         }
 
-        private async Task AddClaimsAsync ( User user )
+        private async Task AddClaimsAsync(User user)
         {
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim(ClaimTypes.Name , user.Name + " " + user.Family));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier , user.NationalCode.Value));
-            identity.AddClaim(new Claim(ClaimTypes.Gender , user.Gender.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.Name + " " + user.Family));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.NationalCode.Value));
+            identity.AddClaim(new Claim(ClaimTypes.Gender, user.Gender.ToString()));
 
-            if ( user.Role != null )
+            if (user.Role != null)
             {
-                identity.AddClaim(new Claim(ClaimTypes.Role , user.Role.Title));
+                identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.Title));
             }
             var principal = new ClaimsPrincipal(identity);
-            await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme , principal);
+            await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
         }
 
     }

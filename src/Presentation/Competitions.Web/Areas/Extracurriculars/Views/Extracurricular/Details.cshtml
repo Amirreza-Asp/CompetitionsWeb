@@ -74,20 +74,6 @@
 
 
         <div class="mb-3 col-md-3 pr-5">
-            <label class="form-label">شروع دوره:</label>
-            @{
-                string startPutOn = Model.PutOn.From != default ? Model.PutOn.From.ToShamsi() : "";
-            }
-            <input id="start-put-on" name="StartPutOn" value="@startPutOn" width="100%" class="form-control" disabled/>
-        </div>
-        <div class="mb-3 col-md-3 pr-5">
-            <label class="form-label">پایان دوره:</label>
-            @{
-                string endPutOn = Model.PutOn.To != default ? Model.PutOn.To.ToShamsi() : "";
-            }
-            <input id="end-put-on" name="EndPutOn" value="@endPutOn" width="100%" class="form-control" disabled />
-        </div>
-        <div class="mb-3 col-md-3 pr-5">
             <label class="form-label">شروع ثبت نام:</label>
             @{
                 string startRegister = Model.Register.From != default ? Model.Register.From.ToShamsi() : "";
@@ -100,6 +86,20 @@
                 string endRegister = Model.Register.To != default ? Model.Register.To.ToShamsi() : "";
             }
             <input id="end-register" name="EndRegister" value="@endRegister" width="100%" class="form-control"  disabled/>
+        </div>
+        <div class="mb-3 col-md-3 pr-5">
+            <label class="form-label">شروع دوره:</label>
+            @{
+                string startPutOn = Model.PutOn.From != default ? Model.PutOn.From.ToShamsi() : "";
+            }
+            <input id="start-put-on" name="StartPutOn" value="@startPutOn" width="100%" class="form-control" disabled/>
+        </div>
+        <div class="mb-3 col-md-3 pr-5">
+            <label class="form-label">پایان دوره:</label>
+            @{
+                string endPutOn = Model.PutOn.To != default ? Model.PutOn.To.ToShamsi() : "";
+            }
+            <input id="end-put-on" name="EndPutOn" value="@endPutOn" width="100%" class="form-control" disabled />
         </div>
         @*--------------------------------*@
         <div class="mb-3">

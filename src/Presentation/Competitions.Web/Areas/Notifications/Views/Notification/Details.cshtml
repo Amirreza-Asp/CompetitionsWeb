@@ -1,4 +1,5 @@
 ﻿@using Competitions.Domain.Entities
+@using Competitions.Web.Utilities;
 @model Competitions.Domain.Entities.Notifications.Notification
 
 @{
@@ -29,22 +30,47 @@
         <span class="text-danger" asp-validation-for="Description"></span>
     </div>
     <div>
-        <h5>عکس های فعلی</h5>
-        <ul class="images-list">
-            @if ( Model.Images != null )
-            {
-                @foreach ( var img in Model.Images )
+        @if (Model.Images.Where(file => !file.Name.IsPDF()).Any())
+        {
+            <h5 >عکس های فعلی</h5>
+            <ul class="images-list mb-4">
+                @foreach (var file in Model.Images)
                 {
-                    <li class="images-item" style="background-image:url('@StaticEntitiesDetails.NotificationPath@img.Image.Name');">
-                        <div class="images-item-content">
-                            <a asp-action="DownloadImage" asp-route-id="@img.Id">
-                                <i class="fa fa-download text-primary"></i>
-                            </a>
-                        </div>
-                    </li>
+                    if (!file.Name.IsPDF())
+                    {
+                        <li class="images-item" style="background-image:url('@StaticEntitiesDetails.NotificationPath@file.Image.Name');">
+                            <div class="images-item-content">
+                                <a asp-action="DownloadImage" asp-route-id="@file.Id">
+                                    <i class="fa fa-download text-primary"></i>
+                                </a>
+                            </div>
+                        </li>
+                    }
                 }
-            }
-        </ul>
+            </ul>
+        }
+
+        @if (Model.Images.Where(file => file.Name.IsPDF()).Any())
+        {
+            <h5>مستندات فعلی</h5>
+            <ul class="images-list">
+                @foreach (var file in Model.Images)
+                {
+                    if (file.Name.IsPDF())
+                    {
+                        <li class="images-item" style="background-image:url('/images/pdf.png');width:60px;aspect-ratio:1;">
+                            <div class="images-item-content">
+
+                                <a asp-action="DownloadImage" asp-route-id="@file.Id">
+                                    <i class="fa fa-download text-primary" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        }
+
     </div>
 </section>
 
