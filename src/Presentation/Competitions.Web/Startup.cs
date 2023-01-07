@@ -48,6 +48,9 @@ namespace Competitions.Web
 			services.AddPersistenceRegistrations(Configuration)
 				.AddCommonRegistration()
 				.AddApplicationRegistration();
+
+
+			services.AddCors();
 		}
 
 		public void Configure(WebApplication app, IWebHostEnvironment env, IDbInitializer dbInitializer)
@@ -58,7 +61,12 @@ namespace Competitions.Web
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
-
+			app.UseCors(b =>
+			{
+				b.AllowAnyHeader();
+				b.AllowAnyMethod();
+				b.WithOrigins("https://localhost:7201");
+			});
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 

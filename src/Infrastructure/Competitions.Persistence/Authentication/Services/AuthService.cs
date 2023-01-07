@@ -63,7 +63,7 @@ namespace Competitions.Persistence.Authentication.Services
                 if (String.IsNullOrEmpty(user.College))
                 {
                     var userAPI = await _userAPI.GetUserAsync(user.NationalCode);
-                    user.WithCollege(userAPI.Trend);
+                    user.WithCollege(userAPI.trend);
                     _userRepo.Update(user);
                     await _userRepo.SaveAsync();
                 }
@@ -84,8 +84,8 @@ namespace Competitions.Persistence.Authentication.Services
 
 
             var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
-            var user = new User(userApi.Name, userApi.Lastname, userApi.Mobile, userApi.Idmelli, userApi.Idmelli, _passwordHasher.HashPassword(command.Password),
-                role.Id, command.StudentNumber, userApi.Trend, command.Gender);
+            var user = new User(userApi.name, userApi.lastname, userApi.mobile, userApi.idmelli, userApi.idmelli, _passwordHasher.HashPassword(command.Password),
+                role.Id, command.StudentNumber, userApi.trend, userApi.isMale < 1);
 
             _userRepo.Add(user);
             await _userRepo.SaveAsync();
@@ -106,6 +106,25 @@ namespace Competitions.Persistence.Authentication.Services
             }
             var principal = new ClaimsPrincipal(identity);
             await _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        }
+
+        public async Task KhemdatLoginAsync(String nationalCode)
+        {
+            var user = await _userRepo.FirstOrDefaultAsync(b => b.NationalCode.Value == nationalCode);
+
+            if (user == null)
+            {
+                var userApi = await _userAPI.GetUserAsync(nationalCode);
+
+                var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
+                user = new User(userApi.name, userApi.lastname, userApi.mobile, userApi.idmelli, userApi.idmelli, _passwordHasher.HashPassword(nationalCode),
+                role.Id, userApi.student_number.ToString(), userApi.trend, userApi.isMale < 1);
+
+                _userRepo.Add(user);
+                await _userRepo.SaveAsync();
+            }
+
+            await AddClaimsAsync(user);
         }
 
     }

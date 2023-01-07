@@ -85,8 +85,8 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 return View(command);
             }
 
-            var userEntity = new User(user.Name, user.Lastname, user.Mobile, user.Idmelli, user.Idmelli, _passwordHasher.HashPassword(user.Idmelli),
-                command.RoleId, user.StudentNumber.ToString(), user.Trend, false);
+            var userEntity = new User(user.name, user.lastname, user.mobile, user.idmelli, user.idmelli, _passwordHasher.HashPassword(user.idmelli),
+                command.RoleId, user.student_number.ToString(), user.trend, user.isMale < 1);
 
             _userRepo.Add(userEntity);
             await _userRepo.SaveAsync();
@@ -184,10 +184,10 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 Exists = true,
                 Info = new
                 {
-                    FullName = $"{user.Name} {user.Lastname}",
-                    NationalCode = user.Idmelli,
-                    Email = user.Email,
-                    PhoneNumber = user.Mobile
+                    FullName = $"{user.name} {user.lastname}",
+                    NationalCode = user.idmelli,
+                    Email = user.email,
+                    PhoneNumber = user.mobile
                 }
             });
         }

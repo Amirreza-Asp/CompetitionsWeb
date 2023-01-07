@@ -50,8 +50,8 @@ namespace Competitions.Persistence.Data.Initializer
             var admin = _db.Role.First(u => u.Title == SD.Admin);
             var user = await _userApi.GetUserAsync(SD.DefaultNationalCode);
 
-            _db.User.Add(new User(user.Name, user.Lastname, user.Mobile, user.Idmelli, user.Idmelli,
-                _hasher.HashPassword(user.Idmelli), admin.Id, user.StudentNumber.ToString(), user.Trend, false));
+            _db.User.Add(new User(user.name, user.lastname, user.mobile, user.idmelli, user.idmelli,
+                _hasher.HashPassword(user.idmelli), admin.Id, user.student_number.ToString(), user.trend, user.isMale < 1));
 
             await _db.SaveChangesAsync();
         }

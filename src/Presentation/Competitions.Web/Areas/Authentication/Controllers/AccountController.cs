@@ -49,7 +49,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 return View(command);
             }
 
-            if (command.StudentNumber != user.StudentNumber.ToString())
+            if (command.StudentNumber != user.student_number.ToString())
             {
                 TempData[SD.Error] = "شماره دانشجویی وارد شده با کد ملی مطابقت ندارد";
                 return View(command);
@@ -173,6 +173,19 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             return RedirectToAction(nameof(ChangePassword));
         }
 
+        public async Task<IActionResult> KhemdatLogin(String nationalCode)
+        {
+            String? requestUrl = Request?.GetTypedHeaders()?.Referer?.ToString();
+            if (String.IsNullOrEmpty(requestUrl) || !ValidUrl(requestUrl))
+                return NotFound();
 
+            await _authService.KhemdatLoginAsync(nationalCode);
+            return Redirect("/Home/Index");
+        }
+
+        private bool ValidUrl(String url)
+        {
+            return url.Contains("https://khedmat.razi.ac.ir");
+        }
     }
 }

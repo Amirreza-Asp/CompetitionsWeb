@@ -10,6 +10,7 @@ using Competitions.Web.Models.Matches;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Competitions.Web.Controllers
 {
@@ -51,8 +52,11 @@ namespace Competitions.Web.Controllers
             var vm = new MatchListVM
             {
                 Matches = await _matchRepo.GetAllAsync(
-                   filter: u => (!filters.MatchDate.HasValue || u.PutOn.From.Date.Equals(filters.MatchDate.Value.Date)) &&
-                                  (String.IsNullOrEmpty(filters.Level) || u.Level.Equals(filters.Level)),
+                   filter: u =>
+                       (u.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) ||
+                        User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher)) &&
+                       (!filters.MatchDate.HasValue || u.PutOn.From.Date.Equals(filters.MatchDate.Value.Date)) &&
+                       (String.IsNullOrEmpty(filters.Level) || u.Level.Equals(filters.Level)),
                     orderBy: source => source.OrderByDescending(u => u.CreateDate),
                     include: source => source
                             .Include(u => u.Sport)
@@ -86,6 +90,8 @@ namespace Competitions.Web.Controllers
             var LastDateOfTheMonth = _calenderFilters.MatchDate.GetTheLastDateOfTheMonth();
             var matches = await _matchRepo.GetAllAsync(
              filter: u =>
+             (u.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) ||
+                        User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher)) &&
              u.Level.Equals(_calenderFilters.Level) &&
              (u.PutOn.To.Date >= _calenderFilters.MatchDate.Date ||
              u.PutOn.From.Date >= _calenderFilters.MatchDate.Date) &&
