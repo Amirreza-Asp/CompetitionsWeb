@@ -175,10 +175,6 @@ namespace Competitions.Web.Areas.Authentication.Controllers
 
         public async Task<IActionResult> KhemdatLogin(String nationalCode)
         {
-            String? requestUrl = Request?.GetTypedHeaders()?.Referer?.ToString();
-            if (String.IsNullOrEmpty(requestUrl) || !ValidUrl(requestUrl))
-                return NotFound();
-
             await _authService.KhemdatLoginAsync(nationalCode);
             return Redirect("/Home/Index");
         }
