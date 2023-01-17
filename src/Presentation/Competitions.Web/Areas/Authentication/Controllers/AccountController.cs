@@ -173,8 +173,11 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             return RedirectToAction(nameof(ChangePassword));
         }
 
-        public async Task<IActionResult> KhemdatLogin(String nationalCode)
+        public async Task<IActionResult> KhedmatLogin(String nationalCode)
         {
+            var requestUrl = HttpContext?.Request?.GetTypedHeaders()?.Referer?.ToString();
+            if (String.IsNullOrEmpty(requestUrl) || !ValidUrl(requestUrl))
+                return RedirectToAction(nameof(Login));
             await _authService.KhemdatLoginAsync(nationalCode);
             return Redirect("/Home/Index");
         }
