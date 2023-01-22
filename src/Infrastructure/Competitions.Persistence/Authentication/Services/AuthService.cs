@@ -110,7 +110,8 @@ namespace Competitions.Persistence.Authentication.Services
 
         public async Task KhemdatLoginAsync(String nationalCode)
         {
-            var user = await _userRepo.FirstOrDefaultAsync(b => b.NationalCode.Value == nationalCode);
+            var user = await _userRepo.FirstOrDefaultAsync(b => b.NationalCode.Value == nationalCode,
+                include: source => source.Include(u => u.Role));
 
             if (user == null)
             {
