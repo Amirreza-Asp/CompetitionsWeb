@@ -19,7 +19,7 @@ namespace Competitions.Domain.Entities.Authentication
             RoleId = Guard.Against.Default(roleId);
             StudentNumber = studentNumber;
             Gender = gender;
-            College = Guard.Against.NullOrEmpty(college);
+            College = college;
         }
 
         private User()
