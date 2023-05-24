@@ -85,7 +85,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 return View(command);
             }
 
-            var userEntity = new User(user.name, user.lastname, user.mobile, user.idmelli, user.idmelli, _passwordHasher.HashPassword(user.idmelli),
+            var userEntity = new User(user.name, user.lastname, !String.IsNullOrEmpty(command.PhoneNumber) ? command.PhoneNumber : user.mobile, user.idmelli, user.idmelli, _passwordHasher.HashPassword(user.idmelli),
                 command.RoleId, user.student_number.ToString(), user.trend, user.isMale < 1);
 
             _userRepo.Add(userEntity);
@@ -130,7 +130,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             }
 
             User entity = await _userRepo.FindAsync(command.Id);
-            entity.WithRole(command.RoleId);
+            entity.WithRole(command.RoleId).WithPhoneNumber(command.PhoneNumber);
             _userRepo.Update(entity);
             await _userRepo.SaveAsync();
 

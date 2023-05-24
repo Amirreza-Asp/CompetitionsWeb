@@ -36,6 +36,10 @@
                 <label class="form-label">کد ملی:</label>
                 <input type="number" id="national-code" onchange="FindName(this)" class="form-control" value="@Model.NationalCode.Value" disabled>
             </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">شماره تلفن:</label>
+                <input type="number" id="national-code" onchange="FindName(this)" class="form-control" value="@Model.PhoneNumber.Value" disabled>
+            </div>
             <div id="btn-container" class="col-md-4 align-self-end mb-3">
                 <button onclick="ShowInfo()" type="button" class="btn btn--show w-sm-100">
                     مشاهده مشخصات

@@ -60,6 +60,13 @@ namespace Competitions.Domain.Entities.Authentication
             return this;
         }
 
+        public User WithPhoneNumber(String phoneNumber)
+        {
+            PhoneNumber ph = new PhoneNumber(phoneNumber);
+            PhoneNumber = ph;
+            return this;
+        }
+
         public User Delete()
         {
             IsDeleted = true;

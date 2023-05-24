@@ -80,6 +80,11 @@
                 <input type="number" id="national-code" onchange="FindName(this)" class="form-control" asp-for="NationalCode" disabled>
                 <span id="national-valid" asp-validation-for="NationalCode" class="text-danger"></span>
             </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">شماره تلفن:</label>
+                <input type="number" class="form-control" asp-for="PhoneNumber">
+                <span id="phone-valid" asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
             <div id="btn-container" class="col-md-4 align-self-end mb-3">
                 <button onclick="ShowInfo()" type="button" class="btn btn--show w-sm-100">
                     مشاهده مشخصات
