@@ -56,7 +56,7 @@ namespace Competitions.Domain.Entities.Authentication
         }
         public User WithCollege(String college)
         {
-            College = Guard.Against.NullOrEmpty(college);
+            College = college;
             return this;
         }
 
