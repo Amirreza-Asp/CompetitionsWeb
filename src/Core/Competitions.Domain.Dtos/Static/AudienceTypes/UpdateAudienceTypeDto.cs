@@ -6,11 +6,12 @@ namespace Competitions.Domain.Dtos.Static.AudienceTypes
     {
         public long Id { get; set; }
 
-        public static UpdateAudienceTypeDto Create ( AudienceType entity ) =>
+        public static UpdateAudienceTypeDto Create(AudienceType entity) =>
             new UpdateAudienceTypeDto
             {
-                Id = entity.Id ,
-                Title = entity.Title ,
+                Id = entity.Id,
+                Title = entity.Title,
+                IsNeedInformation = entity.IsNeedInformation,
                 Description = entity.Description
             };
     }

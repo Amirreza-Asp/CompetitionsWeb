@@ -19,6 +19,7 @@ namespace Competitions.Persistence.Authentication.Mappings
             builder.Property(b => b.College).IsRequired(false);
             builder.Property(b => b.RoleId).IsRequired();
             builder.Property(b => b.Gender);
+            builder.Property(b => b.Type);
 
 
             builder.HasQueryFilter(b => b.IsDeleted == false);

@@ -1,0 +1,95 @@
+﻿@model Competitions.Domain.Dtos.Extracurriculars.ExtracurricularUserInformationDto
+
+<form method="post" enctype="multipart/form-data">
+
+
+    <input asp-for="EtcId" hidden />
+
+    <div class="d-flex flex-column flex-md-row align-items-md-center  justify-content-between mb-4">
+        <h3 class="mb-4 mb-lg-0">ثبت نام در فوق برنامه</h3>
+    </div>
+    <section class="card shadow-sm ">
+        <div class="row">
+            @*--------------------------*@
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نام:</label>
+                <input type="text" asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نام خانوادگی:</label>
+                <input type="text" asp-for="Family" class="form-control">
+                <span asp-validation-for="Family" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">کد ملی:</label>
+                <input type="text" asp-for="NationalCode" class="form-control">
+                <span asp-validation-for="NationalCode" class="text-danger"></span>
+            </div>
+            @*--------------------------*@
+            <div class="mb-3 col-md-4">
+                <label class="form-label">شماره تلفن:</label>
+                <input type="text" asp-for="PhoneNumber" class="form-control">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">نسبیت:</label>
+                <input type="text" asp-for="Relativity" class="form-control">
+                <span asp-validation-for="Relativity" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label">جنسیت:</label>
+                @{
+                    List<SelectListItem> genders = new List<SelectListItem>
+                    {
+                        new SelectListItem{Text = "مرد" , Value = false.ToString()},
+                        new SelectListItem{Text = "زن" , Value = true.ToString()},
+                    };
+                }
+                <select asp-for="Gender" asp-items="genders" class="form-select">
+                </select>
+            </div>
+            
+            <div class="mb-3 col-md-4">
+                <label class="form-label">بیمه ورزشی دارد؟</label>
+                <input asp-for="Insurance">
+                <span asp-validation-for="Insurance" class="text-danger"></span>
+            </div>
+        </div>
+    </section>
+
+    <div class="mt-3 text-center d-flex justify-content-center align-items-center">
+        <button onclick="ClickSubmit(event)" class="btn btn--submit mx-3 px-3">
+            ثبت
+        </button>
+        <button type="button" onclick="history.back()" class="btn btn-secondary d-flex align-items-center">
+            <i class="fas fa-reply my-1 mx-2"></i>
+        </button>
+    </div>
+
+</form>
+
+<partial name="_ValidationScriptsPartial" />
+
+@section Scripts{
+    <script src="~/js/custome/time-picker.js"></script>
+    <script src="~/lib/persian-date/jquery-1.9.1.min.js"></script>
+    <script src="~/lib/persian-date/jquery.min.js"></script>
+    <script src="~/lib/persian-date/JalaliDate.js"></script>
+    <script src="~/lib/persian-date/kendo.web.js"></script>
+    <script src="~/lib/persian-date/fa-IR.js"></script>
+    <script src="~/lib/toastr/scripts/toastr.min.js"></script>
+    <script src="~/js/pages/extracurricular.js"></script>
+    <script>
+
+        // persian DateTime
+        $(document).ready(function () {
+            $("#start-register").kendoDatePicker();
+            $("#end-register").kendoDatePicker();
+            $("#start-put-on").kendoDatePicker();
+            $("#end-put-on").kendoDatePicker();
+        });
+
+
+    </script>
+}

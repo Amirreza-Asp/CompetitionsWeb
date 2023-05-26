@@ -19,6 +19,7 @@
                     <th>کد ملی</th>
                     <th>شماره دانشجویی</th>
                     <th>رشته تحصیلی</th>
+                    <th>بیمه ورزشی</th>
                     <th>تاریخ ثبت نام</th>
                 </tr>
             </thead>
@@ -35,11 +36,31 @@
                         <td>
                             @Model.ElementAt(i).User.NationalCode
                         </td>
+                        @if (!String.IsNullOrEmpty(Model.ElementAt(i).User.StudentNumber))
+                        {
+                            <td>
+                                @{
+                                    String studentNumber = Model.ElementAt(i).User.StudentNumber == "000000000" ? "ندارد" : Model.ElementAt(i).User.StudentNumber;
+                                }
+                                @studentNumber
+                            </td>
+                        }
+                        else
+                        {
+                            <td>ندارد</td>
+                        }
                         <td>
-                            @Model.ElementAt(i).User.StudentNumber
+                            @{
+                                String isStudent = String.IsNullOrEmpty(Model.ElementAt(i).User.College) ? "خارج از دانشگاه" : Model.ElementAt(i).User.College;
+
+                            }
+                            @isStudent
                         </td>
                         <td>
-                            @Model.ElementAt(i).User.College
+                            @{
+                                String insurance = Model.ElementAt(i).Insurance ? "دارد" : String.IsNullOrEmpty(Model.ElementAt(i).Relativity) ? "نامعلوم" : "ندارد";
+                            }
+                            @insurance
                         </td>
                         <td>
                             @Model.ElementAt(i).JoinTime.ToShamsi()

@@ -86,7 +86,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             }
 
             var userEntity = new User(user.name, user.lastname, !String.IsNullOrEmpty(command.PhoneNumber) ? command.PhoneNumber : user.mobile, user.idmelli, user.idmelli, _passwordHasher.HashPassword(user.idmelli),
-                command.RoleId, user.student_number.ToString(), user.trend, user.isMale < 1);
+                command.RoleId, user.student_number.ToString(), user.trend, user.isMale < 1, user.type);
 
             _userRepo.Add(userEntity);
             await _userRepo.SaveAsync();

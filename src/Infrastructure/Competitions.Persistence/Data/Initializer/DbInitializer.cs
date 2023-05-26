@@ -51,7 +51,7 @@ namespace Competitions.Persistence.Data.Initializer
             var user = await _userApi.GetUserAsync(SD.DefaultNationalCode);
 
             _db.User.Add(new User(user.name, user.lastname, user.mobile, user.idmelli, user.idmelli,
-                _hasher.HashPassword(user.idmelli), admin.Id, user.student_number.ToString(), user.trend, user.isMale < 1));
+                _hasher.HashPassword(user.idmelli), admin.Id, user.student_number.ToString(), user.trend, user.isMale < 1, user.type));
 
             await _db.SaveChangesAsync();
         }

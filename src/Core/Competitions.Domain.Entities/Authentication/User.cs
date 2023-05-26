@@ -6,7 +6,7 @@ namespace Competitions.Domain.Entities.Authentication
 {
     public class User : BaseEntity<Guid>
     {
-        public User(string name, string family, PhoneNumber phoneNumber, NationalCode nationalCode, String userName, String password, Guid roleId, StudentNumber studentNumber, String college, bool gender)
+        public User(string name, string family, PhoneNumber phoneNumber, NationalCode nationalCode, String userName, String password, Guid roleId, StudentNumber studentNumber, String college, bool gender, String type)
         {
             Id = Guid.NewGuid();
             Name = Guard.Against.NullOrEmpty(name);
@@ -17,6 +17,7 @@ namespace Competitions.Domain.Entities.Authentication
             Password = Guard.Against.NullOrEmpty(password);
             CreateDate = DateTime.Now;
             RoleId = Guard.Against.Default(roleId);
+            Type = type;
             StudentNumber = studentNumber;
             Gender = gender;
             College = college;
@@ -35,6 +36,7 @@ namespace Competitions.Domain.Entities.Authentication
         public String Password { get; private set; }
         public StudentNumber StudentNumber { get; private set; }
         public String College { get; private set; }
+        public String Type { get; set; }
         public bool IsDeleted { get; private set; }
         public bool Gender { get; private set; }
         public Guid RoleId { get; private set; }

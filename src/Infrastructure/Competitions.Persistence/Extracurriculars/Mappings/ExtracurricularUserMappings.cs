@@ -19,6 +19,9 @@ namespace Competitions.Persistence.Extracurriculars.Mappings
             builder.HasOne(b => b.Extracurricular)
                 .WithMany(b => b.Users)
                 .HasForeignKey(b => b.ExtracurricularId);
+
+            builder.Property(b => b.Relativity).IsRequired(false);
+            builder.Property(b => b.Insurance);
         }
     }
 }

@@ -85,7 +85,7 @@ namespace Competitions.Persistence.Authentication.Services
 
             var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
             var user = new User(userApi.name, userApi.lastname, userApi.mobile, userApi.idmelli, userApi.idmelli, _passwordHasher.HashPassword(command.Password),
-                role.Id, command.StudentNumber, userApi.trend, userApi.isMale < 1);
+                role.Id, command.StudentNumber, userApi.trend, userApi.isMale < 1, userApi.type);
 
             _userRepo.Add(user);
             await _userRepo.SaveAsync();
@@ -119,7 +119,7 @@ namespace Competitions.Persistence.Authentication.Services
 
                 var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
                 user = new User(userApi.name, userApi.lastname, userApi.mobile, userApi.idmelli, userApi.idmelli, _passwordHasher.HashPassword(nationalCode),
-                role.Id, userApi.student_number.ToString(), userApi.trend, userApi.isMale < 1);
+                role.Id, userApi.student_number.ToString(), userApi.trend, userApi.isMale < 1, userApi.type);
 
                 _userRepo.Add(user);
                 await _userRepo.SaveAsync();

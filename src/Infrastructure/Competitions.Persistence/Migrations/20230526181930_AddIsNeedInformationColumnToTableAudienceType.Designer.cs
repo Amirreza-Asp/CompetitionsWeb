@@ -4,6 +4,7 @@ using Competitions.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Competitions.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230526181930_AddIsNeedInformationColumnToTableAudienceType")]
+    partial class AddIsNeedInformationColumnToTableAudienceType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,10 +77,6 @@ namespace Competitions.Persistence.Migrations
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -171,17 +169,11 @@ namespace Competitions.Persistence.Migrations
                     b.Property<Guid>("ExtracurricularId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Insurance")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsPay")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("JoinTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Relativity")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

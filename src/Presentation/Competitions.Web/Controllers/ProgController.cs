@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Competitions.Application.Authentication.Interfaces;
 using Competitions.Common;
 using Competitions.Common.Helpers;
 using Competitions.Domain.Dtos.Extracurriculars;
@@ -20,14 +21,18 @@ namespace Competitions.Web.Controllers
         private readonly IRepository<Extracurricular> _extRepo;
         private readonly IRepository<ExtracurricularUser> _extUserRepo;
         private readonly IRepository<User> _userRepo;
+        private readonly IRepository<Role> _roleRepo;
+        private readonly IPasswordHasher _passwordHasher;
         private readonly IMapper _mapper;
 
-        public ProgController(IRepository<Extracurricular> extRepo, IMapper mapper, IRepository<ExtracurricularUser> extUserRepo, IRepository<User> userRepo)
+        public ProgController(IRepository<Extracurricular> extRepo, IMapper mapper, IRepository<ExtracurricularUser> extUserRepo, IRepository<User> userRepo, IRepository<Role> roleRepo, IPasswordHasher passwordHasher)
         {
             _extRepo = extRepo;
             _mapper = mapper;
             _extUserRepo = extUserRepo;
             _userRepo = userRepo;
+            _roleRepo = roleRepo;
+            _passwordHasher = passwordHasher;
         }
 
         private static ProgCalenderFilter _calenderFilters = new ProgCalenderFilter();
@@ -136,7 +141,9 @@ namespace Competitions.Web.Controllers
 
         public async Task<IActionResult> Register(Guid id)
         {
-            var prog = await _extRepo.FindAsync(id);
+            var prog = await _extRepo.FirstOrDefaultAsync(
+                filter: b => b.Id == id,
+                include: source => source.Include(b => b.AudienceType));
 
             if (prog == null)
             {
@@ -151,10 +158,18 @@ namespace Competitions.Web.Controllers
                 return RedirectToAction(nameof(Details), new { Id = id });
             }
 
+            if (prog.AudienceType.IsNeedInformation)
+            {
+                return RedirectToAction("RegisterWithInformation", new { Id = id });
+            }
+
 
             var userId = await _userRepo.FirstOrDefaultSelectAsync(
                 filter: u => u.NationalCode.Value == User.FindFirstValue(ClaimTypes.NameIdentifier),
                 select: u => u.Id);
+
+            var etc = await _extUserRepo.GetAllAsync(
+                filter: b => b.UserId == userId && b.Extracurricular.PutOn.To > DateTime.Now && !b.Extracurricular.Name.Contains("شنا"));
 
 
             var userCount = _extUserRepo.GetCount(b => b.UserId == userId && b.ExtracurricularId == id);
@@ -164,7 +179,13 @@ namespace Competitions.Web.Controllers
                 return RedirectToAction(nameof(Details), new { Id = id });
             }
 
-            var progUser = new ExtracurricularUser(userId, prog.Id);
+            if (etc.Count() == 3)
+            {
+                TempData[SD.Warning] = "زمان برگذاری کلاس با بقیه کلاس های شما تداخل دارد";
+                return RedirectToAction(nameof(Details), new { Id = id });
+            }
+
+            var progUser = new ExtracurricularUser(userId, prog.Id, false, null);
             _extUserRepo.Add(progUser);
             await _extRepo.SaveAsync();
 
@@ -173,5 +194,68 @@ namespace Competitions.Web.Controllers
             return RedirectToAction(nameof(Details), new { Id = id });
 
         }
+
+        public IActionResult RegisterWithInformation(Guid id)
+        {
+            var model = new ExtracurricularUserInformationDto { EtcId = id };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> RegisterWithInformation(ExtracurricularUserInformationDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var prog = await _extRepo.FirstOrDefaultAsync(
+                filter: b => b.Id == model.EtcId,
+                include: source => source.Include(b => b.AudienceType));
+
+            if (model.Gender != prog.Gender)
+            {
+                TempData[SD.Error] = "جنسیت وارد شده با جنسیت کلاس فوق برنامه تداخل دارد";
+                return View(model);
+            }
+
+            var user = await _userRepo.FirstOrDefaultAsync(b => b.NationalCode == model.NationalCode);
+
+            if (user == null)
+            {
+
+                var role = await _roleRepo.FirstOrDefaultAsync(b => b.Title == SD.User);
+                user = new User(model.Name, model.Family, model.PhoneNumber, model.NationalCode,
+                    model.NationalCode, _passwordHasher.HashPassword(model.NationalCode), role.Id, "000000000", "", model.Gender, "Other");
+
+                _userRepo.Add(user);
+
+            }
+
+
+            var etc = await _extUserRepo.GetAllAsync(
+                filter: b => b.UserId == user.Id && b.Extracurricular.PutOn.To > DateTime.Now && !b.Extracurricular.Name.Contains("شنا"));
+
+            if (etc.Count() == 3)
+            {
+                TempData[SD.Warning] = $"زمان برگذاری کلاس با بقیه کلاس های {String.Concat(model.Name, ' ', model.Family)} تداخل دارد";
+                return RedirectToAction(nameof(Details), new { Id = model.EtcId });
+            }
+
+            if (etc.Any(b => b.ExtracurricularId == model.EtcId))
+            {
+                TempData[SD.Warning] = $"{model.Name} {model.Family} قبلا در کلاس ثبت نام شده است";
+                return RedirectToAction(nameof(Details), new { Id = model.EtcId });
+            }
+
+            var etcUser = new ExtracurricularUser(user.Id, model.EtcId, model.Insurance, model.Relativity);
+            _extUserRepo.Add(etcUser);
+
+            await _userRepo.SaveAsync();
+
+            TempData[SD.Success] = $"{model.Name} {model.Family} با موفقیت در کلاس ثبت نام شد";
+            return RedirectToAction(nameof(Details), new { Id = model.EtcId });
+        }
+
+
     }
 }

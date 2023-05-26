@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Competitions.Domain.Dtos.Static.AudienceTypes
 {
@@ -11,6 +6,8 @@ namespace Competitions.Domain.Dtos.Static.AudienceTypes
     {
         [Required(ErrorMessage = "عنوان مخاطب را وارد کنید")]
         public string Title { get; set; }
+
+        public bool IsNeedInformation { get; set; }
 
         public string? Description { get; set; }
     }
