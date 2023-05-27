@@ -218,7 +218,7 @@ namespace Competitions.Web.Controllers
                 return View(model);
             }
 
-            var user = await _userRepo.FirstOrDefaultAsync(b => b.NationalCode == model.NationalCode);
+            var user = await _userRepo.FirstOrDefaultAsync(b => b.NationalCode.Value == model.NationalCode);
 
             if (user == null)
             {

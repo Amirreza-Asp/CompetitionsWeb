@@ -161,9 +161,6 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 filter: u => u.Id == id,
                 include: source => source.Include(u => u.Role));
 
-            if (entity == null || entity.Role.Title.ToLower() == "admin")
-                return Json(new { Success = false });
-
             entity.Delete();
             _userRepo.Update(entity);
             await _userRepo.SaveAsync();
