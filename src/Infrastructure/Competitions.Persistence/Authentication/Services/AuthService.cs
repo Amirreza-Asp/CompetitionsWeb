@@ -60,12 +60,17 @@ namespace Competitions.Persistence.Authentication.Services
                 if (!_passwordHasher.VerifyPassword(user.Password, command.Password))
                     return LoginResultDto.Faild("رمز وارد شده اشتباه است");
 
-                if (String.IsNullOrEmpty(user.College))
+                if (String.IsNullOrEmpty(user.Type))
                 {
                     var userAPI = await _userAPI.GetUserAsync(user.NationalCode);
-                    user.WithCollege(userAPI.trend);
-                    _userRepo.Update(user);
-                    await _userRepo.SaveAsync();
+                    if (userAPI != null)
+                    {
+                        user.WithType(userAPI.type);
+                        _userRepo.Update(user);
+                        await _userRepo.SaveAsync();
+
+                    }
+
                 }
 
                 await AddClaimsAsync(user);
@@ -99,6 +104,7 @@ namespace Competitions.Persistence.Authentication.Services
             identity.AddClaim(new Claim(ClaimTypes.Name, user.Name + " " + user.Family));
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.NationalCode.Value));
             identity.AddClaim(new Claim(ClaimTypes.Gender, user.Gender.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.Actor, user.Type.ToString()));
 
             if (user.Role != null)
             {

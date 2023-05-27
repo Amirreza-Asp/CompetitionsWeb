@@ -61,6 +61,11 @@ namespace Competitions.Domain.Entities.Authentication
             College = college;
             return this;
         }
+        public User WithType(String type)
+        {
+            Type = type;
+            return this;
+        }
 
         public User WithPhoneNumber(String phoneNumber)
         {

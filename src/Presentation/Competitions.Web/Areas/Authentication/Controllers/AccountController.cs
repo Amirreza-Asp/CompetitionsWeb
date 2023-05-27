@@ -82,11 +82,10 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             var res = await _authService.LoginAsync(command);
             if (res.Success)
             {
-                var name = await _userRepo.FirstOrDefaultSelectAsync(
-                    filter: u => u.UserName == command.UserName,
-                    select: u => u.Name + " " + u.Family);
+                var user = await _userRepo.FirstOrDefaultAsync(
+                    filter: u => u.UserName == command.UserName);
 
-                TempData[SD.Success] = $"{name} خوش امدید";
+                TempData[SD.Success] = $"{String.Concat(user.Name, ' ', user.Family)} خوش امدید";
 
                 return Redirect("/Home/Index");
             }

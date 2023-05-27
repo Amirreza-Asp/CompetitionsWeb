@@ -45,7 +45,7 @@
         {
             <span class="text-danger">زمان ثبت نام تمام شده است</span>
         }
-        else if ( Model.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) )
+        else if (Model.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) || User.FindFirstValue(ClaimTypes.Actor).ToLower() != "student")
         {
             <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">ثبت نام</a>
         }
