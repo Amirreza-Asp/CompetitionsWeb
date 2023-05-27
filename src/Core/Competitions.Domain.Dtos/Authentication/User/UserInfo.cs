@@ -16,7 +16,7 @@
         public int isMale { get; set; }
         public string placebirth { get; set; }
         public string grade { get; set; }
-        public int student_number { get; set; }
+        public long student_number { get; set; }
         public string marital { get; set; }
         public string religion { get; set; }
         public string faith { get; set; }
@@ -32,5 +32,7 @@
         public string trend { get; set; }
         public int section { get; set; }
         public string email { get; set; }
+
+
     }
 }
