@@ -13,10 +13,8 @@ namespace Competitions.Domain.Dtos.Authentication.User
         [MinLength(10, ErrorMessage = "کد ملی 10 رقمی است")]
         public string NationalCode { get; set; }
 
-        [Required(ErrorMessage = "شماره موبایل را وارد کنید")]
         [MaxLength(13, ErrorMessage = "شماره موبایل نمیتواند بیشتر از 13 رقم باشد")]
-        [MinLength(10, ErrorMessage = "شماره موبایل نمیتواند کمتر از 10 رقم باشد")]
-        public String PhoneNumber { get; set; }
+        public String? PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "سطح دسترسی را وارد کنید")]
         public Guid RoleId { get; set; }

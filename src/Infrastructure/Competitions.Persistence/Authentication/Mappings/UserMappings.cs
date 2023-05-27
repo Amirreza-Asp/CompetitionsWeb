@@ -36,7 +36,7 @@ namespace Competitions.Persistence.Authentication.Mappings
 
             builder.OwnsOne(b => b.PhoneNumber, b =>
             {
-                b.Property(p => p.Value).HasColumnName("PhoneNumber").IsUnicode(false).HasMaxLength(11);
+                b.Property(p => p.Value).IsRequired(false).HasColumnName("PhoneNumber").IsUnicode(false).HasMaxLength(11);
             });
 
 
