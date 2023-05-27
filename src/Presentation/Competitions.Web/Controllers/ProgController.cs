@@ -43,21 +43,45 @@ namespace Competitions.Web.Controllers
             _pagenation = pagenation;
 
             pagenation.Total = _extRepo.GetCount();
-            var vm = new GetAllProgsVM
+
+            if (User.FindFirstValue(ClaimTypes.Actor).ToLower() == "student")
             {
-                Extracurriculars = await _extRepo.GetAllAsync(
-                    filter: u => (u.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) ||
-                        User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher)),
-                    include: source => source
-                    .Include(u => u.Sport)
-                    .Include(u => u.Place)
-                    .Include(u => u.AudienceType),
-                    take: pagenation.Take,
-                    skip: pagenation.Skip,
-                    select: entity => _mapper.Map<GetExtracurricularDetailsDto>(entity)),
-                Pagenation = pagenation
-            };
-            return View(vm);
+                var vm = new GetAllProgsVM
+                {
+                    Extracurriculars = await _extRepo.GetAllAsync(
+                        filter: u => (
+                            (u.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) &&
+                             u.AudienceType.Title.Contains("دانشجو")) ||
+                            User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher)),
+                        include: source => source
+                        .Include(u => u.Sport)
+                        .Include(u => u.Place)
+                        .Include(u => u.AudienceType),
+                        orderBy: order => order.OrderByDescending(b => b.Register.To),
+                        take: pagenation.Take,
+                        skip: pagenation.Skip,
+                        select: entity => _mapper.Map<GetExtracurricularDetailsDto>(entity)),
+                    Pagenation = pagenation
+                };
+                return View(vm);
+            }
+            else
+            {
+                var vm = new GetAllProgsVM
+                {
+                    Extracurriculars = await _extRepo.GetAllAsync(
+                        include: source => source
+                        .Include(u => u.Sport)
+                        .Include(u => u.Place)
+                        .Include(u => u.AudienceType),
+                        orderBy: order => order.OrderByDescending(b => b.Register.To),
+                        take: pagenation.Take,
+                        skip: pagenation.Skip,
+                        select: entity => _mapper.Map<GetExtracurricularDetailsDto>(entity)),
+                    Pagenation = pagenation
+                };
+                return View(vm);
+            }
         }
 
         public IActionResult Calender(ProgCalenderFilter filters)
@@ -127,7 +151,8 @@ namespace Competitions.Web.Controllers
                     .Include(u => u.Times)
                     .Include(u => u.Sport)
                     .Include(u => u.Place)
-                    .Include(u => u.AudienceType));
+                    .Include(u => u.AudienceType)
+                    .Include(u => u.Users));
 
             if (prog == null)
             {
