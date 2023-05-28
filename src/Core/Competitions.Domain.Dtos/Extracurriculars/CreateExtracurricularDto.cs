@@ -18,11 +18,11 @@ namespace Competitions.Domain.Dtos.Extracurriculars
         public long AudienceTypeId { get; set; }
 
         [Required(ErrorMessage = "ظرفیت دوره را مشخص کنید")]
-        [Range(1 , int.MaxValue , ErrorMessage = "ظرفیت دوره باید بیشتر از صفر باشد")]
+        [Range(1, int.MaxValue, ErrorMessage = "ظرفیت دوره باید بیشتر از صفر باشد")]
         public int Capacity { get; set; } = 1;
 
         [Required(ErrorMessage = "حداقل تعداد افراد برای برگزاری را وارد کنید")]
-        [Range(1 , int.MaxValue , ErrorMessage = "حداقل تعداد افراد برای برگزاری باید بیشتر از صفر باشد")]
+        [Range(1, int.MaxValue, ErrorMessage = "حداقل تعداد افراد برای برگزاری باید بیشتر از صفر باشد")]
         public int MinimumPlacements { get; set; } = 1;
 
         [Required(ErrorMessage = "تاریخ شروع دوره را وارد کنید")]
@@ -49,11 +49,13 @@ namespace Competitions.Domain.Dtos.Extracurriculars
         [Required(ErrorMessage = "نام مربی را وارد کنید")]
         public long CoachId { get; set; }
 
+        public bool IsFree { get; set; }
+
 
         public IEnumerable<SelectListItem>? AudienceTypes { get; set; }
         public IEnumerable<SelectListItem>? Places { get; set; }
 
-        public List<SelectListItem> GetGenders () => new List<SelectListItem>
+        public List<SelectListItem> GetGenders() => new List<SelectListItem>
         {
             new SelectListItem{Text = "مرد" , Value = "false"},
             new SelectListItem{Text = "زن" , Value = "true"}

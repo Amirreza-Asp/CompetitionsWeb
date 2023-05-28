@@ -20,7 +20,10 @@
             <p class="col-md-6 mb-3">شروع ثبت نام : @Model.Register.From.ToShamsi()</p>
             <p class="col-md-6 mb-3">مهلت ثبت نام : @Model.Register.To.ToShamsi()</p>
             <p class="col-md-6 mb-3">افراد مجاز : @Model.AudienceType.Title</p>
-            <p class="col-md-6 mb-3">هزینه : رایگان</p>
+            @{
+                String price = Model.IsFree ? "متعاقبا اعلام می گردد" : "رایگان";
+            }
+            <p class="col-md-6 mb-3">هزینه : @price</p>
 
         </div>
         <p>

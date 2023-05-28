@@ -102,7 +102,11 @@
             <input id="end-put-on" name="EndPutOn" value="@endPutOn" width="100%" class="form-control" disabled />
         </div>
         @*--------------------------------*@
-        <div class="mb-3">
+        <div class="mb-3 col-md-4">
+            <label class="form-label">هزینه:</label>
+            <input value="@(Model.IsFree ? "متعاقبا اعلام می گردد" : "رایگان")" class="form-control" disabled/>
+        </div>
+        <div class="mb-3 col-md-8">
             <label class="form-label">شرح:</label>
             <textarea class="form-control summernote" asp-for="Description" rows="5" disabled></textarea>
         </div>

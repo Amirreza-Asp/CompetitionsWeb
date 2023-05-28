@@ -218,7 +218,18 @@
             </div>
 
             @*--------------------------------*@
-            <div class="mb-3">
+            @{
+                var priceOptions = new List<SelectListItem>
+                {
+                    new SelectListItem{Text = "رایگان" , Value = false.ToString()},
+                    new SelectListItem{Text = "هزینه متعاقبا اعلام میگردد" , Value = true.ToString()},
+                };
+            }
+            <div class="col-md-4 mb-3">
+                <label>هزینه :</label>
+                <select asp-for="IsFree" asp-items="priceOptions" class="form-select"></select>
+            </div>
+            <div class="mb-3 col-md-8">
                 <label class="form-label">شرح:</label>
                 <textarea class="form-control summernote" asp-for="Description" rows="5"></textarea>
                 <span class="text-danger" asp-validation-for="Description"></span>

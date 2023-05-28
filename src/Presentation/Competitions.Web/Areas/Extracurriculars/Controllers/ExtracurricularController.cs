@@ -163,7 +163,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
 
             var entity = new Extracurricular(command.Name, command.SportId, command.PlaceId, command.AudienceTypeId, command.Capacity,
                 new DateTimeRange(command.StartPutOn, command.EndPutOn), command.Gender, new DateTimeRange(command.StartRegister, command.EndRegister), command.Description,
-                command.CoachId, command.MinimumPlacements);
+                command.CoachId, command.MinimumPlacements, command.IsFree);
 
             var times = JsonConvert.DeserializeObject<List<ExtracurricularTimeDto>>(command.Times);
 
@@ -265,6 +265,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                 .WithCapacity(command.Capacity)
                 .WithDescripion(command.Description)
                 .WithSportId(command.SportId)
+                .WithIsFree(command.IsFree)
                 .WithCoachId(command.CoachId)
                 .WithPlaceId(command.PlaceId)
                 .WithPutOn(new DateTimeRange(command.StartPutOn, command.EndPutOn))

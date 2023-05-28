@@ -19,6 +19,7 @@
                     <th>کد ملی</th>
                     <th>شماره دانشجویی</th>
                     <th>رشته تحصیلی</th>
+                    <th>شماره تلفن</th>
                     <th>بیمه ورزشی</th>
                     <th>تاریخ ثبت نام</th>
                 </tr>
@@ -55,6 +56,9 @@
 
                             }
                             @isStudent
+                        </td>
+                        <td>
+                            @(Model.ElementAt(i).User.PhoneNumber != null ? Model.ElementAt(i).User.PhoneNumber.Value : "")
                         </td>
                         <td>
                             @{

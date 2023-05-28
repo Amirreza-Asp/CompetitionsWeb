@@ -6,7 +6,7 @@ namespace Competitions.Persistence.Extracurriculars.Mappings
 {
     public class ExtracurricularMappings : IEntityTypeConfiguration<Extracurricular>
     {
-        public void Configure ( EntityTypeBuilder<Extracurricular> builder )
+        public void Configure(EntityTypeBuilder<Extracurricular> builder)
         {
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).ValueGeneratedNever();
@@ -14,18 +14,19 @@ namespace Competitions.Persistence.Extracurriculars.Mappings
             builder.Property(b => b.Name);
             builder.Property(b => b.Capacity);
             builder.Property(b => b.Gender);
+            builder.Property(b => b.IsFree);
             builder.Property(b => b.Description);
             builder.Property(b => b.MinimumPlacements);
 
 
-            builder.OwnsOne(b => b.PutOn , b =>
+            builder.OwnsOne(b => b.PutOn, b =>
             {
                 b.Property(p => p.From).HasColumnName("StartPutOn").IsRequired();
                 b.Property(p => p.To).HasColumnName("EndPutOn").IsRequired();
             });
 
 
-            builder.OwnsOne(b => b.Register , b =>
+            builder.OwnsOne(b => b.Register, b =>
             {
                 b.Property(p => p.From).HasColumnName("StartRegister").IsRequired();
                 b.Property(p => p.To).HasColumnName("EndRegister").IsRequired();
