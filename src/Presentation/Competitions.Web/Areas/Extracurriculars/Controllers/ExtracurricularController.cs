@@ -305,6 +305,19 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             return View(users);
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> RemoveStudent(Guid userId, Guid extId)
+        {
+            var extUser = await _extUserRepo.FirstOrDefaultAsync(b => b.UserId == userId && b.ExtracurricularId == extId);
+            if (extUser == null)
+                return Json(new { Success = false, Message = "فرد مورد نظر در کلاس وجود ندارد" });
+
+            _extUserRepo.Remove(extUser);
+            await _extUserRepo.SaveAsync();
+
+            return Json(new { Success = true, Message = "با موفقیت از کلاس حذف شد" });
+        }
+
 
         public async Task<JsonResult> GetSportsByPlaceId(Guid id)
         {

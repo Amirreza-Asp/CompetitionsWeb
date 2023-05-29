@@ -14,7 +14,7 @@ namespace Competitions.Web.Areas.Static.Controllers
     {
         private readonly IRepository<AudienceType> _repo;
 
-        private static Pagenation _pagenation = new Pagenation(0, 10, 0);
+        private static Pagenation _pagenation = new Pagenation();
 
         public AudienceTypeController(IRepository<AudienceType> repo)
         {
