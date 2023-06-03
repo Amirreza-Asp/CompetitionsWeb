@@ -281,6 +281,34 @@ namespace Competitions.Web.Controllers
             return RedirectToAction(nameof(Details), new { Id = model.EtcId });
         }
 
+        public async Task<IActionResult> DeleteFromProg(Guid progId)
+        {
+            var userNationalCode = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var extUser =
+                await _extUserRepo.FirstOrDefaultAsync(
+                    b => b.ExtracurricularId == progId &&
+                    b.User.NationalCode.Value == userNationalCode,
+                    include: source => source.Include(b => b.Extracurricular));
+
+            if (extUser == null)
+            {
+                TempData[SD.Error] = "شما در این کلاس عضو نیستید";
+                return RedirectToAction(nameof(Details), new { Id = progId });
+            }
+
+            if (extUser.Extracurricular.PutOn.From < DateTime.Now)
+            {
+                TempData[SD.Error] = "زمان انصراف از فوق برنامه تا قبل از شروع کلاس است";
+                return RedirectToAction(nameof(Details), new { Id = progId });
+            }
+
+            _extUserRepo.Remove(extUser);
+            await _userRepo.SaveAsync();
+
+            TempData[SD.Success] = "انصراف شما با موفقیت انجام شد";
+            return RedirectToAction(nameof(Details), new { Id = progId });
+        }
 
     }
 }
