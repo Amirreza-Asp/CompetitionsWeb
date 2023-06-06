@@ -7,6 +7,10 @@
 }
 <div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
     <h3>لیست ثبت نامی ها</h3>
+    @if (Model.Any())
+    {
+        <a class="btn btn-info " asp-action="printExcel" asp-route-extraId="@Model.First().ExtracurricularId.ToString()">چاپ</a>
+    }
 </div>
 
 <div class="table-overflow card shadow-sm">

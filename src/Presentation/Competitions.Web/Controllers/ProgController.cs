@@ -310,5 +310,6 @@ namespace Competitions.Web.Controllers
             return RedirectToAction(nameof(Details), new { Id = progId });
         }
 
+
     }
 }

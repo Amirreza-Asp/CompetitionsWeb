@@ -28,10 +28,11 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
         private readonly IRepository<AudienceType> _audRepo;
         private readonly IRepository<Place> _placeRepo;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _hostEnv;
 
         private static ExtracurricularFilter _filters = new ExtracurricularFilter();
 
-        public ExtracurricularController(IRepository<Extracurricular> extRepo, IRepository<Sport> sportRepo, IRepository<AudienceType> audRepo, IRepository<Place> placeRepo, IMapper mapper, IRepository<ExtracurricularTime> extTimeRepo, IRepository<ExtracurricularUser> extUserRepo)
+        public ExtracurricularController(IRepository<Extracurricular> extRepo, IRepository<Sport> sportRepo, IRepository<AudienceType> audRepo, IRepository<Place> placeRepo, IMapper mapper, IRepository<ExtracurricularTime> extTimeRepo, IRepository<ExtracurricularUser> extUserRepo, IWebHostEnvironment hostEnv)
         {
             _extRepo = extRepo;
             _sportRepo = sportRepo;
@@ -40,6 +41,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             _mapper = mapper;
             _extTimeRepo = extTimeRepo;
             _extUserRepo = extUserRepo;
+            _hostEnv = hostEnv;
         }
 
         public async Task<IActionResult> Index(ExtracurricularFilter filters)
@@ -303,6 +305,58 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                         .OrderBy(b => b.User.Family));
 
             return View(users);
+        }
+
+        public async Task<IActionResult> PrintExcel(Guid extraId)
+        {
+            var users =
+                await _extUserRepo.GetAllAsync(
+                    user => user.ExtracurricularId == extraId,
+                    include: source => source.Include(u => u.User),
+                    orderBy: user => user
+                        .OrderBy(b => b.User.Name)
+                        .OrderBy(b => b.User.Family));
+
+            var extName = await _extRepo.FirstOrDefaultAsync(b => b.Id == extraId);
+
+
+            var excelData = new List<List<String>>
+            {
+                new List<string>{"نام" , "کد ملی" , "شماره دانشجویی" , "رشته تحصیلی"
+                    , "شماره تلفن" , "بیمه ورزشی" , "تاریخ ثبت نام"},
+            };
+
+            foreach (var extUser in users)
+            {
+                excelData.Add(
+                    new List<string> { 
+                        // name
+                        extUser.User.Name + " " + extUser.User.Family,
+                        // national code
+                        extUser.User.NationalCode.Value,
+                        // student number
+                        extUser.User.StudentNumber.Value == "000000000" ? "ندارد" : extUser.User.StudentNumber.Value,
+                        // college
+                        extUser.User.College == null ? "خارج از دانشگاه" : extUser.User.College,
+                        // phone number
+                        extUser.User.PhoneNumber == null ? "": extUser.User.PhoneNumber.Value,
+                        // Insurance
+                        extUser.Insurance ? "دارد" : "ندارد",
+                        // join time
+                        extUser.JoinTime.ToShamsi()
+                    });
+            }
+
+            String upload = _hostEnv.WebRootPath;
+            var date = DateTime.Now;
+            String path = upload + "/" + "students " + Guid.NewGuid() + ".xlsx";
+
+            FileConvertor.CreateExcel(excelData, path, true);
+            var file = System.IO.File.ReadAllBytes(path);
+            System.IO.File.Delete(path);
+
+
+            return File(new MemoryStream(file, 0, file.Length), "application/octet-stream", $"{extName.Name}-students-{Guid.NewGuid()}.xlsx");
         }
 
         [HttpDelete]
