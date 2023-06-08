@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ClosedXML.Excel;
 using Competitions.Common;
 using Competitions.Common.Helpers;
 using Competitions.Domain.Dtos.Extracurriculars;
@@ -320,43 +321,48 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             var extName = await _extRepo.FirstOrDefaultAsync(b => b.Id == extraId);
 
 
-            var excelData = new List<List<String>>
+            using (var workbook = new XLWorkbook())
             {
-                new List<string>{"نام" , "کد ملی" , "شماره دانشجویی" , "رشته تحصیلی"
-                    , "شماره تلفن" , "بیمه ورزشی" , "تاریخ ثبت نام"},
-            };
+                var worksheet = workbook.Worksheets.Add("Students");
 
-            foreach (var extUser in users)
-            {
-                excelData.Add(
-                    new List<string> { 
-                        // name
-                        extUser.User.Name + " " + extUser.User.Family,
-                        // national code
-                        extUser.User.NationalCode.Value,
-                        // student number
-                        extUser.User.StudentNumber.Value == "000000000" ? "ندارد" : extUser.User.StudentNumber.Value,
-                        // college
-                        extUser.User.College == null ? "خارج از دانشگاه" : extUser.User.College,
-                        // phone number
-                        extUser.User.PhoneNumber == null ? "": extUser.User.PhoneNumber.Value,
-                        // Insurance
-                        extUser.Insurance ? "دارد" : "ندارد",
-                        // join time
-                        extUser.JoinTime.ToShamsi()
-                    });
+                var currentRow = 1;
+
+                #region header
+                worksheet.Cell(currentRow, 1).Value = "نام";
+                worksheet.Cell(currentRow, 2).Value = "کد ملی";
+                worksheet.Cell(currentRow, 3).Value = "شماره دانشجویی";
+                worksheet.Cell(currentRow, 4).Value = "رشته تحصیلی";
+                worksheet.Cell(currentRow, 5).Value = "شماره تلفن";
+                worksheet.Cell(currentRow, 6).Value = "بیمه ورزشی";
+                worksheet.Cell(currentRow, 7).Value = "تاریخ ثبت نام";
+                #endregion
+
+                #region body
+                foreach (var extUser in users)
+                {
+                    currentRow++;
+
+                    worksheet.Cell(currentRow, 1).Value = extUser.User.Name + " " + extUser.User.Family;
+                    worksheet.Cell(currentRow, 2).Value = extUser.User.NationalCode.Value;
+                    worksheet.Cell(currentRow, 3).Value = extUser.User.StudentNumber.Value == "000000000" ? "ندارد" : extUser.User.StudentNumber.Value;
+                    worksheet.Cell(currentRow, 4).Value = extUser.User.College == null ? "خارج از دانشگاه" : extUser.User.College;
+                    worksheet.Cell(currentRow, 5).Value = extUser.User.PhoneNumber == null ? "" : extUser.User.PhoneNumber.Value;
+                    worksheet.Cell(currentRow, 6).Value = extUser.Insurance ? "دارد" : "ندارد";
+                    worksheet.Cell(currentRow, 7).Value = extUser.JoinTime.ToShamsi();
+                }
+                #endregion
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Students.xlsx"
+                        );
+                }
             }
-
-            String upload = _hostEnv.WebRootPath;
-            var date = DateTime.Now;
-            String path = upload + "/" + "students " + Guid.NewGuid() + ".xlsx";
-
-            FileConvertor.CreateExcel(excelData, path, true);
-            var file = System.IO.File.ReadAllBytes(path);
-            System.IO.File.Delete(path);
-
-
-            return File(new MemoryStream(file, 0, file.Length), "application/octet-stream", $"{extName.Name}-students-{Guid.NewGuid()}.xlsx");
         }
 
         [HttpDelete]
