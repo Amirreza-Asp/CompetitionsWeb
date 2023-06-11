@@ -85,8 +85,18 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 return View(command);
             }
 
-            var userEntity = new User(user.name, user.lastname, !String.IsNullOrEmpty(command.PhoneNumber) ? command.PhoneNumber : user.mobile, user.idmelli, user.idmelli, _passwordHasher.HashPassword(user.idmelli),
-                command.RoleId, user.student_number.ToString(), user.trend, user.isMale < 1, user.type);
+            var userEntity = new User(
+                !String.IsNullOrEmpty(user.name) ? user.name : command.FullName.Split(' ')[0],
+                !String.IsNullOrEmpty(user.lastname) ? user.lastname : String.Join(' ', command.FullName.Substring(command.FullName.Split(' ')[0].Length)),
+                !String.IsNullOrEmpty(command.PhoneNumber) ? command.PhoneNumber : user.mobile,
+                command.NationalCode,
+                command.NationalCode,
+                _passwordHasher.HashPassword(command.NationalCode),
+                command.RoleId,
+                user.student_number.ToString(),
+                user.trend,
+                user.isMale < 1,
+                user.type);
 
             _userRepo.Add(userEntity);
             await _userRepo.SaveAsync();
