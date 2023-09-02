@@ -1,4 +1,5 @@
 ﻿@using Competitions.Domain.Dtos.Matches.Matches;
+@using System.Security.Claims;
 @model RegisterMatchListDto
 
 <form method="post" enctype="multipart/form-data">
@@ -12,21 +13,24 @@
     </div>
     <section class="card shadow-sm ">
         <div class="row">
-            @for (int i = 0;i< Model.TeamCount; i++)
+            @for (int i = 0; i < Model.TeamCount; i++)
             {
-                if(i==0 && Model.TeamCount > 1)
+                if (i == 0 && Model.TeamCount > 1)
                 {
                     <h4>نماینده</h4>
                 }
 
                 <div class="col-6 mb-3">
 
-                    <label class="form-label">شماره دانشجویی</label>
-                    <input class="form-control" asp-for="RegisterMatches[i].StudentNumber" type="text">
-                    <span class="text-danger" asp-validation-for="RegisterMatches[i].StudentNumber"></span>
+                    <label class="form-label">کد ملی</label>
+                    <input class="form-control" asp-for="RegisterMatches[i].NationalCode" type="text">
+                    <span class="text-danger" asp-validation-for="RegisterMatches[i].NationalCode"></span>
                 </div>
                 <div class="row">
-                    <h5 class="my-3">مدارک</h5>
+                    @if (Model.Documents.Any())
+                    {
+                        <h5 class="my-3">مدارک</h5>
+                    }
                     @for (int j = 0; j < Model.Documents.Count(); j++)
                     {
                         <div class="col-md-4 mb-3">
@@ -43,7 +47,7 @@
                     <hr />
                 }
 
-            }           
+            }
         </div>
 
     </section>

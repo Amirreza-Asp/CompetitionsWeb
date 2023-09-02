@@ -33,14 +33,13 @@ namespace Competitions.Persistence.Data.Initializer
 
             }
 
-
             if (!_db.Role.Any(u => u.Title == SD.Admin))
             {
                 _db.Role.Add(new Role(SD.Admin, "ادمین", "دسترسی کامل سیستم"));
                 _db.Role.Add(new Role(SD.Publisher, "ناشر", "دسترسی به تمام اطلاعات به جز تعیین عضو کمیته"));
                 _db.Role.Add(new Role(SD.User, "کاربر", "بدون دسترسی"));
             }
-            else
+            else if (_db.User.Any())
             {
                 return;
             }

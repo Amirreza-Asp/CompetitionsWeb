@@ -187,7 +187,7 @@
             <div class="mb-3 col-md-3 pr-5">
                 <label class="form-label">شروع ثبت نام:</label>
                 @{
-                    string startRegister = Model.StartRegister != default ? Model.StartRegister.ToShamsi() : "";
+                    string startRegister = Model.StartRegister.ToShamsi();
                 }
                 <input id="start-register" name="StartRegister" value="@startRegister" width="100%" class="form-control" />
                 <span class="text-danger" id="start-register-validation">تاریخ شروع ثبت نام را وارد کنید</span>
@@ -195,7 +195,7 @@
             <div class="mb-3 col-md-3 pr-5">
                 <label class="form-label">پایان ثبت نام:</label>
                 @{
-                    string endRegister = Model.EndRegister != default ? Model.EndRegister.ToShamsi() : "";
+                    string endRegister = Model.EndRegister.ToShamsi();
                 }
                 <input id="end-register" name="EndRegister" value="@endRegister" width="100%" class="form-control" />
                 <span class="text-danger" id="end-register-validation">تاریخ پایان ثبت نام را وارد کنید</span>
@@ -203,7 +203,7 @@
             <div class="mb-3 col-md-3 pr-5">
                 <label class="form-label">شروع دوره:</label>
                 @{
-                    string startPutOn = Model.StartPutOn != default ? Model.StartPutOn.ToShamsi() : "";
+                    string startPutOn = Model.StartPutOn.ToShamsi();
                 }
                 <input id="start-put-on" name="StartPutOn" value="@startPutOn" width="100%" class="form-control" />
                 <span class="text-danger" id="start-put-on-validation">تاریخ دوره را وارد کنید</span>
@@ -211,7 +211,7 @@
             <div class="mb-3 col-md-3 pr-5">
                 <label class="form-label">پایان دوره:</label>
                 @{
-                    string endPutOn = Model.EndPutOn != default ? Model.EndPutOn.ToShamsi() : "";
+                    string endPutOn = Model.EndPutOn.ToShamsi();
                 }
                 <input id="end-put-on" name="EndPutOn" value="@endPutOn" width="100%" class="form-control" />
                 <span class="text-danger" id="end-put-on-validation">تاریخ پایان دوره را وارد کنید</span>

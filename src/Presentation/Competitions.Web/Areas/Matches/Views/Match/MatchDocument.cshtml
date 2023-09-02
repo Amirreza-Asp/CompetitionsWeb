@@ -200,8 +200,7 @@
 
         function validateInput() {
             if (tBody.children.length == 0) {
-                toastr.error('مدارک لازم را وارد کنید');
-                return false;
+                return true;
             }
 
             dataInput.value = "[ ";

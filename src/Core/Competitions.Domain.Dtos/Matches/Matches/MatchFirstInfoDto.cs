@@ -25,16 +25,16 @@ namespace Competitions.Domain.Dtos.Matches.Matches
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "تاریخ شروع ثبت نام را وارد کنید")]
-        public DateTime StartRegister { get; set; }
+        public String StartRegister { get; set; }
 
         [Required(ErrorMessage = "تاریخ پایان ثبت نام را وارد کنید")]
-        public DateTime EndRegister { get; set; }
+        public String EndRegister { get; set; }
 
         [Required(ErrorMessage = "تاریخ برگزاری مسابقه را وارد کنید")]
-        public DateTime StartPutOn { get; set; }
+        public String StartPutOn { get; set; }
 
         [Required(ErrorMessage = "تاریخ اتمام مسابقه را وارد کنید")]
-        public DateTime EndPutOn { get; set; }
+        public String EndPutOn { get; set; }
 
         public Guid? FestivalId { get; set; }
 

@@ -6,10 +6,10 @@
 
 @{
 
-    String startRegister = Model.StartRegister != default ? Model.StartRegister.ToShamsi() : "";
-    String endRegister = Model.EndRegister != default ? Model.EndRegister.ToShamsi() : "";
-    String startPutOn = Model.StartPutOn != default ? Model.StartPutOn.ToShamsi() : "";
-    String endPutOn = Model.EndPutOn != default ? Model.EndPutOn.ToShamsi() : "";
+    String startRegister = Model.StartRegister.ToShamsi();
+    String endRegister = Model.EndRegister.ToShamsi();
+    String startPutOn = Model.StartPutOn.ToShamsi();
+    String endPutOn = Model.EndPutOn.ToShamsi();
 
     Layout = "_AdminLayout";
 
@@ -188,12 +188,12 @@
             @*--------------------------------*@
             <div class="mb-3 col-md-6 pr-5">
                 <label class="form-label">تاریخ برگذاری مسابقات:</label>
-                <input width="100%" class="form-control" name="@nameof(Model.StartPutOn)" value="@endRegister" id="start-putOn" disabled="@Model.ReadOnly">
+                <input width="100%" class="form-control" name="@nameof(Model.StartPutOn)" value="@startPutOn" id="start-putOn" disabled="@Model.ReadOnly">
                 <span id="start-putOn-validation" class="text-danger" style="visibility:hidden;">تاریخ برگذاری مسابقات را وارد کنید</span>
             </div>
             <div class="mb-3 col-md-6 pr-5">
                 <label class="form-label">تاریخ پایان مسابقات:</label>
-                <input width="100%" class="form-control" name="@nameof(Model.EndPutOn)" value="@endRegister" id="end-putOn" disabled="@Model.ReadOnly">
+                <input width="100%" class="form-control" name="@nameof(Model.EndPutOn)" value="@endPutOn" id="end-putOn" disabled="@Model.ReadOnly">
                 <span id="end-putOn-validation" class="text-danger" style="visibility:hidden;">تاریخ پایان مسابقات را وارد کنید</span>
 
             </div>
@@ -207,17 +207,17 @@
                     }
 
                     <input value="نامحدود" id="infinity-capacity" style="@inputStyle"
-                        type="@(Model.Capacity == int.MaxValue ? "text" : "hidden")" class="form-control" />
+                           type="@(Model.Capacity == int.MaxValue ? "text" : "hidden")" class="form-control" />
 
 
 
-                    <input type="@(Model.Capacity != int.MaxValue ? "text" : "hidden")" asp-for="Capacity" 
-                        id="capacity-input" class="form-control" style="@inputStyle" readonly="@Model.ReadOnly" />
-                    
+                    <input type="@(Model.Capacity != int.MaxValue ? "text" : "hidden")" asp-for="Capacity"
+                           id="capacity-input" class="form-control" style="@inputStyle" readonly="@Model.ReadOnly" />
+
                     @if (!Model.ReadOnly)
                     {
                         <button type="button" id="capacity-btn" class="btn btn-secondary"
-                            style="font-size:12px;border-top-right-radius:0;border-bottom-right-radius:0;">
+                                style="font-size:12px;border-top-right-radius:0;border-bottom-right-radius:0;">
                             @(Model.Capacity == int.MaxValue ? "محدود" : "نامحدود")
                         </button>
                     }
@@ -294,14 +294,14 @@
             $("#start-putOn").kendoDatePicker();
             $("#end-putOn").kendoDatePicker();
 
-            $("#capacity-btn").click(()=>{
-                if($("#infinity-capacity").attr("type") == "hidden"){
-                    $("#infinity-capacity").attr("type" , "text");
+            $("#capacity-btn").click(() => {
+                if ($("#infinity-capacity").attr("type") == "hidden") {
+                    $("#infinity-capacity").attr("type", "text");
                     $("#capacity-input").val(@int.MaxValue);
-                    $("#capacity-input").attr("type" , "hidden");
+                    $("#capacity-input").attr("type", "hidden");
                     $("#capacity-btn").html("محدود");
                 }
-                else{
+                else {
                     $("#infinity-capacity").attr("type", "hidden");
                     $("#capacity-input").attr("type", "text");
                     $("#capacity-input").val(1);

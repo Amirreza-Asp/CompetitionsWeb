@@ -1,4 +1,5 @@
 ﻿using Competitions.Application.Managment.Interfaces;
+using Competitions.Common.Helpers;
 using Competitions.Domain.Dtos.Matches.Matches;
 using Competitions.Domain.Entities.Managment;
 using Competitions.Domain.Entities.Managment.ValueObjects;
@@ -23,8 +24,8 @@ namespace Competitions.Persistence.Managment.Services
                 return;
 
             var entity = new Match(firstInfo.Name, firstInfo.FestivalId, firstInfo.PlaceId, firstInfo.SportId, firstInfo.Gender, firstInfo.Level,
-                new DateTimeRange(firstInfo.StartRegister, firstInfo.EndRegister),
-                    firstInfo.Capacity, firstInfo.TeamCount, new DateTimeRange(firstInfo.StartPutOn, firstInfo.EndPutOn),
+                new DateTimeRange(firstInfo.StartRegister.ToDateTime(), firstInfo.EndRegister.ToDateTime()),
+                    firstInfo.Capacity, firstInfo.TeamCount, new DateTimeRange(firstInfo.StartPutOn.ToDateTime(), firstInfo.EndPutOn.ToDateTime()),
                     new Document(secondInfo.Image, secondInfo.ImageFile), secondInfo.Description);
 
             var aud = firstInfo.Audience.Split(',').ToList();
@@ -93,8 +94,8 @@ namespace Competitions.Persistence.Managment.Services
                 .WithLevel(firstInfo.Level)
                 .WithTeamCount(firstInfo.TeamCount)
                 .WithGender(firstInfo.Gender)
-                .WithRegister(new DateTimeRange(firstInfo.StartRegister, firstInfo.EndRegister))
-                .WithPutOn(new DateTimeRange(firstInfo.StartPutOn, firstInfo.EndPutOn))
+                .WithRegister(new DateTimeRange(firstInfo.StartRegister.ToDateTime(), firstInfo.EndRegister.ToDateTime()))
+                .WithPutOn(new DateTimeRange(firstInfo.StartPutOn.ToDateTime(), firstInfo.EndPutOn.ToDateTime()))
                 .WithFestivalId(firstInfo.FestivalId)
                 .WithPlaceId(firstInfo.PlaceId)
                 .WithSportId(firstInfo.SportId)

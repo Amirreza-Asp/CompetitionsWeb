@@ -13,6 +13,21 @@ namespace Competitions.Common.Helpers
                 pc.GetDayOfMonth(dateTime).ToString("00");
         }
 
+        public static String ToShamsi(this String strDateTime)
+        {
+            if (String.IsNullOrWhiteSpace(strDateTime))
+                return "";
+
+            CultureInfo culture = new CultureInfo("en-US");
+            PersianCalendar pc = new PersianCalendar();
+            DateTime dateTime = Convert.ToDateTime(strDateTime, culture);
+
+            return
+                pc.GetYear(dateTime).ToString() + "/" +
+                pc.GetMonth(dateTime).ToString("00") + '/' +
+                pc.GetDayOfMonth(dateTime).ToString("00");
+        }
+
         public static DateTime ShamsiYearBegin(this DateTime dateTime)
         {
             var pc = new PersianCalendar();
@@ -59,6 +74,26 @@ namespace Competitions.Common.Helpers
                 PersianCalendar pc = new PersianCalendar();
                 return new DateTime(dateTime.Value.Year, dateTime.Value.Month, dateTime.Value.Day, pc);
             }
+
+            return dateTime;
+        }
+
+        public static String ToMiladi(this String strDateTime)
+        {
+            if (String.IsNullOrWhiteSpace(strDateTime))
+                return "";
+
+            DateTime dateTime = DateTime.Parse(strDateTime, new CultureInfo("fa-IR"));
+
+            return dateTime.ToString();
+        }
+
+        public static DateTime ToDateTime(this String strDateTime)
+        {
+            if (String.IsNullOrWhiteSpace(strDateTime))
+                return default;
+
+            DateTime dateTime = DateTime.Parse(strDateTime);
 
             return dateTime;
         }

@@ -14,18 +14,22 @@
 
     @if (Model.Any())
     {
-        if (Model.ElementAt(0).Users.Count() > 1)
-        {
-            <h2 class="text-info">
+        <div class="d-flex align-items-start align-items-sm-center justify-content-between mb-2 flex-column flex-sm-row">
+            @if (Model.ElementAt(0).Users.Count() > 1)
+            {
+            <h3 class="text-info">
                 لیست تیم های مسابقه
-            </h2>
-        }
-        else
-        {
-            <h2 class="text-info">
+            </h3>
+            }
+            else
+            {
+            <h3 class="text-info">
                 لیست افراد مسابقه
-            </h2>
-        }
+            </h3>
+            }
+            <a class="btn btn-info" asp-action="printExcel" asp-route-matchId="@Model.First().MatchId.ToString()">چاپ</a>
+
+        </div>
         <hr />
         <div class="team">
             <ul class="team-list" style="cursor:pointer;">

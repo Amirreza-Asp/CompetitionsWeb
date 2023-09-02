@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ClosedXML.Excel;
 using Competitions.Application.Managment.Interfaces;
 using Competitions.Common;
 using Competitions.Common.Helpers;
@@ -131,17 +132,26 @@ namespace Competitions.Web.Areas.Managment.Controllers
                 return View(command);
             }
 
-            if (command.StartRegister > command.EndRegister)
+            if (command.StartRegister.ToDateTime() > command.EndRegister.ToDateTime())
             {
-                TempData[SD.Error] = "تاریخ شروع ثبت نام نمیتواند از پایان ان بزرگتر باشد";
+                TempData[SD.Error] = "تاریخ شروع ثبت نام نمیتواند از پایان ان بیشتر باشد";
 
                 command = await FillLists(command);
                 return View(command);
             }
 
-            if (command.StartPutOn > command.EndPutOn)
+            if (command.EndRegister.ToDateTime() > command.StartPutOn.ToDateTime())
             {
-                TempData[SD.Error] = "تاریخ برگزاری مسابقه نمیتواند از اتمام ان بزرگتر باشد";
+                TempData[SD.Error] = "تاریخ پایان ثبت نام نمیتواند از شروع مسابقات بیشتر باشد";
+
+                command = await FillLists(command);
+                return View(command);
+            }
+
+
+            if (command.StartPutOn.ToDateTime() > command.EndPutOn.ToDateTime())
+            {
+                TempData[SD.Error] = "تاریخ برگزاری مسابقه نمیتواند از اتمام ان بیشتر باشد";
 
                 command = await FillLists(command);
                 return View(command);
@@ -312,12 +322,6 @@ namespace Competitions.Web.Areas.Managment.Controllers
         {
             command.Info = JsonConvert.DeserializeObject<List<DocumentDataDto>>(command.Data);
 
-            if (command.Info == null)
-            {
-                TempData[SD.Error] = "مدارک لازمه را مشخص کنید";
-                command.Evidences = await _evdRepo.GetAllAsync(select: u => new SelectListItem(u.Title, u.Id.ToString()));
-                return View(command);
-            }
 
             if (!ModelState.IsValid)
             {
@@ -436,6 +440,7 @@ namespace Competitions.Web.Areas.Managment.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/force-download", doc.Name + extension);
         }
+
         public async Task<FileResult> DownloadCondition(String fileName)
         {
             var condition = await _mcoRepo
@@ -456,6 +461,70 @@ namespace Competitions.Web.Areas.Managment.Controllers
         {
             await _matchService.RemoveAsync(id);
             return Json(new { Success = true });
+        }
+
+        public async Task<IActionResult> PrintExcel(Guid matchId)
+        {
+            var match =
+                await _matchRepo.FirstOrDefaultAsync(
+                    m => m.Id == matchId,
+                    include: source => source.Include(u => u.Teams).ThenInclude(b => b.Users).ThenInclude(b => b.User));
+
+            if (match == null)
+                return null;
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Match_Players");
+
+                var currentRow = 1;
+
+                #region header
+                worksheet.Cell(currentRow, 1).Value = "نام و نام خانوادگی";
+                worksheet.Cell(currentRow, 2).Value = "کد ملی";
+                worksheet.Cell(currentRow, 3).Value = "شماره دانشجویی";
+                worksheet.Cell(currentRow, 4).Value = "رشته تحصیلی";
+                worksheet.Cell(currentRow, 5).Value = "شماره تلفن";
+                if (match.TeamCount > 1)
+                {
+                    worksheet.Cell(currentRow, 6).Value = "عنوان در گروه";
+                    worksheet.Cell(currentRow, 7).Value = "تیم";
+                }
+                #endregion
+
+                int teamCount = 0;
+                #region body
+                foreach (var team in match.Teams)
+                {
+                    teamCount++;
+                    foreach (var userTeam in team.Users)
+                    {
+                        currentRow++;
+                        worksheet.Cell(currentRow, 1).Value = userTeam.User.Name + " " + userTeam.User.Family;
+                        worksheet.Cell(currentRow, 2).Value = userTeam.User.NationalCode.Value;
+                        worksheet.Cell(currentRow, 3).Value = userTeam.User.StudentNumber.Value == "000000000" ? "ندارد" : userTeam.User.StudentNumber.Value;
+                        worksheet.Cell(currentRow, 4).Value = userTeam.User.College == null ? "خارج از دانشگاه" : userTeam.User.College;
+                        worksheet.Cell(currentRow, 5).Value = userTeam.User.PhoneNumber == null ? "" : userTeam.User.PhoneNumber.Value;
+                        if (match.TeamCount > 1)
+                        {
+                            worksheet.Cell(currentRow, 6).Value = userTeam.Leader ? "نماینده" : "عضو عادی";
+                            worksheet.Cell(currentRow, 7).Value = $"تیم {teamCount}";
+                        }
+                    }
+                }
+                #endregion
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Students.xlsx"
+                        );
+                }
+            }
         }
     }
 }

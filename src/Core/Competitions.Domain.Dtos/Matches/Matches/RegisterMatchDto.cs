@@ -7,9 +7,10 @@ namespace Competitions.Domain.Dtos.Matches.Matches
     {
         public int Number { get; set; }
 
-        [Required(ErrorMessage = "شماره دانشجویی را وارد کنید")]
-        [Range(100000000, 9999999999, ErrorMessage = "شماره دانشجویی صحیح نیست")]
-        public long StudentNumber { get; set; }
+        [Required(ErrorMessage = "کد ملی را وارد کنید")]
+        [MinLength(10, ErrorMessage = "کد ملی 10 رقمی است")]
+        [MaxLength(10, ErrorMessage = "کد ملی 10 رقمی است")]
+        public String NationalCode { get; set; }
 
         public IEnumerable<MatchDocument>? Documents { get; set; }
         public List<string> Files { get; set; } = new List<string>();

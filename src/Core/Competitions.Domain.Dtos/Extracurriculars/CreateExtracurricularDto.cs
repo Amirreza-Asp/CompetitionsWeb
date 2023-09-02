@@ -26,19 +26,19 @@ namespace Competitions.Domain.Dtos.Extracurriculars
         public int MinimumPlacements { get; set; } = 1;
 
         [Required(ErrorMessage = "تاریخ شروع دوره را وارد کنید")]
-        public DateTime StartPutOn { get; set; }
+        public String StartPutOn { get; set; }
 
         [Required(ErrorMessage = "تاریخ پایان  دوره را وارد کنید")]
-        public DateTime EndPutOn { get; set; }
+        public String EndPutOn { get; set; }
 
         [Required(ErrorMessage = "جنسیت شرکت کنندگان را مشخص کنید")]
         public bool Gender { get; set; }
 
         [Required(ErrorMessage = "تاریخ شروع ثبت نام را وارد کنید")]
-        public DateTime StartRegister { get; set; }
+        public String StartRegister { get; set; }
 
         [Required(ErrorMessage = "تاریخ پایان ثبت نام را وارد کنید")]
-        public DateTime EndRegister { get; set; }
+        public String EndRegister { get; set; }
 
         [Required(ErrorMessage = "توضیحات را وارد کنید")]
         public string Description { get; set; }

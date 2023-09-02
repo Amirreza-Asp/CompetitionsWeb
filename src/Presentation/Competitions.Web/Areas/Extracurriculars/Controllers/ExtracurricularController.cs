@@ -132,7 +132,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                 return View(command);
             }
 
-            if (command.StartRegister >= command.EndRegister)
+            if (command.StartRegister.ToDateTime() >= command.EndRegister.ToDateTime())
             {
                 command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
                     select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
@@ -143,7 +143,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                 return View(command);
             }
 
-            if (command.StartPutOn >= command.EndPutOn)
+            if (command.StartPutOn.ToDateTime() >= command.EndPutOn.ToDateTime())
             {
                 command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
                select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
@@ -165,7 +165,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
             }
 
             var entity = new Extracurricular(command.Name, command.SportId, command.PlaceId, command.AudienceTypeId, command.Capacity,
-                new DateTimeRange(command.StartPutOn, command.EndPutOn), command.Gender, new DateTimeRange(command.StartRegister, command.EndRegister), command.Description,
+                new DateTimeRange(command.StartPutOn.ToDateTime(), command.EndPutOn.ToDateTime()), command.Gender, new DateTimeRange(command.StartRegister.ToDateTime(), command.EndRegister.ToDateTime()), command.Description,
                 command.CoachId, command.MinimumPlacements, command.IsFree);
 
             var times = JsonConvert.DeserializeObject<List<ExtracurricularTimeDto>>(command.Times);
@@ -219,7 +219,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                 return View(command);
             }
 
-            if (command.StartRegister >= command.EndRegister)
+            if (command.StartRegister.ToDateTime() >= command.EndRegister.ToDateTime())
             {
                 command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
                     select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
@@ -230,7 +230,7 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                 return View(command);
             }
 
-            if (command.StartPutOn >= command.EndPutOn)
+            if (command.StartPutOn.ToDateTime() >= command.EndPutOn.ToDateTime())
             {
                 command.Places = await _placeRepo.GetAllAsync(u => u.ParentPlaceId == null,
                select: u => new SelectListItem { Text = u.Title, Value = u.Id.ToString() });
@@ -271,8 +271,8 @@ namespace Competitions.Web.Areas.Extracurriculars.Controllers
                 .WithIsFree(command.IsFree)
                 .WithCoachId(command.CoachId)
                 .WithPlaceId(command.PlaceId)
-                .WithPutOn(new DateTimeRange(command.StartPutOn, command.EndPutOn))
-                .WithRegister(new DateTimeRange(command.StartRegister, command.EndRegister))
+                .WithPutOn(new DateTimeRange(command.StartPutOn.ToDateTime(), command.EndPutOn.ToDateTime()))
+                .WithRegister(new DateTimeRange(command.StartRegister.ToDateTime(), command.EndRegister.ToDateTime()))
                 .WithAudienceTypeId(command.AudienceTypeId)
                 .WithMinimumPlacements(command.MinimumPlacements)
                 .WithName(command.Name);

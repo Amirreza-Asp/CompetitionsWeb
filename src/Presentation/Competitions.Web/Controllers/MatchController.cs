@@ -157,8 +157,10 @@ namespace Competitions.Web.Controllers
 
             for (int i = 0; i < command.RegisterMatches.Count; i++)
             {
+                var actor = User.FindFirstValue(ClaimTypes.Actor);
+
                 var user = await _userRepo.FirstOrDefaultAsync(u =>
-                    u.StudentNumber.Value == command.RegisterMatches[i].StudentNumber.ToString());
+                        u.NationalCode.Value == command.RegisterMatches[i].NationalCode.ToString());
 
                 var userFiles = HttpContext.Request.Form.Files
                     .Skip(i * command.Documents.Count()).Take(command.Documents.Count());
@@ -176,7 +178,7 @@ namespace Competitions.Web.Controllers
             int count = 0;
             foreach (var item in command.RegisterMatches)
             {
-                var userId = _userRepo.FirstOrDefaultSelect(filter: u => u.StudentNumber.Value == item.StudentNumber.ToString(), select: u => u.Id);
+                var userId = _userRepo.FirstOrDefaultSelect(filter: u => u.NationalCode.Value == item.NationalCode.ToString(), select: u => u.Id);
                 var userTeam = new UserTeam(team.Id, userId, count == 0);
                 count++;
 
@@ -203,7 +205,7 @@ namespace Competitions.Web.Controllers
 
             if (user == null)
             {
-                TempData[SD.Warning] = $"شماره دانشجویی {command.StudentNumber} در سیستم ثبت نشده";
+                TempData[SD.Warning] = $"کد ملی {command.NationalCode} در سیستم ثبت نشده";
                 return true;
             }
 
