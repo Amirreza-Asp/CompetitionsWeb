@@ -12,6 +12,12 @@ namespace Competitions.Domain.Dtos.Matches.Matches
         [MaxLength(10, ErrorMessage = "کد ملی 10 رقمی است")]
         public String NationalCode { get; set; }
 
+        [Required(ErrorMessage = "لطفا نام هم تیمی خود را وارد کنید")]
+        public String Name { get; set; }
+
+        [Required(ErrorMessage = "لطفا نام خانوادگی هم تیمی خود را وارد کنید")]
+        public String Family { get; set; }
+
         public IEnumerable<MatchDocument>? Documents { get; set; }
         public List<string> Files { get; set; } = new List<string>();
         public List<string> FilesNames { get; set; } = new List<string>();

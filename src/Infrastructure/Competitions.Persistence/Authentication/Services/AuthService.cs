@@ -51,7 +51,7 @@ namespace Competitions.Persistence.Authentication.Services
         public async Task<LoginResultDto> LoginAsync(LoginDto command)
         {
             var user = await _userRepo.FirstOrDefaultAsync(
-                u => u.UserName == command.UserName,
+                u => u.UserName == command.UserName && u.Type != SD.ExtraType,
                 include: source =>
                     source.Include(u => u.Role));
 

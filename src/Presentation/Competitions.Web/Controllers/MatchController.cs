@@ -1,4 +1,5 @@
-﻿using Competitions.Common;
+﻿using Competitions.Application.Authentication.Interfaces;
+using Competitions.Common;
 using Competitions.Common.Helpers;
 using Competitions.Domain.Dtos.Matches.Matches;
 using Competitions.Domain.Entities;
@@ -25,11 +26,14 @@ namespace Competitions.Web.Controllers
         private readonly IRepository<UserTeamDocument> _userTeamDocRepo;
         private readonly IRepository<MatchConditions> _mcoRepo;
         private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
+        private readonly IPasswordHasher _passHasher;
+        private readonly IRepository<Role> _roleRepo;
+        private readonly IUserAPI _userApi;
 
         private static MatchFilterDto _filters = new MatchFilterDto();
         private static MatchCalenderFilter _calenderFilters = new MatchCalenderFilter();
 
-        public MatchController(IRepository<Match> matchRepo, IRepository<User> userRepo, IRepository<UserTeam> userTeamRepo, IRepository<Team> teamRepo, IRepository<MatchDocument> docRepo, IRepository<UserTeamDocument> userTeamDocRepo, IRepository<MatchConditions> mcoRepo, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
+        public MatchController(IRepository<Match> matchRepo, IRepository<User> userRepo, IRepository<UserTeam> userTeamRepo, IRepository<Team> teamRepo, IRepository<MatchDocument> docRepo, IRepository<UserTeamDocument> userTeamDocRepo, IRepository<MatchConditions> mcoRepo, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment, IPasswordHasher passHasher, IUserAPI userApi, IRepository<Role> roleRepo)
         {
             _matchRepo = matchRepo;
             _userRepo = userRepo;
@@ -39,6 +43,9 @@ namespace Competitions.Web.Controllers
             _userTeamDocRepo = userTeamDocRepo;
             _mcoRepo = mcoRepo;
             _hostingEnvironment = hostingEnvironment;
+            _passHasher = passHasher;
+            _userApi = userApi;
+            _roleRepo = roleRepo;
         }
 
         public async Task<IActionResult> Index(MatchFilterDto filters)
@@ -134,7 +141,9 @@ namespace Competitions.Web.Controllers
             var match = await _matchRepo.FirstOrDefaultAsync(u => u.Id == command.MatchId,
                 include: source => source.Include(u => u.Conditions)
                             .Include(u => u.Documents)
-                                .ThenInclude(u => u.Evidence));
+                                .ThenInclude(u => u.Evidence)
+                             .Include(b => b.AudienceTypes)
+                                .ThenInclude(b => b.AudienceType));
 
             command.Documents = match.Documents;
 
@@ -157,13 +166,13 @@ namespace Competitions.Web.Controllers
 
             for (int i = 0; i < command.RegisterMatches.Count; i++)
             {
-                var actor = User.FindFirstValue(ClaimTypes.Actor);
-
-                var user = await _userRepo.FirstOrDefaultAsync(u =>
-                        u.NationalCode.Value == command.RegisterMatches[i].NationalCode.ToString());
-
+                var user = await AddOrGetUser(i, command.RegisterMatches[i].NationalCode, command.RegisterMatches[i].Name, command.RegisterMatches[i].Family, match);
+                if (user == null)
+                {
+                    TempData[SD.Error] = $"امکان افزودن {command.RegisterMatches[i].Name} {command.RegisterMatches[i].Family} وجود ندارد";
+                }
                 var userFiles = HttpContext.Request.Form.Files
-                    .Skip(i * command.Documents.Count()).Take(command.Documents.Count());
+                .Skip(i * command.Documents.Count()).Take(command.Documents.Count());
 
                 if (InvalidRegister(user, match.Id, command.RegisterMatches[i], userFiles, command.Gender, command.Documents.Count()))
                 {
@@ -172,6 +181,7 @@ namespace Competitions.Web.Controllers
 
                 foreach (var file in userFiles)
                     command.RegisterMatches[i].FilesBytes.Add(new(file.FileName, file.ReadBytes()));
+
             }
 
             Team team = new Team(match.Id);
@@ -199,37 +209,6 @@ namespace Competitions.Web.Controllers
             return RedirectToAction(nameof(Index), _filters);
         }
 
-
-        private bool InvalidRegister(User user, Guid matchId, RegisterMatchDto command, IEnumerable<IFormFile> files, bool gender, int docCount)
-        {
-
-            if (user == null)
-            {
-                TempData[SD.Warning] = $"کد ملی {command.NationalCode} در سیستم ثبت نشده";
-                return true;
-            }
-
-            if (user.Gender != gender)
-            {
-                TempData[SD.Error] = "جنسیت شخص انتخاب شده خلاف قوانین مسابقه است";
-                return true;
-            }
-
-            if (_userTeamRepo.FirstOrDefault(u => u.UserId == user.Id && u.Team.Match.Id == matchId) != null)
-            {
-                TempData[SD.Warning] = $"کاربر {user.Name + ' ' + user.Family} با شماره دانشجویی {user.StudentNumber.Value} قبلا در تیمی دیگر عضو شده است";
-                return true;
-            }
-
-            if (files.Count() < docCount)
-            {
-                TempData[SD.Error] = "فایل های لازم را کامل کنید";
-                return true;
-            }
-
-            return false;
-
-        }
 
         public async Task<IActionResult> Details(Guid id)
         {
@@ -269,5 +248,73 @@ namespace Competitions.Web.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/force-download", "آیین نامه" + extension);
         }
+
+
+        #region Utilities
+        private bool InvalidRegister(User user, Guid matchId, RegisterMatchDto command, IEnumerable<IFormFile> files, bool gender, int docCount)
+        {
+
+            if (user == null)
+            {
+                TempData[SD.Warning] = $"کد ملی {command.NationalCode} در سیستم ثبت نشده";
+                return true;
+            }
+
+            if (user.Gender != gender)
+            {
+                TempData[SD.Error] = "جنسیت شخص انتخاب شده خلاف قوانین مسابقه است";
+                return true;
+            }
+
+            if (_userTeamRepo.FirstOrDefault(u => u.UserId == user.Id && u.Team.Match.Id == matchId) != null)
+            {
+                TempData[SD.Warning] = $"کاربر {user.Name + ' ' + user.Family} با شماره دانشجویی {user.StudentNumber.Value} قبلا در تیمی دیگر عضو شده است";
+                return true;
+            }
+
+            if (files.Count() < docCount)
+            {
+                TempData[SD.Error] = "فایل های لازم را کامل کنید";
+                return true;
+            }
+
+            return false;
+
+        }
+
+
+        private async Task<User?> AddOrGetUser(int i, String nationalCode, String name, String family, Match match)
+        {
+            var user = await _userRepo.FirstOrDefaultAsync(u =>
+                       u.NationalCode.Value == nationalCode);
+
+            if (user == null)
+            {
+                var khedmatUser = await _userApi.GetUserAsync(nationalCode);
+                var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
+
+                if ((khedmatUser == null || String.IsNullOrEmpty(khedmatUser.name)) && !match.AudienceTypes.Any(b => b.AudienceType.Title != "دانشجو"))
+                    return null;
+                else if (khedmatUser == null || String.IsNullOrEmpty(khedmatUser.name))
+                {
+                    if (i == 0)
+                        return null;
+                    user = new User(name, family, "", nationalCode, nationalCode, _passHasher.HashPassword(nationalCode),
+                    role.Id, SD.DefaultStudentNumber, "", match.Gender, SD.ExtraType);
+                }
+                else
+                {
+                    user = new User(khedmatUser.name, khedmatUser.lastname, khedmatUser.mobile, khedmatUser.idmelli, khedmatUser.idmelli,
+                    _passHasher.HashPassword(khedmatUser.idmelli),
+                        role.Id, khedmatUser.student_number.ToString(), khedmatUser.trend, khedmatUser.isMale < 1, khedmatUser.type);
+                }
+
+                _userRepo.Add(user);
+                await _userRepo.SaveAsync();
+            }
+
+            return user;
+        }
+        #endregion
     }
 }

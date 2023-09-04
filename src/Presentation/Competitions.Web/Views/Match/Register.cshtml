@@ -18,14 +18,44 @@
                 if (i == 0 && Model.TeamCount > 1)
                 {
                     <h4>نماینده</h4>
+                    <div class="col-6 mb-3">
+                        <input asp-for="RegisterMatches[i].Name" value="test" hidden/>
+                        <input asp-for="RegisterMatches[i].Family" value="test" hidden/>
+                        <label class="form-label">کد ملی</label>
+                        <input class="form-control" asp-for="RegisterMatches[i].NationalCode" type="text">
+                        <span class="text-danger" asp-validation-for="RegisterMatches[i].NationalCode"></span>
+                    </div>
+                }
+                else if (Model.TeamCount > 1)
+                {
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">نام</label>
+                        <input class="form-control" asp-for="RegisterMatches[i].Name" type="text">
+                        <span class="text-danger" asp-validation-for="RegisterMatches[i].Name"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">نام خانوادگی</label>
+                        <input class="form-control" asp-for="RegisterMatches[i].Family" type="text">
+                        <span class="text-danger" asp-validation-for="RegisterMatches[i].Family"></span>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <label class="form-label">کد ملی</label>
+                        <input class="form-control" asp-for="RegisterMatches[i].NationalCode" type="text">
+                        <span class="text-danger" asp-validation-for="RegisterMatches[i].NationalCode"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-6 mb-3">
+                        <input asp-for="RegisterMatches[i].Name" value="test" />
+                        <input asp-for="RegisterMatches[i].Family" value="test" />
+                        <label class="form-label">کد ملی</label>
+                        <input class="form-control" asp-for="RegisterMatches[i].NationalCode" type="text">
+                        <span class="text-danger" asp-validation-for="RegisterMatches[i].NationalCode"></span>
+                    </div>
                 }
 
-                <div class="col-6 mb-3">
-
-                    <label class="form-label">کد ملی</label>
-                    <input class="form-control" asp-for="RegisterMatches[i].NationalCode" type="text">
-                    <span class="text-danger" asp-validation-for="RegisterMatches[i].NationalCode"></span>
-                </div>
+                
                 <div class="row">
                     @if (Model.Documents.Any())
                     {
