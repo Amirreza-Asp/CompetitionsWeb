@@ -41,7 +41,6 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             var spec = new GetFilteredUsersSpec(filter.Name, filter.Family, filter.RoleId, filter.NationalCode, filter.Skip, filter.Take);
             filter.Total = _userRepo.GetCount();
             filter.Roles = await _roleRepo.GetAllAsync<SelectListItem>(
-                filter: u => u.Title != SD.User,
                 select: u => new SelectListItem { Text = u.Display, Value = u.Id.ToString() });
 
             var vm = new GetAllUsersVM
@@ -171,8 +170,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 filter: u => u.Id == id,
                 include: source => source.Include(u => u.Role));
 
-            entity.Delete();
-            _userRepo.Update(entity);
+            _userRepo.Remove(entity);
             await _userRepo.SaveAsync();
 
             return Json(new { Success = true });
