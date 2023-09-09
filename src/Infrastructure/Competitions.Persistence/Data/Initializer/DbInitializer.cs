@@ -47,10 +47,13 @@ namespace Competitions.Persistence.Data.Initializer
             await _db.SaveChangesAsync();
 
             var admin = _db.Role.First(u => u.Title == SD.Admin);
-            var user = await _userApi.GetUserAsync(SD.DefaultNationalCode);
+            //var user = await _userApi.GetUserAsync(SD.DefaultNationalCode);
 
-            _db.User.Add(new User(user.name, user.lastname, user.mobile, user.idmelli, user.idmelli,
-                _hasher.HashPassword(user.idmelli), admin.Id, user.student_number.ToString(), user.trend, user.isMale < 1, user.type));
+            //_db.User.Add(new User(user.name, user.lastname, user.mobile, user.idmelli, user.idmelli,
+            //    _hasher.HashPassword(user.idmelli), admin.Id, user.student_number.ToString(), user.trend, user.isMale < 1, user.type));
+
+            _db.User.Add(new User("امیررضا", "محمدی", "09211573936", "3360408330", "3360408330",
+                _hasher.HashPassword("3360408330"), admin.Id, "982103048", "مهندسی کامپیوتر", false, "Student"));
 
             await _db.SaveChangesAsync();
         }

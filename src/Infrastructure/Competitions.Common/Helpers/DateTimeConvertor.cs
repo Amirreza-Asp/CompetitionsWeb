@@ -80,10 +80,16 @@ namespace Competitions.Common.Helpers
 
         public static String ToMiladi(this String strDateTime)
         {
+            var pc = new PersianCalendar();
             if (String.IsNullOrWhiteSpace(strDateTime))
                 return "";
 
-            DateTime dateTime = DateTime.Parse(strDateTime, new CultureInfo("fa-IR"));
+            var parts = strDateTime.Split('/');
+
+            if (parts.Length != 3)
+                return "";
+
+            DateTime dateTime = new DateTime(Convert.ToInt32(parts[0]), Convert.ToInt32(parts[1]), Convert.ToInt32(parts[2]), pc);
 
             return dateTime.ToString();
         }

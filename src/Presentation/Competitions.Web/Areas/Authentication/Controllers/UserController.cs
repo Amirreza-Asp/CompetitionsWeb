@@ -63,6 +63,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             };
             return View(command);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserDto command)
         {

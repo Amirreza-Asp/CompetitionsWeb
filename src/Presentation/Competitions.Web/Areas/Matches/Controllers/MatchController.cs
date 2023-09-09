@@ -77,9 +77,6 @@ namespace Competitions.Web.Areas.Managment.Controllers
             return View(vm);
         }
 
-        //https://172.17.194.31:7125/Authentication/Account/Login?ReturnUrl=%2F
-
-
         #region Create/Update/Details
 
         // step 1
@@ -385,7 +382,7 @@ namespace Competitions.Web.Areas.Managment.Controllers
         public async Task<IActionResult> ShowTeams(Guid id)
         {
             var teams = await _teamRepo.GetAllAsync(
-                filter: u => u.MatchId == id,
+                filter: u => u.MatchId == id && u.Users.Count() > 0,
                 include: source => source
                 .Include(u => u.Users)
                 .ThenInclude(u => u.User));

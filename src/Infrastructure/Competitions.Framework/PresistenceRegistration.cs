@@ -23,33 +23,36 @@ namespace Competitions.Framework
     {
 
 
-        public static IServiceCollection AddPersistenceRegistrations ( this IServiceCollection services , IConfiguration configuration )
+        public static IServiceCollection AddPersistenceRegistrations(this IServiceCollection services, IConfiguration configuration)
         {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var persistenceAssembly = assemblies.Where(item => item.GetName().Name != null && item.GetName().Name.Equals("Competitions.Persistence"))
                 .FirstOrDefault();
 
-            if ( persistenceAssembly == null )
+            if (persistenceAssembly == null)
                 throw new Exception("Persistence Assembly not found");
 
             // db
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("Competitions")));
+            {
+                options.UseSqlServer(configuration.GetConnectionString("Competitions"));
+                //options.UseInMemoryDatabase("Competitions");
+            });
 
-            services.AddScoped<IDbInitializer , DbInitializer>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
 
             // repositories
-            services.AddScoped(typeof(IRepository<>) , typeof(Repository<>));
-            services.AddScoped<IPlaceSportRepository , PlaceSportRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IPlaceSportRepository, PlaceSportRepository>();
 
             // services
-            services.AddScoped<IPlaceService , PlaceService>();
-            services.AddScoped<IPasswordHasher , PasswordHasher>();
-            services.AddScoped<IAuthService , AuthService>();
-            services.AddScoped<IUserAPI , UserAPI>();
-            services.AddScoped<IPositionAPI , PositionAPI>();
-            services.AddScoped<IMatchService , MatchService>();
-            services.AddScoped<ISmsService , SmsService>();
+            services.AddScoped<IPlaceService, PlaceService>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserAPI, UserAPI>();
+            services.AddScoped<IPositionAPI, PositionAPI>();
+            services.AddScoped<IMatchService, MatchService>();
+            services.AddScoped<ISmsService, SmsService>();
 
 
             // mediator
