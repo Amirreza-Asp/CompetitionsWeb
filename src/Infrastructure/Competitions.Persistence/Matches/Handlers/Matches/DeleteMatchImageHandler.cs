@@ -8,16 +8,17 @@ namespace Competitions.Persistence.Managment.Handlers.Matches
     {
         private readonly IHostingEnvironment _webHostEnv;
 
-        public DeleteMatchImageHandler ( IHostingEnvironment webHostEnv )
+        public DeleteMatchImageHandler(IHostingEnvironment webHostEnv)
         {
             _webHostEnv = webHostEnv;
         }
 
 
-        public Task<Unit> Handle ( DeleteMatchImageEvent request , CancellationToken cancellationToken )
+        public Task<Unit> Handle(DeleteMatchImageEvent request, CancellationToken cancellationToken)
         {
             string path = _webHostEnv.WebRootPath + request.Path + request.Name;
-            File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
             return Unit.Task;
         }
     }

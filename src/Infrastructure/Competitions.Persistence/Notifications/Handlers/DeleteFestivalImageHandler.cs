@@ -17,7 +17,8 @@ namespace Competitions.Persistence.Notifications.Handlers
         public Task<Unit> Handle(DeleteFestivalImageEvent request, CancellationToken cancellationToken)
         {
             string path = _webHostEnv.WebRootPath + request.Path + request.Name;
-            File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
             return Unit.Task;
         }
     }

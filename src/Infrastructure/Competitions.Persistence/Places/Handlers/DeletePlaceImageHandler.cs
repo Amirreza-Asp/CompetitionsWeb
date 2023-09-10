@@ -8,16 +8,17 @@ namespace Competitions.Persistence.Places.Handlers
     {
         private readonly IHostingEnvironment _webHostEnv;
 
-        public DeletePlaceImageHandler ( IHostingEnvironment webHostEnv )
+        public DeletePlaceImageHandler(IHostingEnvironment webHostEnv)
         {
             _webHostEnv = webHostEnv;
         }
 
 
-        public Task<Unit> Handle ( DeletePlaceImageEvent request , CancellationToken cancellationToken )
+        public Task<Unit> Handle(DeletePlaceImageEvent request, CancellationToken cancellationToken)
         {
             string path = _webHostEnv.WebRootPath + request.Path + request.Name;
-            File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
             return Unit.Task;
         }
     }
