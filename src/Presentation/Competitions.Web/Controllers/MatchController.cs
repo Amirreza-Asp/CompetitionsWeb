@@ -56,12 +56,14 @@ namespace Competitions.Web.Controllers
                 !filters.MatchDate.HasValue || u.PutOn.From.Date.Equals(filters.MatchDate.Value.Date)) &&
                 (String.IsNullOrEmpty(filters.Level) || u.Level.Equals(filters.Level)));
 
+            var actor = User.FindFirstValue(ClaimTypes.Actor);
+
             var vm = new MatchListVM
             {
                 Matches = await _matchRepo.GetAllAsync(
                    filter: u =>
                        (u.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) ||
-                        User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher)) &&
+                        User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher) || String.IsNullOrEmpty(actor) || actor.ToLower() != "student") &&
                        (!filters.MatchDate.HasValue || u.PutOn.From.Date.Equals(filters.MatchDate.Value.Date)) &&
                        (String.IsNullOrEmpty(filters.Level) || u.Level.Equals(filters.Level)),
                     orderBy: source => source.OrderByDescending(u => u.CreateDate),
@@ -94,11 +96,14 @@ namespace Competitions.Web.Controllers
 
         public async Task<JsonResult> CalenderInfo()
         {
+            var actor = User.FindFirstValue(ClaimTypes.Actor);
             var LastDateOfTheMonth = _calenderFilters.MatchDate.GetTheLastDateOfTheMonth();
+
             var matches = await _matchRepo.GetAllAsync(
              filter: u =>
              (u.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) ||
-                        User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher)) &&
+                        User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher) ||
+                        String.IsNullOrEmpty(actor) || actor.ToLower() != "student") &&
              u.Level.Equals(_calenderFilters.Level) &&
              (u.PutOn.To.Date >= _calenderFilters.MatchDate.Date ||
              u.PutOn.From.Date >= _calenderFilters.MatchDate.Date) &&
@@ -260,7 +265,9 @@ namespace Competitions.Web.Controllers
                 return true;
             }
 
-            if (user.Gender != gender)
+
+            var actor = User.FindFirstValue(ClaimTypes.Actor);
+            if (user.Gender != gender && !String.IsNullOrEmpty(actor) && actor.ToLower() == "student")
             {
                 TempData[SD.Error] = "جنسیت شخص انتخاب شده خلاف قوانین مسابقه است";
                 return true;

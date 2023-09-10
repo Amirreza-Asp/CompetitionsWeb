@@ -49,8 +49,8 @@
                 else
                 {
                     <div class="col-6 mb-3">
-                        <input asp-for="RegisterMatches[i].Name" value="test" />
-                        <input asp-for="RegisterMatches[i].Family" value="test" />
+                        <input asp-for="RegisterMatches[i].Name" value="test" hidden />
+                        <input asp-for="RegisterMatches[i].Family" value="test" hidden />
                         <label class="form-label">کد ملی</label>
                         <input class="form-control" asp-for="RegisterMatches[i].NationalCode" type="text">
                         <span class="text-danger" asp-validation-for="RegisterMatches[i].NationalCode"></span>

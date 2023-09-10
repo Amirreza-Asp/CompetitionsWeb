@@ -49,7 +49,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 return View(command);
             }
 
-            if (command.StudentNumber != user.student_number.ToString())
+            if (command.StudentNumber != user.student_number.ToString() && user.type.ToLower() == "student")
             {
                 TempData[SD.Error] = "شماره دانشجویی وارد شده با کد ملی مطابقت ندارد";
                 return View(command);
