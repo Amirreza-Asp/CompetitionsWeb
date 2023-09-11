@@ -6,10 +6,11 @@ namespace Competitions.Web.Models.Matches
     {
         public String? Level { get; set; } = "درون دانشگاهی";
         public DateTime? MatchDate { get; set; }
+        public String? Gender { get; set; }
 
 
 
-        public IEnumerable<SelectListItem> GetLevels ()
+        public IEnumerable<SelectListItem> GetLevels()
         {
             return new List<SelectListItem>
             {

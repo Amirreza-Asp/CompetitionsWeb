@@ -46,7 +46,7 @@
                                 <p class="team-list-item-person">
 
                                     @String.Concat(person.User.Name , " " , person.User.Family)
-                                    @if (person.Leader)
+                                    @if (person.Leader && Model.ElementAt(i).Users.Count() > 1)
                                     {
                                         <span class="me-1" style="font-size:13px;">(نماینده)</span>
                                     }
@@ -54,6 +54,11 @@
 
                             }
                         </a>
+                        <div style="display:flex;justify-content:center;">
+                             <button class="mx-auto btn btn-danger" type="button" onclick="Delete('/Matches/Match/RemoveTeam/@Model.ElementAt(i).Id' , 'تیم')">
+                                 حذف <i class="fa fa-trash"></i>
+                                 </button>
+                        </div>
                     </li>
                 }
             </ul>
@@ -64,3 +69,8 @@
         <h4 class="text-danger p-5 text-center">هیچ کس در این مسابقه شرکت نکرده است</h4>
     }
 </section>
+
+
+@section Scripts{
+    <script src="~/js/utility/removeAlert.js"></script>
+}

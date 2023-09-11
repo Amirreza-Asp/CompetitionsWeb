@@ -460,6 +460,20 @@ namespace Competitions.Web.Areas.Managment.Controllers
             return Json(new { Success = true });
         }
 
+        [HttpDelete]
+        public async Task<JsonResult> RemoveTeam(Guid id)
+        {
+            var team = await _teamRepo.FirstOrDefaultAsync(b => b.Id == id);
+
+            if (team == null)
+                return Json(new { Success = true });
+
+            _teamRepo.Remove(team);
+            await _teamRepo.SaveAsync();
+
+            return Json(new { Success = true });
+        }
+
         public async Task<IActionResult> PrintExcel(Guid matchId)
         {
             var match =
@@ -477,16 +491,9 @@ namespace Competitions.Web.Areas.Managment.Controllers
                 var currentRow = 1;
 
                 #region header
-                worksheet.Cell(currentRow, 1).Value = "نام و نام خانوادگی";
-                worksheet.Cell(currentRow, 2).Value = "کد ملی";
-                worksheet.Cell(currentRow, 3).Value = "شماره دانشجویی";
-                worksheet.Cell(currentRow, 4).Value = "رشته تحصیلی";
-                worksheet.Cell(currentRow, 5).Value = "شماره تلفن";
-                if (match.TeamCount > 1)
-                {
-                    worksheet.Cell(currentRow, 6).Value = "عنوان در گروه";
-                    worksheet.Cell(currentRow, 7).Value = "تیم";
-                }
+                worksheet.Cell(currentRow, 1).Value = "نام";
+                worksheet.Cell(currentRow, 2).Value = "نام خانوادگی";
+                worksheet.Cell(currentRow, 3).Value = "شماره تلفن";
                 #endregion
 
                 int teamCount = 0;
@@ -497,16 +504,9 @@ namespace Competitions.Web.Areas.Managment.Controllers
                     foreach (var userTeam in team.Users)
                     {
                         currentRow++;
-                        worksheet.Cell(currentRow, 1).Value = userTeam.User.Name + " " + userTeam.User.Family;
-                        worksheet.Cell(currentRow, 2).Value = userTeam.User.NationalCode.Value;
-                        worksheet.Cell(currentRow, 3).Value = userTeam.User.StudentNumber.Value == "000000000" ? "ندارد" : userTeam.User.StudentNumber.Value;
-                        worksheet.Cell(currentRow, 4).Value = userTeam.User.College == null ? "خارج از دانشگاه" : userTeam.User.College;
-                        worksheet.Cell(currentRow, 5).Value = userTeam.User.PhoneNumber == null ? "" : userTeam.User.PhoneNumber.Value;
-                        if (match.TeamCount > 1)
-                        {
-                            worksheet.Cell(currentRow, 6).Value = userTeam.Leader ? "نماینده" : "عضو عادی";
-                            worksheet.Cell(currentRow, 7).Value = $"تیم {teamCount}";
-                        }
+                        worksheet.Cell(currentRow, 1).Value = userTeam.User.Name;
+                        worksheet.Cell(currentRow, 2).Value = userTeam.User.Family;
+                        worksheet.Cell(currentRow, 3).Value = String.IsNullOrEmpty(userTeam.User.PhoneNumber) ? "در سیستم وچود ندارد" : userTeam.User.PhoneNumber.Value;
                     }
                 }
                 #endregion

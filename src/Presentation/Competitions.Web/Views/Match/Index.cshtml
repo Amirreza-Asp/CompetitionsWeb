@@ -1,5 +1,7 @@
 ﻿@using Competitions.Common.Helpers
+@using Competitions.Common;
 @using Competitions.Domain.Entities
+@using System.Security.Claims;
 @model Competitions.Web.Models.Matches.MatchListVM
 
 
@@ -8,49 +10,66 @@
     <link rel="stylesheet" href="~/css/home/place-list.css" />
 }
 
-    <form method="get">
+<form method="get" id="match-form">
 
 
-        @if(Model.Filters.MatchDate.HasValue)
-        {
+    @if (Model.Filters.MatchDate.HasValue)
+    {
         <input name="@nameof(Model.Filters.MatchDate)" value="@Model.Filters.MatchDate.Value" hidden />
+    }
+
+    <section class="card shadow-sm ">
+
+        <div class="registry-bg mb-4">
+            <h3 class="registry-title-top">ثبت نام مسابقات</h3>
+        </div>
+        @if (Model.Filters.MatchDate.HasValue)
+        {
+            <h6 class="text-info">مسابقات ورزشی تاریخ @Model.Filters.MatchDate.Value.ToShamsi()</h6>
         }
 
-        <section class="card shadow-sm ">
-
-            <div class="registry-bg mb-4">
-                <h3 class="registry-title-top">ثبت نام مسابقات</h3>
-            </div>
-            @if(Model.Filters.MatchDate.HasValue){
-                <h6  class="text-info">مسابقات ورزشی تاریخ @Model.Filters.MatchDate.Value.ToShamsi()</h6>
-            }
-
-            @{
+        @{
             List<(String Text, String Value)> steps = new List<(String Text, String Value)>();
-            Model.Filters.GetLevels().ToList().ForEach(item => steps.Add(new(item.Text , item.Value)));
+            Model.Filters.GetLevels().ToList().ForEach(item => steps.Add(new(item.Text, item.Value)));
         }
 
 
         <div class="tab-visibility">
-            <div class="tab d-flex mb-4">
-                <div class="tab__list">
-                    @foreach ( var step in steps )
+            <div class="tab d-md-flex mb-4">
+                <div class="tab__list col-md-9">
+                    @foreach (var step in steps)
                     {
                         String classes = Model.Filters.Level == step.Value ? "tab__item tab__item--active dec-font" : "tab__item dec-font";
                         @if (Model.Filters.MatchDate.HasValue)
                         {
-                            <a asp-action="Index" asp-route-MatchDate="@Model.Filters.MatchDate.Value" asp-route-Take="@Model.Filters.Take" asp-route-Skip="@Model.Filters.Skip" asp-route-Level="@step.Value" class="@classes">
+                            <a asp-action="Index" asp-route-MatchDate="@Model.Filters.MatchDate.Value" asp-route-Gender="@Model.Filters.Gender" asp-route-Take="@Model.Filters.Take" asp-route-Skip="@Model.Filters.Skip" asp-route-Level="@step.Value" class="@classes">
                                 @step.Text
                             </a>
                         }
-                        else{
+                        else
+                        {
 
-                            <a asp-action="Index" asp-route-Take="@Model.Filters.Take" asp-route-Skip="@Model.Filters.Skip" asp-route-Level="@step.Value" class="@classes">
+                            <a asp-action="Index" asp-route-Take="@Model.Filters.Take" asp-route-Skip="@Model.Filters.Skip" asp-route-Gender="@Model.Filters.Gender" asp-route-Level="@step.Value" class="@classes">
                                 @step.Text
                             </a>
                         }
                     }
                 </div>
+                @if (User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher) ||
+                String.IsNullOrEmpty(User.FindFirstValue(ClaimTypes.Actor)) ||
+                User.FindFirstValue(ClaimTypes.Actor).ToLower() != "student")
+                {
+                    <div class="col-md-3">
+                        <label class="form-label">انتخاب جنسیت مسابقات</label>
+                        <div class="dropdown">
+                            <select id="gender-select" class="form-control" asp-for="Filters.Gender">
+                                <option value="">انتخاب نشده</option>
+                                <option value="مرد">اقایان</option>
+                                <option value="زن">بانوان</option>
+                            </select>
+                        </div>
+                    </div>
+                }
             </div>
             <hr />
         </div>
@@ -73,7 +92,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for ( int i = 0 ; i < Model.Matches.Count() ; i++ )
+                        @for (int i = 0; i < Model.Matches.Count(); i++)
                         {
                             <tr class="text-center">
                                 <td>@(i + 1 + Model.Filters.Skip)</td>
@@ -88,7 +107,7 @@
                                 <td>
                                     <a asp-action="Details" asp-route-id="@Model.Matches.ElementAt(i).Id"
                                        class="btn btn-info">
-                                       <i class="fa fa-eye text-white"></i>
+                                        <i class="fa fa-eye text-white"></i>
                                     </a>
                                 </td>
                                 <td>
@@ -96,11 +115,12 @@
                                     {
                                         <a class="btn btn-success" asp-action="Register" asp-route-id="@Model.Matches.ElementAt(i).Id">ثبت نام</a>
                                     }
-                                    else if ( Model.Matches.ElementAt(i).Register.From.Date > DateTime.Now.Date )
+                                    else if (Model.Matches.ElementAt(i).Register.From.Date > DateTime.Now.Date)
                                     {
                                         <span class="text-info">ثبت نام از @((Model.Matches.ElementAt(i).Register.From.Date - DateTime.Now.Date).TotalDays) روز دیگر شروع میشود</span>
                                     }
-                                    else{
+                                    else
+                                    {
 
                                         <span class="text-danger">زمان ثبت نام مسابقه به اتمام رسیده</span>
                                     }
@@ -121,4 +141,19 @@
     <script src="~/js/utility/collapse.js"></script>
     <script src="~/js/utility/dropdown.js"></script>
     <script src="~/js/utility/pagenation.js"></script>
+    <script>
+
+        const select = document.getElementById("gender-select");
+        const form = document.getElementById("match-form");
+
+        select.addEventListener("change", () => {
+            const submit = document.createElement("input");
+            submit.setAttribute("type", "submit");
+            form.appendChild(submit);
+
+            submit.click();
+            submit.remove();
+        })
+
+    </script>
 }
