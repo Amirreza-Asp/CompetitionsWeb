@@ -10,13 +10,21 @@
     <link rel="stylesheet" href="~/css/pages/login.min.css" />
 }
 
+<div style="display:flex;align-items:center;height:100vh;margin-top:-100px;">
     <div class="login shadow-sm">
-        <form method="post">
+    <div class="text-center py-4">
+        <h5 class="fw-bold">خوش آمدید</h5>
+        <p class="small mt-2">روش ورود را انتخاب کنید</p>
+        <div class="mt-5 position-relative">
+            <a asp-action="Authorize" asp-controller="Account" asp-area="Authentication" class="btn btn-primary w-100">ورود از طریق دولت من</a>
+        </div>
+        @*<a asp-action="Authorize" asp-controller="Account" asp-area="Authentication" class="btn btn-primary">ورود از طریق دولت من</a>*@
+    </div>
+    </div>
+    </div>
+        @*<form method="post">
 
-            <div class="text-center">
-                <h5 class="fw-bold">خوش آمدید</h5>
-                <p class="small mt-0">نام کاربری و رمز عبور همان کد ملی شما است</p>
-            </div>
+          
             <div class="mb-3">
                 <label class="form-label">نام کاربری:</label>
                 <input type="text" asp-for="UserName" id="login-username" class="form-control">
@@ -40,7 +48,7 @@
         </form>
         <div class="d-flex justify-content-center mt-4 align-items-center small">
             <a asp-controller="Account" asp-action="Register">ساخت حساب جدید</a>
-        </div>
+        </div>*@
     </div>
 
     @section Scripts{

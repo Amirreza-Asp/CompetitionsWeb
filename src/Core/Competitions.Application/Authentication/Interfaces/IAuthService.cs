@@ -1,4 +1,6 @@
 ﻿using Competitions.Domain.Dtos.Authentication.User;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Competitions.Application.Authentication.Interfaces
 {
@@ -7,6 +9,8 @@ namespace Competitions.Application.Authentication.Interfaces
         Task<RegisterResultDto> RegisterAsync(RegisterDto command);
 
         Task<LoginResultDto> LoginAsync(LoginDto command);
+
+        Task<List<Claim>> LoginWithSSOAsync(JwtSecurityToken ssoTokens);
 
         Task ChangePasswordAsync(ChangePasswordDto command);
 

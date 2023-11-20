@@ -73,6 +73,15 @@ namespace Competitions.Web.Areas.Authentication.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        [HttpGet]
+
+        public IActionResult Authorize()
+        {
+            return Redirect("/Home/Index");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto command)
         {

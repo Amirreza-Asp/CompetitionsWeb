@@ -16,7 +16,7 @@ namespace Competitions.Web.Controllers
         private readonly IRepository<Notification> _notifRepo;
         private readonly IRepository<Sport> _sportRepo;
 
-        public HomeController ( ILogger<HomeController> logger , IRepository<Match> matchRepo , IRepository<Notification> notifRepo , IRepository<Sport> sportRepo )
+        public HomeController(ILogger<HomeController> logger, IRepository<Match> matchRepo, IRepository<Notification> notifRepo, IRepository<Sport> sportRepo)
         {
             _logger = logger;
             _matchRepo = matchRepo;
@@ -24,27 +24,27 @@ namespace Competitions.Web.Controllers
             _sportRepo = sportRepo;
         }
 
-        public async Task<IActionResult> Index ()
+        public async Task<IActionResult> Index()
         {
             var data = new MatchHomeVM
             {
                 Matches = await _matchRepo.GetAllAsync(
-                    include: source => source.Include(u => u.Sport) ,
-                    orderBy: source => source.OrderByDescending(u => u.PutOn.From) ,
-                    take: 2) ,
+                    include: source => source.Include(u => u.Sport),
+                    orderBy: source => source.OrderByDescending(u => u.PutOn.From),
+                    take: 2),
                 Notifications = await _notifRepo.GetAllAsync(
-                    orderBy: source => source.OrderByDescending(u => u.CreateDate) ,
-                    include: source => source.Include(u => u.Images) ,
+                    orderBy: source => source.OrderByDescending(u => u.CreateDate),
+                    include: source => source.Include(u => u.Images),
                     take: 3)
             };
 
             return View(data);
         }
 
-        public async Task<IActionResult> Prog ()
+        public async Task<IActionResult> Prog()
         {
             var sports = await _sportRepo.GetAllAsync(
-                select: entity => new ProgVM { Id = entity.Id , Name = entity.Name , Image = entity.Image.Name });
+                select: entity => new ProgVM { Id = entity.Id, Name = entity.Name, Image = entity.Image.Name });
 
             return View(sports);
         }
