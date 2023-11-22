@@ -26,19 +26,32 @@ namespace Competitions.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var data = new MatchHomeVM
+            try
             {
-                Matches = await _matchRepo.GetAllAsync(
-                    include: source => source.Include(u => u.Sport),
-                    orderBy: source => source.OrderByDescending(u => u.PutOn.From),
-                    take: 2),
-                Notifications = await _notifRepo.GetAllAsync(
-                    orderBy: source => source.OrderByDescending(u => u.CreateDate),
-                    include: source => source.Include(u => u.Images),
-                    take: 3)
-            };
+                var data = new MatchHomeVM
+                {
+                    Matches = await _matchRepo.GetAllAsync(
+                        include: source => source.Include(u => u.Sport),
+                        orderBy: source => source.OrderByDescending(u => u.PutOn.From),
+                        take: 2),
+                    Notifications = await _notifRepo.GetAllAsync(
+                        orderBy: source => source.OrderByDescending(u => u.CreateDate),
+                        include: source => source.Include(u => u.Images),
+                        take: 3)
+                };
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
 
-            return View(data);
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
         }
 
         public async Task<IActionResult> Prog()

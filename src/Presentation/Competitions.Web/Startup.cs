@@ -27,9 +27,11 @@ namespace Competitions.Web
                 config.DefaultAuthenticateScheme = "Cookies";
                 config.DefaultSignInScheme = "Cookies";
                 config.DefaultChallengeScheme = "OAuth";
-
             })
-               .AddCookie("Cookies")
+               .AddCookie("Cookies", options =>
+               {
+                   options.LoginPath = "/Authentication/Account/Login";
+               })
                .AddOAuth("OAuth", options =>
                {
                    options.ClientId = Configuration.GetValue<String>("SSO:ClientId");
@@ -108,7 +110,9 @@ namespace Competitions.Web
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
+
             dbInitializer.Execute().GetAwaiter().GetResult();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -119,7 +123,7 @@ namespace Competitions.Web
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Login}/{id?}");
             });
 
         }
