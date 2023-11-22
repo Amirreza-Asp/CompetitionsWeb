@@ -1,4 +1,7 @@
 ﻿@using Competitions.Common
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor _accessor;
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +35,7 @@
 </head>
 <body>
     @*header*@
-    @if (User.Identity != null && User.Identity.IsAuthenticated && TempData["LoginHome"]?.ToString() != true.ToString())
+    @if (User.Identity != null && User.Identity.IsAuthenticated && _accessor.HttpContext.Request.Path.Value.Replace("/","").ToLower() != "homelogin")
     {
         <header>
             <!-- navbar -->
