@@ -8,7 +8,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
 
 namespace Competitions.Web.Areas.Authentication.Controllers
 {
@@ -20,12 +24,18 @@ namespace Competitions.Web.Areas.Authentication.Controllers
         private readonly ISmsService _smsService;
         private readonly IUserAPI _userAPI;
 
-        public AccountController(IAuthService authService, IRepository<User> userRpeo, ISmsService smsService, IUserAPI userAPI)
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly IConfiguration _configuration;
+
+
+        public AccountController(IAuthService authService, IRepository<User> userRpeo, ISmsService smsService, IUserAPI userAPI, IConfiguration configuration, IHttpClientFactory clientFactory)
         {
             _authService = authService;
             _userRepo = userRpeo;
             _smsService = smsService;
             _userAPI = userAPI;
+            _configuration = configuration;
+            _clientFactory = clientFactory;
         }
 
 
@@ -71,15 +81,89 @@ namespace Competitions.Web.Areas.Authentication.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            var state = Guid.NewGuid().ToString().Replace("-", "");
+            HttpContext.Session.SetString("state", state);
+
+            var redirect = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + "/Authentication/Account/Authorize";
+
+            var client = _configuration.GetValue<String>("SSO:ClientId");
+            var url = "https://sso.razi.ac.ir/oauth2/authorize?" +
+                $"response_type=code" +
+                $"&scope=openid profile" +
+                $"&client_id={_configuration.GetValue<String>("SSO:ClientId")}" +
+                $"&client_secret={_configuration.GetValue<String>("SSO:SecretId")}" +
+                $"&state={state}" +
+                $"&redirect_uri={redirect}";
+
+            return Redirect(url);
         }
 
-        [Authorize]
+
+
         [HttpGet]
 
-        public IActionResult Authorize()
+        public async Task<IActionResult> Authorize([FromQuery] string code, [FromQuery] string state)
         {
-            return Redirect("/Home/Index");
+            var stateCheck = HttpContext.Session.GetString("state");
+            if (string.IsNullOrEmpty(stateCheck) || stateCheck != state)
+            {
+                return BadRequest();
+            }
+
+            HttpContext.Session.Remove("state");
+            HttpContext.Session.SetString("code", code);
+
+
+            var redirect = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + "/Authentication/Account/Authorize";
+
+
+            var httpClient = _clientFactory.CreateClient();
+            httpClient.Timeout = TimeSpan.FromSeconds(180);
+            //تعریف پارامترهای درخواست به صورت فرم دیتا برای دریافت توکن
+            using MultipartFormDataContent multipartContent = new MultipartFormDataContent();
+            multipartContent.Add(new StringContent("authorization_code", Encoding.UTF8, MediaTypeNames.Text.Plain), "grant_type");
+            multipartContent.Add(new StringContent(code, Encoding.UTF8, MediaTypeNames.Text.Plain), "code");
+            multipartContent.Add(new StringContent("openid profile", Encoding.UTF8, MediaTypeNames.Text.Plain), "scope");
+            multipartContent.Add(new StringContent(redirect, Encoding.UTF8,
+            MediaTypeNames.Text.Plain), "redirect_uri");
+            multipartContent.Add(new StringContent(_configuration.GetValue<String>("SSO:ClientId"), Encoding.UTF8, MediaTypeNames.Text.Plain), "client_id");
+            multipartContent.Add(new StringContent(_configuration.GetValue<String>("SSO:SecretId"), Encoding.UTF8, MediaTypeNames.Text.Plain), "client_secret");
+
+            var tokenResponse = await httpClient.PostAsync("https://sso.razi.ac.ir/oauth2/token", multipartContent);
+
+            OAuthResponseToken? token;
+            if (tokenResponse.IsSuccessStatusCode)
+            {
+                var tokenReadAsString = await tokenResponse.Content.ReadAsStringAsync();
+                token = JsonSerializer.Deserialize<OAuthResponseToken>(tokenReadAsString);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token?.access_token);
+
+            var jwksResponse = await httpClient.GetAsync("https://sso.razi.ac.ir/oauth2/jwks");
+            if (jwksResponse.IsSuccessStatusCode)
+            {
+                // user info
+                var userInfoResponse = await httpClient.GetAsync("https://sso.razi.ac.ir/api/v1/User/userinfo");
+                if (userInfoResponse.IsSuccessStatusCode)
+                {
+                    var userInfoReadAsString = await userInfoResponse.Content.ReadAsStringAsync();
+                    var userInfo = JsonSerializer.Deserialize<ProfileRequest>(userInfoReadAsString);
+                    await _authService.LoginAsync(new LoginDto { UserName = userInfo.data.nationalId });
+                    return Redirect("/Home/Index");
+                }
+            }
+            else
+            {
+                throw new Exception("کاربر در سیستم وچود ندارد");
+            }
+
+            return BadRequest();
         }
 
         [HttpPost]
@@ -191,5 +275,38 @@ namespace Competitions.Web.Areas.Authentication.Controllers
         {
             return url.Contains("https://khedmat.razi.ac.ir");
         }
+    }
+    public class OAuthResponseToken
+    {
+        public string access_token { get; set; }
+        public string id_token { get; set; }
+        public string scope { get; set; }
+        public int expires_in { get; set; }
+        public object refresh_token { get; set; }
+        public string token_type { get; set; }
+    }
+    public class ProfileRequest
+    {
+        public SSOUserInfo data { get; set; }
+        public bool isSuccess { get; set; }
+        public int statusCode { get; set; }
+        public string message { get; set; }
+    }
+
+    public class SSOUserInfo
+    {
+        public string id { get; set; }
+        public string nationalId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string fatherName { get; set; }
+        public string mobile { get; set; }
+        public string gender { get; set; }
+        public string birthDate { get; set; }
+        public string birthDateShamsi { get; set; }
+        public string shenasnamehNo { get; set; }
+        public string postalCode { get; set; }
+        public string province { get; set; }
+        public string city { get; set; }
     }
 }

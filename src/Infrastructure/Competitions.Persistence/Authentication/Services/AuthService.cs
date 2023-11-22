@@ -3,6 +3,8 @@ using Competitions.Application.Authentication.Interfaces;
 using Competitions.Common;
 using Competitions.Domain.Dtos.Authentication.User;
 using Competitions.Domain.Entities.Authentication;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
@@ -56,9 +58,6 @@ namespace Competitions.Persistence.Authentication.Services
 
             if (user != null)
             {
-                if (!_passwordHasher.VerifyPassword(user.Password, command.Password))
-                    return LoginResultDto.Faild("رمز وارد شده اشتباه است");
-
                 if (String.IsNullOrEmpty(user.Type))
                 {
                     var userAPI = await _userAPI.GetUserAsync(user.NationalCode);
@@ -69,7 +68,6 @@ namespace Competitions.Persistence.Authentication.Services
                         await _userRepo.SaveAsync();
 
                     }
-
                 }
 
                 AddClaims(user);
@@ -77,7 +75,17 @@ namespace Competitions.Persistence.Authentication.Services
             }
             else
             {
+                var userApi = await _userAPI.GetUserAsync(command.UserName);
+                if (userApi == null)
+                    throw new Exception("ورود با شکست مواجه شد");
 
+
+                var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
+                user = new User(userApi.name, userApi.lastname, userApi.mobile, userApi.idmelli, userApi.idmelli, _passwordHasher.HashPassword(userApi.idmelli),
+                    role.Id, userApi.student_number.ToString(), userApi.trend, userApi.isMale < 1, userApi.type);
+
+                _userRepo.Add(user);
+                await _userRepo.SaveAsync();
             }
 
             return LoginResultDto.Faild("نام کاربری وارد شده اشتباه است");
@@ -103,19 +111,20 @@ namespace Competitions.Persistence.Authentication.Services
 
         private List<Claim> AddClaims(User user)
         {
-            List<Claim> claims = new List<Claim>();
-
-            claims.Add(new Claim(ClaimTypes.Name, user.Name + " " + user.Family));
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.NationalCode.Value));
-            claims.Add(new Claim(ClaimTypes.Gender, user.Gender.ToString()));
-            claims.Add(new Claim(ClaimTypes.Actor, user.Type.ToString()));
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.Name + " " + user.Family));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.NationalCode.Value));
+            identity.AddClaim(new Claim(ClaimTypes.Gender, user.Gender.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.Actor, user.Type.ToString()));
 
             if (user.Role != null)
             {
-                claims.Add(new Claim(ClaimTypes.Role, user.Role.Title));
+                identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.Title));
             }
 
-            return claims;
+            var principal = new ClaimsPrincipal(identity);
+            _contextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal).GetAwaiter().GetResult();
+            return identity.Claims.ToList();
         }
 
         public async Task KhemdatLoginAsync(String nationalCode)

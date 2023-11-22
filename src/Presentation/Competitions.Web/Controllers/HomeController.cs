@@ -51,6 +51,7 @@ namespace Competitions.Web.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            TempData["LoginHome"] = true;
             return View();
         }
 
