@@ -20,12 +20,13 @@ namespace Competitions.Web
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
 
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                .AddCookie(options =>
                {
                    options.Cookie.HttpOnly = false;
                    options.ExpireTimeSpan = TimeSpan.FromMinutes(45);
-                   options.LoginPath = "/Home/Login";
+                   options.LoginPath = "/Authentication/Account/Login";
                    options.AccessDeniedPath = "/Home/AccessDenied";
                    options.SlidingExpiration = true;
                });

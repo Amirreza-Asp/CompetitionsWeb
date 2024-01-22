@@ -38,22 +38,22 @@ namespace Competitions.Persistence.Data.Initializer
                 _db.Role.Add(new Role(SD.Admin, "ادمین", "دسترسی کامل سیستم"));
                 _db.Role.Add(new Role(SD.Publisher, "ناشر", "دسترسی به تمام اطلاعات به جز تعیین عضو کمیته"));
                 _db.Role.Add(new Role(SD.User, "کاربر", "بدون دسترسی"));
+                await _db.SaveChangesAsync();
             }
-            else if (_db.User.Any())
+            if (_db.User.Any())
             {
                 return;
             }
 
-            await _db.SaveChangesAsync();
 
             var admin = _db.Role.First(u => u.Title == SD.Admin);
-            //var user = await _userApi.GetUserAsync(SD.DefaultNationalCode);
+            var user = await _userApi.GetUserAsync(SD.DefaultNationalCode);
 
             //_db.User.Add(new User(user.name, user.lastname, user.mobile, user.idmelli, user.idmelli,
             //    _hasher.HashPassword(user.idmelli), admin.Id, user.student_number.ToString(), user.trend, user.isMale < 1, user.type));
 
-            _db.User.Add(new User("امیررضا", "محمدی", "09211573936", "3360408330", "3360408330",
-                _hasher.HashPassword("3360408330"), admin.Id, "982103048", "مهندسی کامپیوتر", false, "Student"));
+            _db.User.Add(new User(user.name, user.lastname, user.mobile, SD.DefaultNationalCode, SD.DefaultNationalCode,
+                _hasher.HashPassword(SD.DefaultNationalCode), admin.Id, user.student_number.ToString(), user.trend, false, "Student"));
 
             await _db.SaveChangesAsync();
         }

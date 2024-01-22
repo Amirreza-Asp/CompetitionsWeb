@@ -135,7 +135,7 @@ span {
     font-size:14px;
 }
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width: 1200px) {
     .sport-matches-content {
         width: calc(300px + 30vw);
     }
@@ -145,11 +145,11 @@ span {
         flex-direction: row;
         justify-content: space-between;
         margin-top: 20px;
+        gap:15px;
     }
 
-        .cards-icons > div {
-            width: calc(100vw / 3);
-            margin-inline: 1vw;
+        .cards-icons  a {
+            width: 33%;
         }
 
     .sport-places-2 {
@@ -194,7 +194,7 @@ span {
     }
 
 
-@media screen and (max-width:920px) {
+@media screen and (max-width: 920px) {
     .sport-matches-img {
         display: none;
     }
@@ -206,9 +206,10 @@ span {
     .sport-matches {
         height: initial;
     }
+
 }
 
-@media screen and (max-width:750px) {
+@media screen and (max-width: 750px) {
     .cards-icons {
         display: initial;
         margin-top: 20px;

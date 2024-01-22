@@ -131,11 +131,11 @@
         flex-direction: row;
         justify-content: space-between;
         margin-top: 20px;
+        gap: 15px;
     }
 
-        .cards-icons > div {
-            width: calc(100vw / 3);
-            margin-inline: 1vw;
+        .cards-icons a {
+            width: 33%;
         }
 
     .sport-places-2 {

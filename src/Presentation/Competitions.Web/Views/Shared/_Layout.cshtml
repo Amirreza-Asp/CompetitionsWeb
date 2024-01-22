@@ -35,7 +35,7 @@
 </head>
 <body>
     @*header*@
-    @if (User.Identity != null && User.Identity.IsAuthenticated && _accessor.HttpContext.Request.Path.Value.Replace("/","").ToLower() != "homelogin")
+    @if (true || User.Identity != null && User.Identity.IsAuthenticated && _accessor.HttpContext.Request.Path.Value.Replace("/","").ToLower() != "homelogin")
     {
         <header>
             <!-- navbar -->
@@ -74,7 +74,7 @@
                         <li class="nav-item">
                             <a asp-area="" asp-controller="Match" asp-action="Calender" class="nav-link menu-item m-2">تقویم مسابقات</a>
                         </li>
-                        @if (User.IsInRole(SD.Admin))
+                        @if (true || User.IsInRole(SD.Admin))
                         {
                             <li class="nav-item">
                                 <a asp-area="Matches" asp-controller="Festival" asp-action="Index" class="nav-link menu-item m-2">مدیریت</a>

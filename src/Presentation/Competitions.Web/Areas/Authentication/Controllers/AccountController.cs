@@ -86,8 +86,8 @@ namespace Competitions.Web.Areas.Authentication.Controllers
 
             var redirect = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + "/Authentication/Account/Authorize";
 
-            var client = _configuration.GetValue<String>("SSO:ClientId");
-            var url = "https://sso.razi.ac.ir/oauth2/authorize?" +
+            var serverUrl = _configuration.GetValue<String>("SSO:ServerURL");
+            var url = $"{serverUrl}/oauth2/authorize?" +
                 $"response_type=code" +
                 $"&scope=openid profile" +
                 $"&client_id={_configuration.GetValue<String>("SSO:ClientId")}" +
@@ -113,6 +113,8 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             HttpContext.Session.Remove("state");
             HttpContext.Session.SetString("code", code);
 
+            var ssoUrl = _configuration["SSO:ServerURL"];
+
 
             var redirect = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + "/Authentication/Account/Authorize";
 
@@ -129,7 +131,8 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             multipartContent.Add(new StringContent(_configuration.GetValue<String>("SSO:ClientId"), Encoding.UTF8, MediaTypeNames.Text.Plain), "client_id");
             multipartContent.Add(new StringContent(_configuration.GetValue<String>("SSO:SecretId"), Encoding.UTF8, MediaTypeNames.Text.Plain), "client_secret");
 
-            var tokenResponse = await httpClient.PostAsync("https://sso.razi.ac.ir/oauth2/token", multipartContent);
+
+            var tokenResponse = await httpClient.PostAsync($"{ssoUrl}/oauth2/token", multipartContent);
 
             OAuthResponseToken? token;
             if (tokenResponse.IsSuccessStatusCode)
@@ -145,11 +148,11 @@ namespace Competitions.Web.Areas.Authentication.Controllers
 
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token?.access_token);
 
-            var jwksResponse = await httpClient.GetAsync("https://sso.razi.ac.ir/oauth2/jwks");
+            var jwksResponse = await httpClient.GetAsync($"{ssoUrl}/oauth2/jwks");
             if (jwksResponse.IsSuccessStatusCode)
             {
                 // user info
-                var userInfoResponse = await httpClient.GetAsync("https://sso.razi.ac.ir/api/v1/User/userinfo");
+                var userInfoResponse = await httpClient.GetAsync($"{ssoUrl}/api/v1/User/userinfo");
                 if (userInfoResponse.IsSuccessStatusCode)
                 {
                     var userInfoReadAsString = await userInfoResponse.Content.ReadAsStringAsync();
