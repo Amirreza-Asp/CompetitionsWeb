@@ -71,7 +71,7 @@ namespace Competitions.Web.Controllers
                        ((u.Gender.ToString() == User.FindFirstValue(ClaimTypes.Gender) ||
                         User.IsInRole(SD.Admin) || User.IsInRole(SD.Publisher) ||
                         String.IsNullOrEmpty(actor) || actor.ToLower() != "student") &&
-                        (String.IsNullOrEmpty(filters.Gender) || u.Gender == (filters.Gender != "مرد"))) &&
+                        (String.IsNullOrEmpty(filters.Gender) || filters.Gender == "default" || u.Gender == (filters.Gender != "مرد"))) &&
                        (!filters.MatchDate.HasValue || u.PutOn.From.Date.Equals(filters.MatchDate.Value.Date)) &&
                        (String.IsNullOrEmpty(filters.Level) || u.Level.Equals(filters.Level)),
                     orderBy: source => source.OrderByDescending(u => u.CreateDate),

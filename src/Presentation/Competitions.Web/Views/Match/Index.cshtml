@@ -12,7 +12,6 @@
 
 <form method="get" id="match-form">
 
-
     @if (Model.Filters.MatchDate.HasValue)
     {
         <input name="@nameof(Model.Filters.MatchDate)" value="@Model.Filters.MatchDate.Value" hidden />
@@ -59,13 +58,22 @@
                 String.IsNullOrEmpty(User.FindFirstValue(ClaimTypes.Actor)) ||
                 User.FindFirstValue(ClaimTypes.Actor).ToLower() != "student")
                 {
+                    List <(String title, String value)> data = new List<(String title, String value)>
+                    {
+                        new ("انتخاب نشده" , ""),
+                        new ("آقایان" , "مرد"),
+                        new ("بانوان" , "زن")
+                    };
                     <div class="col-md-3">
                         <label class="form-label">انتخاب جنسیت مسابقات</label>
                         <div class="dropdown">
-                            <select id="gender-select" class="form-control" asp-for="Filters.Gender">
-                                <option value="">انتخاب نشده</option>
-                                <option value="مرد">اقایان</option>
-                                <option value="زن">بانوان</option>
+                            <select id="gender-select" class="form-control" name="Gender">
+                                @foreach(var item in data)
+                                {
+                                    var condition = item.value == Model.Filters.Gender ||
+                                        (String.IsNullOrEmpty(item.value) == true && String.IsNullOrEmpty(Model.Filters.Gender) == true);
+                                    <option value="@item.value" selected="@condition">@item.title</option>
+                                }
                             </select>
                         </div>
                     </div>
