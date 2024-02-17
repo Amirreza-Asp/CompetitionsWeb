@@ -2,6 +2,7 @@
 using Competitions.Application.Managment.Interfaces;
 using Competitions.Common;
 using Competitions.Common.Helpers;
+using Competitions.Domain.Dtos.Authentication;
 using Competitions.Domain.Dtos.Authentication.User;
 using Competitions.Domain.Entities.Authentication;
 using Microsoft.AspNetCore.Authentication;
@@ -157,7 +158,7 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 {
                     var userInfoReadAsString = await userInfoResponse.Content.ReadAsStringAsync();
                     var userInfo = JsonSerializer.Deserialize<ProfileRequest>(userInfoReadAsString);
-                    await _authService.LoginAsync(new LoginDto { UserName = userInfo.data.nationalId });
+                    await _authService.LoginAsync(userInfo);
                     return Redirect("/Home/Index");
                 }
             }
@@ -175,18 +176,18 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             if (!ModelState.IsValid)
                 return View(command);
 
-            var res = await _authService.LoginAsync(command);
-            if (res.Success)
-            {
-                var user = await _userRepo.FirstOrDefaultAsync(
-                    filter: u => u.UserName == command.UserName);
+            //var res = await _authService.LoginAsync(command);
+            //if (res.Success)
+            //{
+            //    var user = await _userRepo.FirstOrDefaultAsync(
+            //        filter: u => u.UserName == command.UserName);
 
-                TempData[SD.Success] = $"{String.Concat(user.Name, ' ', user.Family)} خوش امدید";
+            //    TempData[SD.Success] = $"{String.Concat(user.Name, ' ', user.Family)} خوش امدید";
 
-                return Redirect("/Home/Index");
-            }
+            //    return Redirect("/Home/Index");
+            //}
 
-            TempData[SD.Error] = res.Message;
+            //TempData[SD.Error] = res.Message;
             return View(command);
         }
 
@@ -194,7 +195,26 @@ namespace Competitions.Web.Areas.Authentication.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction(nameof(Login));
+
+            var ssoUrl = _configuration["SSO:ServerURL"];
+            //var httpClient = _clientFactory.CreateClient();
+            //httpClient.Timeout = TimeSpan.FromSeconds(180);
+            ////تعریف پارامترهای درخواست به صورت فرم دیتا برای دریافت توکن
+            //using MultipartFormDataContent multipartContent = new MultipartFormDataContent();
+            //multipartContent.Add(new StringContent("authorization_code", Encoding.UTF8, MediaTypeNames.Text.Plain), "grant_type");
+            //multipartContent.Add(new StringContent(code, Encoding.UTF8, MediaTypeNames.Text.Plain), "code");
+            //multipartContent.Add(new StringContent("openid profile", Encoding.UTF8, MediaTypeNames.Text.Plain), "scope");
+            //multipartContent.Add(new StringContent(redirect, Encoding.UTF8,
+            //MediaTypeNames.Text.Plain), "redirect_uri");
+            //multipartContent.Add(new StringContent(_configuration.GetValue<String>("SSO:ClientId"), Encoding.UTF8, MediaTypeNames.Text.Plain), "client_id");
+            //multipartContent.Add(new StringContent(_configuration.GetValue<String>("SSO:SecretId"), Encoding.UTF8, MediaTypeNames.Text.Plain), "client_secret");
+
+            //await httpClient.PostAsync($"{ssoUrl}/oauth2/logout", multipartContent);
+
+            var redirect = HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + "/Authentication/Account/Authorize";
+
+
+            return Redirect($"{ssoUrl}/oauth2/logout?redirect_uri={redirect}");
         }
 
         [Authorize]
@@ -279,37 +299,5 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             return url.Contains("https://khedmat.razi.ac.ir");
         }
     }
-    public class OAuthResponseToken
-    {
-        public string access_token { get; set; }
-        public string id_token { get; set; }
-        public string scope { get; set; }
-        public int expires_in { get; set; }
-        public object refresh_token { get; set; }
-        public string token_type { get; set; }
-    }
-    public class ProfileRequest
-    {
-        public SSOUserInfo data { get; set; }
-        public bool isSuccess { get; set; }
-        public int statusCode { get; set; }
-        public string message { get; set; }
-    }
 
-    public class SSOUserInfo
-    {
-        public string id { get; set; }
-        public string nationalId { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string fatherName { get; set; }
-        public string mobile { get; set; }
-        public string gender { get; set; }
-        public string birthDate { get; set; }
-        public string birthDateShamsi { get; set; }
-        public string shenasnamehNo { get; set; }
-        public string postalCode { get; set; }
-        public string province { get; set; }
-        public string city { get; set; }
-    }
 }

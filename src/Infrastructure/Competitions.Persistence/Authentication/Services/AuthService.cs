@@ -1,6 +1,7 @@
 ﻿using Competitions.Application;
 using Competitions.Application.Authentication.Interfaces;
 using Competitions.Common;
+using Competitions.Domain.Dtos.Authentication;
 using Competitions.Domain.Dtos.Authentication.User;
 using Competitions.Domain.Entities.Authentication;
 using Microsoft.AspNetCore.Authentication;
@@ -49,10 +50,10 @@ namespace Competitions.Persistence.Authentication.Services
             await _userRepo.SaveAsync();
         }
 
-        public async Task<LoginResultDto> LoginAsync(LoginDto command)
+        public async Task<LoginResultDto> LoginAsync(ProfileRequest command)
         {
             var user = await _userRepo.FirstOrDefaultAsync(
-                u => u.UserName == command.UserName && u.Type != SD.ExtraType,
+                u => u.UserName == command.data.nationalId && u.Type != SD.ExtraType,
                 include: source =>
                     source.Include(u => u.Role));
 
@@ -75,17 +76,22 @@ namespace Competitions.Persistence.Authentication.Services
             }
             else
             {
-                var userApi = await _userAPI.GetUserAsync(command.UserName);
-                if (userApi == null)
-                    throw new Exception("ورود با شکست مواجه شد");
+                //var userApi = await _userAPI.GetUserAsync(command.UserName);
+                //if (userApi == null)
+                //    throw new Exception("ورود با شکست مواجه شد");
 
 
                 var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
-                user = new User(userApi.name, userApi.lastname, userApi.mobile, userApi.idmelli, userApi.idmelli, _passwordHasher.HashPassword(userApi.idmelli),
-                    role.Id, userApi.student_number.ToString(), userApi.trend, userApi.isMale < 1, userApi.type);
+                user = new User(command.data.firstName, command.data.lastName,
+                                String.IsNullOrEmpty(command.data.mobile) ? "09211570000" : command.data.mobile,
+                                command.data.nationalId, command.data.nationalId, _passwordHasher.HashPassword(command.data.nationalId),
+                                role.Id, new String('0', 10), "test", command.data.gender == "male", "test");
 
                 _userRepo.Add(user);
                 await _userRepo.SaveAsync();
+
+                AddClaims(user);
+                return LoginResultDto.Successful();
             }
 
             return LoginResultDto.Faild("نام کاربری وارد شده اشتباه است");

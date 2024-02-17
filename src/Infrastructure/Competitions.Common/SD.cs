@@ -10,6 +10,7 @@
 
         //public const String DefaultNationalCode = "3360408330";
         public const String DefaultNationalCode = "3242378644";
+        //public const String DefaultNationalCode = "1234567890";
         public const String DefaultStudentNumber = "0000000000";
         public const String ExtraType = "emp-b";
 

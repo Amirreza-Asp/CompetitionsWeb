@@ -1,4 +1,5 @@
-﻿using Competitions.Domain.Dtos.Authentication.User;
+﻿using Competitions.Domain.Dtos.Authentication;
+using Competitions.Domain.Dtos.Authentication.User;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -8,7 +9,7 @@ namespace Competitions.Application.Authentication.Interfaces
     {
         Task<RegisterResultDto> RegisterAsync(RegisterDto command);
 
-        Task<LoginResultDto> LoginAsync(LoginDto command);
+        Task<LoginResultDto> LoginAsync(ProfileRequest command);
 
         Task<List<Claim>> LoginWithSSOAsync(JwtSecurityToken ssoTokens);
 

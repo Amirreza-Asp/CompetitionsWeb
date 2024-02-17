@@ -7,12 +7,13 @@ using Competitions.Domain.Entities.Managment.Spec;
 using Competitions.Domain.Entities.Managment.ValueObjects;
 using Competitions.SharedKernel.ValueObjects;
 using Competitions.Web.Areas.Managment.Models.Festivals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Competitions.Web.Areas.Managment.Controllers
 {
     [Area("Matches")]
-    //[Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
+    [Authorize(Roles = $"{SD.Publisher},{SD.Admin}")]
     public class FestivalController : Controller
     {
         private readonly IRepository<Festival> _festivalRepo;

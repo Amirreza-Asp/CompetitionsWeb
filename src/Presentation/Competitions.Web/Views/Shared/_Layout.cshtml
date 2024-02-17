@@ -42,7 +42,7 @@
             <nav class="navbar navbar-expand-lg fixed-top nav-menu">
                 <a href="#" class="nav-brand text-light text-uppercase">
 
-                    <img class="header__logo rounded-circle ms-2" src="~/images/black-logo.svg" style="width:80px;aspec-ratio:1;">
+                    <img class="header__logo rounded-circle ms-2" src="~/images/media.png" style="width:80px;aspect-ratio:1;">
                 </a>
 
                 <button class="navbar-toggler nav-button"
@@ -74,7 +74,7 @@
                         <li class="nav-item">
                             <a asp-area="" asp-controller="Match" asp-action="Calender" class="nav-link menu-item m-2">تقویم مسابقات</a>
                         </li>
-                        @if (true || User.IsInRole(SD.Admin))
+                        @if (User.IsInRole(SD.Admin))
                         {
                             <li class="nav-item">
                                 <a asp-area="Matches" asp-controller="Festival" asp-action="Index" class="nav-link menu-item m-2">مدیریت</a>
@@ -95,12 +95,6 @@
                         </div>
                         <div class="header__dropdown-info" style="background-color:rgba(120,120,120,.9)" id="authInfo">
                             <ul>
-                                <li class="header__dropdown-item">
-                                    <a class="header__dropdown-link d-flex align-items-center text-white" asp-area="Authentication" asp-controller="Account" asp-action="ChangePassword">
-                                        <i class="fa fa-edit ms-2"></i>
-                                        تغییر رمز عبور
-                                    </a>
-                                </li>
                                 <li class="header__dropdown-item">
                                     <a class="header__dropdown-link d-flex align-items-center text-white" asp-area="Authentication" asp-controller="Account" asp-action="Logout">
                                         <i class="fa fa-sign-out ms-2"></i>
