@@ -35,7 +35,7 @@
 </head>
 <body>
     @*header*@
-    @if (true || User.Identity != null && User.Identity.IsAuthenticated && _accessor.HttpContext.Request.Path.Value.Replace("/","").ToLower() != "homelogin")
+    @if (User.Identity != null && User.Identity.IsAuthenticated && _accessor.HttpContext.Request.Path.Value.Replace("/","").ToLower() != "homelogin")
     {
         <header>
             <!-- navbar -->

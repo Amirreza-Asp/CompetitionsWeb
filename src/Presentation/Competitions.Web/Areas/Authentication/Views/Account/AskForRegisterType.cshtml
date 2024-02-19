@@ -1,0 +1,42 @@
+﻿@model Competitions.Domain.Dtos.Authentication.User.AskForRegisterTypeDto
+
+@{
+    Layout = "_Layout";
+}
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/pages/login.min.css" />
+}
+
+<div class="login shadow-sm mt-5 pt-5" style="width:max(350px , 50vw);margin:auto;">
+    <form method="post">
+
+        <div class="text-center">
+            <h5 class="fw-bold">نوع ورود را مشخص کنید</h5>
+            <p class="mt-3" style="color: #727272;">شما قبلا در این سامانه ثبت نشده اید و لازم است اطلاعات شما از بانک های اطلاعاتی  پایه استخراج شود , آیا ادامه میدهید</p>
+        </div>
+
+        <div class="row" style="justify-content:center;align-items:center;">
+            <div style="display:flex;align-items:center;gap:5px;">
+                <label class="form-label" for="currentInfo">
+                    ورود با اطلاعات فعلی
+                </label>
+                <input type="radio" id="currentInfo" value="@false" asp-for="NeedCompleteInfo" />
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;">
+                <label class="form-label" for="totalInfo">
+                    تکمیل اطلاعات از پایگاه های اطلاعاتی
+                </label>
+                <input type="radio" id="totalInfo" value="@true" asp-for="NeedCompleteInfo" />
+            </div>
+        </div>
+        <div class="mt-4 position-relative">
+            <button class="btn btn-success w-100">ورود</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -50,7 +50,7 @@ namespace Competitions.Persistence.Authentication.Services
             await _userRepo.SaveAsync();
         }
 
-        public async Task<LoginResultDto> LoginAsync(ProfileRequest command)
+        public async Task<LoginResultDto> LoginAsync(ProfileRequest command, bool NeedCompleteInfo = false)
         {
             var user = await _userRepo.FirstOrDefaultAsync(
                 u => u.UserName == command.data.nationalId && u.Type != SD.ExtraType,
@@ -76,16 +76,25 @@ namespace Competitions.Persistence.Authentication.Services
             }
             else
             {
-                //var userApi = await _userAPI.GetUserAsync(command.UserName);
-                //if (userApi == null)
-                //    throw new Exception("ورود با شکست مواجه شد");
+                var userApi = await _userAPI.GetUserAsync(command.data.nationalId);
+                if (userApi == null)
+                    throw new Exception("ورود با شکست مواجه شد");
 
 
                 var role = await _roleRepo.FirstOrDefaultAsync(u => u.Title == SD.User);
-                user = new User(command.data.firstName, command.data.lastName,
-                                String.IsNullOrEmpty(command.data.mobile) ? "09211570000" : command.data.mobile,
-                                command.data.nationalId, command.data.nationalId, _passwordHasher.HashPassword(command.data.nationalId),
-                                role.Id, new String('0', 10), "test", command.data.gender == "male", "test");
+
+                if (userApi == null || String.IsNullOrEmpty(userApi.idmelli) || !NeedCompleteInfo)
+                {
+                    user = new User(command.data.firstName, command.data.lastName,
+                                    String.IsNullOrEmpty(command.data.mobile) ? "09211570000" : command.data.mobile,
+                                    command.data.nationalId, command.data.nationalId, _passwordHasher.HashPassword(command.data.nationalId),
+                                    role.Id, new String('0', 10), "test", command.data.gender == "male", "test");
+                }
+                else
+                {
+                    user = new User(userApi.name, userApi.lastname, userApi.mobile, userApi.idmelli, userApi.idmelli, _passwordHasher.HashPassword(userApi.idmelli),
+                                    role.Id, userApi.student_number.ToString(), userApi.trend, userApi.isMale < 1, userApi.type);
+                }
 
                 _userRepo.Add(user);
                 await _userRepo.SaveAsync();

@@ -9,7 +9,7 @@ namespace Competitions.Application.Authentication.Interfaces
     {
         Task<RegisterResultDto> RegisterAsync(RegisterDto command);
 
-        Task<LoginResultDto> LoginAsync(ProfileRequest command);
+        Task<LoginResultDto> LoginAsync(ProfileRequest command, bool NeedCompleteInfo = false);
 
         Task<List<Claim>> LoginWithSSOAsync(JwtSecurityToken ssoTokens);
 

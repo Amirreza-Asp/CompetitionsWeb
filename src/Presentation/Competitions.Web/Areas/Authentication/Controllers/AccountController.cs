@@ -100,13 +100,11 @@ namespace Competitions.Web.Areas.Authentication.Controllers
         }
 
 
-
         [HttpGet]
-
         public async Task<IActionResult> Authorize([FromQuery] string code, [FromQuery] string state)
         {
             var stateCheck = HttpContext.Session.GetString("state");
-            if (string.IsNullOrEmpty(stateCheck) || stateCheck != state)
+            if (!string.IsNullOrEmpty(stateCheck) && stateCheck != state)
             {
                 return BadRequest();
             }
@@ -158,6 +156,14 @@ namespace Competitions.Web.Areas.Authentication.Controllers
                 {
                     var userInfoReadAsString = await userInfoResponse.Content.ReadAsStringAsync();
                     var userInfo = JsonSerializer.Deserialize<ProfileRequest>(userInfoReadAsString);
+                    var dbUser = await _userRepo.FirstOrDefaultAsync(u => u.UserName == userInfo.data.nationalId && u.Type != SD.ExtraType);
+
+                    if (dbUser == null)
+                    {
+                        HttpContext.Session.SetString($"{userInfo.data.nationalId}Info", JsonSerializer.Serialize(userInfo));
+                        return RedirectToAction("AskForRegisterType", new { nationalId = userInfo.data.nationalId });
+                    }
+
                     await _authService.LoginAsync(userInfo);
                     return Redirect("/Home/Index");
                 }
@@ -170,25 +176,26 @@ namespace Competitions.Web.Areas.Authentication.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
+        public IActionResult AskForRegisterType(String nationalId)
+        {
+            var model = new AskForRegisterTypeDto { NationalId = nationalId };
+            return View(model);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDto command)
+        public async Task<IActionResult> AskForRegisterType(AskForRegisterTypeDto model)
         {
             if (!ModelState.IsValid)
-                return View(command);
+                return View(model);
 
-            //var res = await _authService.LoginAsync(command);
-            //if (res.Success)
-            //{
-            //    var user = await _userRepo.FirstOrDefaultAsync(
-            //        filter: u => u.UserName == command.UserName);
 
-            //    TempData[SD.Success] = $"{String.Concat(user.Name, ' ', user.Family)} خوش امدید";
+            var userInfoJson = HttpContext.Session.GetString($"{model.NationalId}Info");
+            var userInfo = JsonSerializer.Deserialize<ProfileRequest>(userInfoJson);
 
-            //    return Redirect("/Home/Index");
-            //}
+            await _authService.LoginAsync(userInfo, model.NeedCompleteInfo);
 
-            //TempData[SD.Error] = res.Message;
-            return View(command);
+            return Redirect("/Home/Index");
         }
 
 
